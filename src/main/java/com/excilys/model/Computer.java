@@ -3,19 +3,24 @@ package com.excilys.model;
 import java.util.Date;
 
 import com.excilys.exceptions.DiscontinuedDateException;
+import com.excilys.patterns.Computerbuilder;
 
 public class Computer {
 
-	String name;
+	private String name;
 
-	Date introduced;
+	private Date introduced;
 
-	Date disconstinued;
+	private Date disconstinued;
 
-	Company manufacturer;
+	private Company manufacturer;
 
-	public Computer(String name) {
-		this.name = name;
+	public Computer(Computerbuilder builder) {
+		
+		this.name = builder.name;
+		this.introduced = builder.introduced;
+		this.disconstinued = builder.disconstinued;
+		this.manufacturer = builder.manufacturer;
 	}
 
 	public String getName() {
@@ -43,8 +48,8 @@ public class Computer {
 		if (disconstinued.after(introduced)) {
 
 			this.disconstinued = disconstinued;
-		}
-		else throw new DiscontinuedDateException();
+		} else
+			throw new DiscontinuedDateException();
 	}
 
 }
