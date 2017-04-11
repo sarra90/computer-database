@@ -1,4 +1,4 @@
-package com.excilys.patterns;
+package com.excilys.builder;
 
 import java.util.Date;
 
@@ -7,6 +7,8 @@ import com.excilys.model.Computer;
 
 public class Computerbuilder {
 
+	public Long id;
+	
 	public String name;
 
 	public Date introduced;
