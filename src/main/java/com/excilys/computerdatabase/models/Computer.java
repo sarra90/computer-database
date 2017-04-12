@@ -1,9 +1,10 @@
 package com.excilys.computerdatabase.models;
 
-import java.util.Date;
+
 
 import com.excilys.computerdatabase.exceptions.DiscontinuedDateException;
 
+import java.time.LocalDate;
 /**
  * class represent a Company
  * 
@@ -17,9 +18,9 @@ public class Computer {
 
 	private String name;
 
-	private Date introduced;
+	private LocalDate introduced;
 
-	private Date disconstinued;
+	private LocalDate disconstinued;
 
 	private Company manufacturer;
 
@@ -47,21 +48,21 @@ public class Computer {
 		this.name = name;
 	}
 
-	public Date getIntroduced() {
+	public LocalDate getIntroduced() {
 		return introduced;
 	}
 
-	public void setIntroduced(Date introduced) {
+	public void setIntroduced(LocalDate introduced) {
 		this.introduced = introduced;
 	}
 
-	public Date getDisconstinued() {
+	public LocalDate getDisconstinued() {
 		return disconstinued;
 	}
 
-	public void setDisconstinued(Date disconstinued) throws DiscontinuedDateException {
+	public void setDisconstinued(LocalDate disconstinued) throws DiscontinuedDateException {
 
-		if (disconstinued.after(introduced)) {
+		if (disconstinued.isAfter(introduced)) {
 
 			this.disconstinued = disconstinued;
 		} else
@@ -87,9 +88,9 @@ public class Computer {
 		
 		private String name;
 
-		private Date introduced;
+		private LocalDate introduced;
 
-		private Date disconstinued;
+		private LocalDate disconstinued;
 
 		private Company manufacturer;
 
@@ -102,13 +103,13 @@ public class Computer {
 			return this;
 		}
 
-		public Builder introduced(Date introduced) {
+		public Builder introduced(LocalDate introduced) {
 			this.introduced = introduced;
 			return this;
 		}
 
 		
-		public Builder disconstinued(Date disconstinued) {
+		public Builder disconstinued(LocalDate disconstinued) {
 			this.disconstinued = disconstinued;
 			return this;
 		}

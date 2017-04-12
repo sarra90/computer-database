@@ -1,8 +1,7 @@
 package com.excilys.computerdatabase.cli;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -70,29 +69,23 @@ public class Client {
 			String nom = input;
 			System.out.println("	write the date introduced following this format: dd/mm/yyyy");
 			input = inputscanner.next();
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
-			Date dateIntroduced = null;
-			try {
-				dateIntroduced = simpleDateFormat.parse(input);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			
+			DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+			LocalDate dateIntroduced = LocalDate.parse(input,dateTimeFormatter);
+			
 			System.out.println("	write the date discontinued following this format: dd/mm/yyyy ");
 			input = inputscanner.next();
-			Date dateDiscontinued = null;
-			try {
-				dateDiscontinued = simpleDateFormat.parse(input);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			LocalDate dateDiscontinued = LocalDate.parse(input,dateTimeFormatter);
 	
 		
 			System.out.println("	Add a company to the computer ");
 			System.out.println("	--> create a new company : write 1 ");
 			System.out.println("	--> select a company from the exist list company : write 2 ");
 			input = inputscanner.next();
+			
 			sousmenu = Integer.valueOf(input);
-				switch (sousmenu) {
+			
+			switch (sousmenu) {
 				case 1 :{
 					System.out.println("---Create Company---");
 					System.out.println("	write the name : ");

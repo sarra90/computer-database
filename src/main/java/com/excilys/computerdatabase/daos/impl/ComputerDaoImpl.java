@@ -41,8 +41,8 @@ public class ComputerDaoImpl implements ComputerDao {
 			while (rs.next()) {
 
 				computer = new Computer.Builder(rs.getString("name"))
-							.introduced(rs.getDate("introduced"))
-							.disconstinued(rs.getDate("discontinued"))
+							.introduced(rs.getDate("introduced").toLocalDate())
+							.disconstinued(rs.getDate("discontinued").toLocalDate())
 							.manufacturer(new CompanyDaoImpl().findById(rs.getLong("company_id")))
 							.build();
 				listOfComputers.add(computer);
@@ -67,8 +67,8 @@ public class ComputerDaoImpl implements ComputerDao {
 			rs = statement.executeQuery();
 			if (rs.next()) {
 				computer = new Computer.Builder(rs.getString("name"))
-						.introduced(rs.getDate("introduced"))
-						.disconstinued(rs.getDate("discontinued"))
+						.introduced(rs.getDate("introduced").toLocalDate())
+						.disconstinued(rs.getDate("discontinued").toLocalDate())
 						.manufacturer(new CompanyDaoImpl().findById(rs.getLong("company_id")))
 						.build();
 			}
@@ -88,8 +88,8 @@ public class ComputerDaoImpl implements ComputerDao {
 			try {
 				statement = connect.prepareStatement(query);
 				statement.setString(1, obj.getName());
-				statement.setDate(2, new Date(obj.getIntroduced().getTime()));
-				statement.setDate(3, new Date(obj.getDisconstinued().getTime()));
+				statement.setDate(2, Date.valueOf(obj.getIntroduced()));
+				statement.setDate(3, Date.valueOf(obj.getDisconstinued()));
 				statement.setLong(4, obj.getManufacturer().getId());
 				statement.execute();
 			} catch (SQLException e) {
@@ -107,8 +107,8 @@ public class ComputerDaoImpl implements ComputerDao {
 			try {
 				statement = connect.prepareStatement(QUERY_UPDATE_COMPUTER);
 				statement.setString(1, obj.getName());
-				statement.setDate(2, new Date(obj.getIntroduced().getTime()));
-				statement.setDate(3, new Date(obj.getDisconstinued().getTime()));
+				statement.setDate(2, Date.valueOf(obj.getIntroduced()));
+				statement.setDate(3, Date.valueOf(obj.getDisconstinued()));
 				statement.setLong(4, obj.getId());
 				
 				statement.executeQuery();
