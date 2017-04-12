@@ -3,13 +3,12 @@ package com.excilys.dao.impl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.excilys.builder.Computerbuilder;
 import com.excilys.dao.DAO;
 import com.excilys.model.Company;
-import com.excilys.model.Computer;
 
 public class CompanyDaoImpl extends DAO<Company> {
 
@@ -60,8 +59,22 @@ public class CompanyDaoImpl extends DAO<Company> {
 
 	@Override
 	public Company create(Company obj) {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement statement = null;
+		if (findById(obj.getId()) == null) {
+			String query = "INSERT INTO company (name)"
+					+ "VALUES(?)";
+			try {
+				statement = connect.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+				statement.setString(1, obj.getName());
+				statement.execute();
+				ResultSet rs = statement.getGeneratedKeys();
+				rs.next();
+				obj = findById(rs.getLong(1));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return obj;	
 	}
 
 	@Override

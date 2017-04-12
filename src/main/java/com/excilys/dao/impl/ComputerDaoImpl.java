@@ -7,13 +7,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.builder.Computerbuilder;
 import com.excilys.dao.DAO;
-import com.excilys.model.Company;
 import com.excilys.model.Computer;
 
-public class ComputerDaoImpl extends DAO<Computer> {
 
+public class ComputerDaoImpl extends DAO<Computer> {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ComputerDaoImpl.class);
 	@Override
 	public List<Computer> findAll() {
 
@@ -21,7 +25,7 @@ public class ComputerDaoImpl extends DAO<Computer> {
 		Computer computer = null;
 		PreparedStatement statement = null;
 		ResultSet rs = null;
-		String query = "SELECT * FROM computer ;";
+		String query = "SELECT * FROM computer WHERE id > 20 ORDER BY id LIMIT 10 ;";
 		try {
 			statement = connect.prepareStatement(query);
 			rs = statement.executeQuery();
@@ -35,7 +39,8 @@ public class ComputerDaoImpl extends DAO<Computer> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		logger.info("findAll method : ",query);
+		logger.debug("ResultSet",rs );
 		return listOfComputers;
 	}
 
@@ -66,15 +71,14 @@ public class ComputerDaoImpl extends DAO<Computer> {
 
 		PreparedStatement statement = null;
 		if (findById(obj.getId()) == null) {
-			String query = "INSERT INTO company (id, name, introduced, discontinued, company_id)"
-					+ "VALUES(?, ?, ?, ?, ?)";
+			String query = "INSERT INTO computer (name, introduced, discontinued, company_id)"
+					+ "VALUES(?, ?, ?, ?)";
 			try {
 				statement = connect.prepareStatement(query);
-				statement.setLong(1, obj.getId());
-				statement.setString(2, obj.getName());
-				statement.setDate(3, (Date) obj.getIntroduced());
-				statement.setDate(4, (Date) obj.getDisconstinued());
-				statement.setLong(5, obj.getManufacturer().getId());
+				statement.setString(1, obj.getName());
+				statement.setDate(2, new Date(obj.getIntroduced().getTime()));
+				statement.setDate(3, new Date(obj.getDisconstinued().getTime()));
+				statement.setLong(4, obj.getManufacturer().getId());
 				statement.execute();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -93,8 +97,8 @@ public class ComputerDaoImpl extends DAO<Computer> {
 				statement = connect.prepareStatement(query);
 
 				statement.setString(1, obj.getName());
-				statement.setDate(2, (Date) obj.getIntroduced());
-				statement.setDate(3, (Date) obj.getDisconstinued());
+				statement.setDate(2, new Date(obj.getIntroduced().getTime()));
+				statement.setDate(3, new Date(obj.getDisconstinued().getTime()));
 				statement.setLong(4, obj.getId());
 				
 				statement.executeQuery();
