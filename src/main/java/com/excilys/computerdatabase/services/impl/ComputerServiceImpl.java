@@ -1,15 +1,19 @@
-package com.excilys.service.impl;
+package com.excilys.computerdatabase.services.impl;
 
 import java.util.List;
 
-import com.excilys.dao.DAO;
-import com.excilys.dao.impl.ComputerDaoImpl;
-import com.excilys.model.Computer;
-import com.excilys.service.ComputerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.excilys.computerdatabase.daos.ComputerDao;
+import com.excilys.computerdatabase.daos.impl.ComputerDaoImpl;
+import com.excilys.computerdatabase.models.Computer;
+import com.excilys.computerdatabase.services.ComputerService;
 
 public class ComputerServiceImpl implements ComputerService {
 
-	private DAO<Computer> computerDao = new ComputerDaoImpl();
+	private ComputerDao computerDao = new ComputerDaoImpl();
+	private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
 
 	@Override
 	public Computer findById(Long id) {

@@ -1,5 +1,6 @@
-package com.excilys.dao.impl;
+package com.excilys.computerdatabase.daos.impl;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,14 +11,22 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.excilys.builder.Computerbuilder;
-import com.excilys.dao.DAO;
-import com.excilys.model.Computer;
+import com.excilys.computerdatabase.daos.ComputerDao;
+import com.excilys.computerdatabase.daos.ManagerConnection;
+import com.excilys.computerdatabase.models.Computer;
 
 
-public class ComputerDaoImpl extends DAO<Computer> {
+public class ComputerDaoImpl implements ComputerDao {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ComputerDaoImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
+	public static final String QUERY_SELECT_ALL_COMPUTER = "SELECT * FROM computer WHERE id > 20 ORDER BY id LIMIT 10 ;";
+	public static final String QUERY_SELECT_COMPUTER_WHERE_ID = "SELECT * FROM computer WHERE id = ";
+	public static final String QUERY_INSERT_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id)";
+	public static final String QUERY_UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, WHERE id = ? ";
+	public static final String QUERY_DELETE_COMPUTER = "DELETE FROM computer";
+
+	public Connection connect = ManagerConnection.getInstance();
+	
 	@Override
 	public List<Computer> findAll() {
 
@@ -25,22 +34,25 @@ public class ComputerDaoImpl extends DAO<Computer> {
 		Computer computer = null;
 		PreparedStatement statement = null;
 		ResultSet rs = null;
-		String query = "SELECT * FROM computer WHERE id > 20 ORDER BY id LIMIT 10 ;";
 		try {
-			statement = connect.prepareStatement(query);
+			statement = connect.prepareStatement(QUERY_SELECT_ALL_COMPUTER);
 			rs = statement.executeQuery();
+			
 			while (rs.next()) {
 
-				computer = new Computer(new Computerbuilder(rs.getString("name"))
-						.setIntroduced(rs.getDate("introduced")).setDisconstinued(rs.getDate("discontinued"))
-						.setManufacturer(new CompanyDaoImpl().findById(rs.getLong("company_id"))));
+				computer = new Computer.Builder(rs.getString("name"))
+							.introduced(rs.getDate("introduced"))
+							.disconstinued(rs.getDate("discontinued"))
+							.manufacturer(new CompanyDaoImpl().findById(rs.getLong("company_id")))
+							.build();
 				listOfComputers.add(computer);
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		logger.info("findAll method : ",query);
-		logger.debug("ResultSet",rs );
+		LOGGER.info("findAll method : ",QUERY_SELECT_ALL_COMPUTER);
+		LOGGER.debug("ResultSet",rs );
 		return listOfComputers;
 	}
 
@@ -49,15 +61,16 @@ public class ComputerDaoImpl extends DAO<Computer> {
 		Computer computer = null;
 		ResultSet rs = null;
 		PreparedStatement statement = null;
-		String query = "SELECT * FROM computer WHERE id = " + id + ";";
+		String query = QUERY_SELECT_COMPUTER_WHERE_ID + id + ";";
 		try {
 			statement = connect.prepareStatement(query);
 			rs = statement.executeQuery();
 			if (rs.next()) {
-
-				computer = new Computer(new Computerbuilder(rs.getString("name"))
-						.setIntroduced(rs.getDate("introduced")).setDisconstinued(rs.getDate("discontinued"))
-						.setManufacturer(new CompanyDaoImpl().findById(rs.getLong("company_id"))));
+				computer = new Computer.Builder(rs.getString("name"))
+						.introduced(rs.getDate("introduced"))
+						.disconstinued(rs.getDate("discontinued"))
+						.manufacturer(new CompanyDaoImpl().findById(rs.getLong("company_id")))
+						.build();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -71,8 +84,7 @@ public class ComputerDaoImpl extends DAO<Computer> {
 
 		PreparedStatement statement = null;
 		if (findById(obj.getId()) == null) {
-			String query = "INSERT INTO computer (name, introduced, discontinued, company_id)"
-					+ "VALUES(?, ?, ?, ?)";
+			String query = QUERY_INSERT_COMPUTER + "VALUES(?, ?, ?, ?)";
 			try {
 				statement = connect.prepareStatement(query);
 				statement.setString(1, obj.getName());
@@ -91,11 +103,9 @@ public class ComputerDaoImpl extends DAO<Computer> {
 	public Computer update(Computer obj) {
 
 		PreparedStatement statement = null;
-		String query = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, WHERE id = ? ";
 		if (findById(obj.getId()) != null) {
 			try {
-				statement = connect.prepareStatement(query);
-
+				statement = connect.prepareStatement(QUERY_UPDATE_COMPUTER);
 				statement.setString(1, obj.getName());
 				statement.setDate(2, new Date(obj.getIntroduced().getTime()));
 				statement.setDate(3, new Date(obj.getDisconstinued().getTime()));

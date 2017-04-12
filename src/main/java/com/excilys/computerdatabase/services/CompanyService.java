@@ -1,8 +1,8 @@
-package com.excilys.service;
+package com.excilys.computerdatabase.services;
 
 import java.util.List;
 
-import com.excilys.model.Company;
+import com.excilys.computerdatabase.models.Company;
 
 public interface CompanyService {
 
@@ -27,16 +27,4 @@ public interface CompanyService {
 		 */
 		public  Company create(Company obj);
 		
-		/**
-		 * 
-		 * @param obj
-		 * @return
-		 */
-		public  Company update(Company obj);
-		
-		/**
-		 * 
-		 * @param obj
-		 */
-		public  void delete(Company obj);
 }

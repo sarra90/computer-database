@@ -1,5 +1,6 @@
-package com.excilys.dao.impl;
+package com.excilys.computerdatabase.daos.impl;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,29 +8,40 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.excilys.dao.DAO;
-import com.excilys.model.Company;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class CompanyDaoImpl extends DAO<Company> {
+import com.excilys.computerdatabase.daos.CompanyDao;
+import com.excilys.computerdatabase.daos.ManagerConnection;
+import com.excilys.computerdatabase.models.Company;
 
+public class CompanyDaoImpl implements CompanyDao {
+
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
+	public static final String QUERY_SELECT_ALL_COMPANY = "SELECT * FROM company ;";
+	public static final String QUERY_SELECT_COMPANY_WHERE_ID = "SELECT * FROM company WHERE id = ";
+	public static final String QUERY_INSERT_COMPANY = "INSERT INTO company (name)";
+	
+	public Connection connect = ManagerConnection.getInstance();
+	
 	@Override
 	public List<Company> findAll() {
 
 		List<Company> listOfCompanys = new ArrayList<Company>();
-
 		Company company = null;
 		ResultSet rs = null;
 		PreparedStatement statement = null;
-		String query = "SELECT * FROM company ;";
+		
 		try {
-			statement = connect.prepareStatement(query);
+			statement = connect.prepareStatement(QUERY_SELECT_ALL_COMPANY);
 			rs = statement.executeQuery();
+			
 			if (rs.next()) {
-
-				
 				company = new Company(rs.getLong("id"), rs.getString("name"));
 				listOfCompanys.add(company);
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -43,7 +55,7 @@ public class CompanyDaoImpl extends DAO<Company> {
 		ResultSet rs;
 		PreparedStatement statement;
 
-		String query = "SELECT * FROM company WHERE id = " + id + ";";
+		String query = QUERY_SELECT_COMPANY_WHERE_ID + id + ";";
 
 		try {
 			statement = connect.prepareStatement(query);
@@ -61,8 +73,7 @@ public class CompanyDaoImpl extends DAO<Company> {
 	public Company create(Company obj) {
 		PreparedStatement statement = null;
 		if (findById(obj.getId()) == null) {
-			String query = "INSERT INTO company (name)"
-					+ "VALUES(?)";
+			String query = QUERY_INSERT_COMPANY	+ "VALUES(?)";
 			try {
 				statement = connect.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 				statement.setString(1, obj.getName());
@@ -75,18 +86,6 @@ public class CompanyDaoImpl extends DAO<Company> {
 			}
 		}
 		return obj;	
-	}
-
-	@Override
-	public Company update(Company obj) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void delete(Company obj) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

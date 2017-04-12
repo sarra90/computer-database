@@ -1,8 +1,8 @@
-package com.excilys.service;
+package com.excilys.computerdatabase.services;
 
 import java.util.List;
 
-import com.excilys.model.Computer;
+import com.excilys.computerdatabase.models.Computer;
 
 /**
  * 

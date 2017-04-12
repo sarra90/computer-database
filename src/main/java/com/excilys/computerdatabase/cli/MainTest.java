@@ -1,10 +1,10 @@
-package com.excilys.ui;
+package com.excilys.computerdatabase.cli;
 
 import java.util.List;
 
-import com.excilys.model.Computer;
-import com.excilys.service.ComputerService;
-import com.excilys.service.impl.ComputerServiceImpl;
+import com.excilys.computerdatabase.models.Computer;
+import com.excilys.computerdatabase.services.ComputerService;
+import com.excilys.computerdatabase.services.impl.ComputerServiceImpl;
 
 public class MainTest {
 

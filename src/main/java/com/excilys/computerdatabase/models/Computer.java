@@ -1,9 +1,8 @@
-package com.excilys.model;
+package com.excilys.computerdatabase.models;
 
 import java.util.Date;
 
-import com.excilys.builder.Computerbuilder;
-import com.excilys.exceptions.DiscontinuedDateException;
+import com.excilys.computerdatabase.exceptions.DiscontinuedDateException;
 
 /**
  * class represent a Company
@@ -24,12 +23,12 @@ public class Computer {
 
 	private Company manufacturer;
 
-	public Computer(Computerbuilder builder) {
+	public Computer(Builder computerBuilder) {
 
-		this.name = builder.name;
-		this.introduced = builder.introduced;
-		this.disconstinued = builder.disconstinued;
-		this.manufacturer = builder.manufacturer;
+		this.name = computerBuilder.name;
+		this.introduced = computerBuilder.introduced;
+		this.disconstinued = computerBuilder.disconstinued;
+		this.manufacturer = computerBuilder.manufacturer;
 	}
 
 	public Long getId() {
@@ -83,4 +82,45 @@ public class Computer {
 				+ ", manufacturer=" + manufacturer + "]";
 	}
 
+	public static class Builder {
+
+		
+		private String name;
+
+		private Date introduced;
+
+		private Date disconstinued;
+
+		private Company manufacturer;
+
+		public Builder(String name) {
+			this.name = name;
+		}
+
+		public Builder name(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder introduced(Date introduced) {
+			this.introduced = introduced;
+			return this;
+		}
+
+		
+		public Builder disconstinued(Date disconstinued) {
+			this.disconstinued = disconstinued;
+			return this;
+		}
+
+		public Builder manufacturer(Company manufacturer) {
+			this.manufacturer = manufacturer;
+			return this;
+		}
+		
+		public Computer build(){
+			return new Computer(this);
+		}
+		
+	}
 }

@@ -1,4 +1,4 @@
-package com.excilys.ui;
+package com.excilys.computerdatabase.cli;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -6,13 +6,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-import com.excilys.builder.Computerbuilder;
-import com.excilys.model.Company;
-import com.excilys.model.Computer;
-import com.excilys.service.CompanyService;
-import com.excilys.service.ComputerService;
-import com.excilys.service.impl.CompanyServiceImpl;
-import com.excilys.service.impl.ComputerServiceImpl;
+import com.excilys.computerdatabase.models.Company;
+import com.excilys.computerdatabase.models.Computer;
+import com.excilys.computerdatabase.services.CompanyService;
+import com.excilys.computerdatabase.services.ComputerService;
+import com.excilys.computerdatabase.services.impl.CompanyServiceImpl;
+import com.excilys.computerdatabase.services.impl.ComputerServiceImpl;
 
 public class Client {
 
@@ -101,9 +100,11 @@ public class Client {
 					String name = input;
 					Company company= companyService.create(new Company(name));
 					
-					computer=new Computer(new Computerbuilder(nom)
-							.setIntroduced(dateIntroduced)
-							.setDisconstinued(dateDiscontinued).setManufacturer(company));
+					computer=new Computer.Builder(nom)
+								.introduced(dateIntroduced)
+								.disconstinued(dateDiscontinued)
+								.manufacturer(company)
+								.build();
 					computerService.create(computer);
 					input = inputscanner.next();
 					menu = Integer.valueOf(input);
