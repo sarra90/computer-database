@@ -3,6 +3,7 @@ package com.excilys.computerdatabase.cli;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import com.excilys.computerdatabase.models.Company;
@@ -39,9 +40,9 @@ public class Client {
 		switch (menu) {
 		case 1 :{
 			System.out.println("List Computers");
-			List<Computer> listOfComputers = computerService.findAll();
-			for (Computer computer : listOfComputers) {
-				System.out.println(computer.toString());
+			Optional<List<Computer>> listOfComputers = computerService.findAll();
+				for (Computer computer : listOfComputers) {
+					System.out.println(computer.toString());
 			}
 			input = inputscanner.next();
 			menu = Integer.valueOf(input);

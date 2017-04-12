@@ -1,6 +1,7 @@
 package com.excilys.computerdatabase.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.excilys.computerdatabase.models.Computer;
 
@@ -15,14 +16,14 @@ public interface ComputerService {
 	 * 
 	 * @return
 	 */
-	public List<Computer> findAll();
+	public Optional<List<Computer>> findAll();
 
 	/**
 	 * 
 	 * @param id
 	 * @return
 	 */
-	public  Computer findById(Long id);
+	public  Optional<Computer> findById(Long id);
 	
 	/**
 	 * 

@@ -1,6 +1,7 @@
 package com.excilys.computerdatabase.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,9 +17,11 @@ public class ComputerServiceImpl implements ComputerService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
 
 	@Override
-	public Computer findById(Long id) {
-
-		return computerDao.findById(id);
+	public Optional<Computer> findById(Long id) {
+		
+		Optional<Computer> computer = computerDao.findById(id);
+		
+		return computer;
 	}
 
 	@Override
@@ -38,8 +41,9 @@ public class ComputerServiceImpl implements ComputerService {
 	}
 
 	@Override
-	public List<Computer> findAll() {
-		return computerDao.findAll();
+	public Optional<List<Computer>> findAll() {
+		Optional<List<Computer>> listOfComputers = computerDao.findAll();
+		return listOfComputers;
 	}
 
 }

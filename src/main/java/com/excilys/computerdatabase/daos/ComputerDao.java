@@ -1,6 +1,7 @@
 package com.excilys.computerdatabase.daos;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.excilys.computerdatabase.models.Computer;
 
@@ -8,35 +9,40 @@ public interface ComputerDao {
 
 	/**
 	 * find all Computers
+	 * 
 	 * @return
 	 */
-	public abstract List<Computer> findAll();
-	
+	public Optional<List<Computer>> findAll();
+
 	/**
-	 * find Computer by id 
-	 * @param id 
+	 * find Computer by id
+	 * 
+	 * @param id
 	 * @return Computer
 	 */
-	public abstract Computer findById(Long id);
-	
+	public  Optional<Computer> findById(Long id);
+
 	/**
 	 * create Computer
+	 * 
 	 * @param Computer
 	 * @return Computer
 	 */
-	public abstract Computer create(Computer computer);
-	
+	public Computer create(Computer computer);
+
 	/**
 	 * update Computer
+	 * 
 	 * @param Computer
 	 * @return Computer
 	 */
-	public abstract Computer update(Computer computer);
-	
+	public Computer update(Computer computer);
+
 	/**
 	 * delete Computer
+	 * 
 	 * @param Computer
 	 */
-	public abstract void delete(Computer computer);
-	
+	public void delete(Computer computer);
+
 }

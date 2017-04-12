@@ -8,25 +8,25 @@ public interface CompanyDao {
 
 	/**
 	 * find all company
+	 * 
 	 * @return
 	 */
-	public abstract List<Company> findAll();
-	
+	public List<Company> findAll();
+
 	/**
-	 * find company by id 
-	 * @param id 
+	 * find company by id
+	 * 
+	 * @param id
 	 * @return company
 	 */
-	public abstract Company findById(Long id);
-	
+	public Company findById(Long id);
+
 	/**
 	 * create company
+	 * 
 	 * @param company
 	 * @return company
 	 */
-	public abstract Company create(Company company);
-	
-	
-	
+	public Company create(Company company);
 
 }

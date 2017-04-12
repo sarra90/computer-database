@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import com.excilys.computerdatabase.models.Computer;
 public class ComputerDaoImpl implements ComputerDao {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
+	
 	public static final String QUERY_SELECT_ALL_COMPUTER = "SELECT * FROM computer WHERE id > 20 ORDER BY id LIMIT 10 ;";
 	public static final String QUERY_SELECT_COMPUTER_WHERE_ID = "SELECT * FROM computer WHERE id = ";
 	public static final String QUERY_INSERT_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id)";
@@ -28,7 +30,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	public Connection connect = ManagerConnection.getInstance();
 	
 	@Override
-	public List<Computer> findAll() {
+	public Optional<List<Computer>> findAll() {
 
 		List<Computer> listOfComputers = new ArrayList<Computer>();
 		Computer computer = null;
@@ -53,11 +55,11 @@ public class ComputerDaoImpl implements ComputerDao {
 		}
 		LOGGER.info("findAll method : ",QUERY_SELECT_ALL_COMPUTER);
 		LOGGER.debug("ResultSet",rs );
-		return listOfComputers;
+		return Optional.ofNullable(listOfComputers);
 	}
 
 	@Override
-	public Computer findById(Long id) {
+	public Optional<Computer> findById(Long id) {
 		Computer computer = null;
 		ResultSet rs = null;
 		PreparedStatement statement = null;
@@ -76,7 +78,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			e.printStackTrace();
 		}
 
-		return computer;
+		return Optional.ofNullable(computer);
 	}
 
 	@Override
