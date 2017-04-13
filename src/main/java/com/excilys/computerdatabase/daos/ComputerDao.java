@@ -12,7 +12,7 @@ public interface ComputerDao {
 	 * 
 	 * @return
 	 */
-	public Optional<List<Computer>> findAll();
+	public List<Computer> findAll();
 
 	/**
 	 * find Computer by id

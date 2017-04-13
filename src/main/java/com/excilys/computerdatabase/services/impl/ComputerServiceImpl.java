@@ -41,8 +41,8 @@ public class ComputerServiceImpl implements ComputerService {
 	}
 
 	@Override
-	public Optional<List<Computer>> findAll() {
-		Optional<List<Computer>> listOfComputers = computerDao.findAll();
+	public List<Computer> findAll() {
+		List<Computer> listOfComputers = computerDao.findAll();
 		return listOfComputers;
 	}
 

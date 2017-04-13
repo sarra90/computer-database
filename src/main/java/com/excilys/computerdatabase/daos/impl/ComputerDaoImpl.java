@@ -30,7 +30,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	public Connection connect = ManagerConnection.getInstance();
 	
 	@Override
-	public Optional<List<Computer>> findAll() {
+	public List<Computer> findAll() {
 
 		List<Computer> listOfComputers = new ArrayList<Computer>();
 		Computer computer = null;
@@ -55,7 +55,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		}
 		LOGGER.info("findAll method : ",QUERY_SELECT_ALL_COMPUTER);
 		LOGGER.debug("ResultSet",rs );
-		return Optional.ofNullable(listOfComputers);
+		return listOfComputers;
 	}
 
 	@Override

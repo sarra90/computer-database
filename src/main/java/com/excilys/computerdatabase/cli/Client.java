@@ -40,7 +40,7 @@ public class Client {
 		switch (menu) {
 		case 1 :{
 			System.out.println("List Computers");
-			Optional<List<Computer>> listOfComputers = computerService.findAll();
+			List<Computer> listOfComputers = computerService.findAll();
 				for (Computer computer : listOfComputers) {
 					System.out.println(computer.toString());
 			}
