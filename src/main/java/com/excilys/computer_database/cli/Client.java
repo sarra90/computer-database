@@ -1,4 +1,4 @@
-package com.excilys.computerdatabase.cli;
+package com.excilys.computer_database.cli;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-import com.excilys.computerdatabase.models.Company;
-import com.excilys.computerdatabase.models.Computer;
-import com.excilys.computerdatabase.services.CompanyService;
-import com.excilys.computerdatabase.services.ComputerService;
-import com.excilys.computerdatabase.services.impl.CompanyServiceImpl;
-import com.excilys.computerdatabase.services.impl.ComputerServiceImpl;
+import com.excilys.computer_database.models.Company;
+import com.excilys.computer_database.models.Computer;
+import com.excilys.computer_database.services.CompanyService;
+import com.excilys.computer_database.services.ComputerService;
+import com.excilys.computer_database.services.impl.CompanyServiceImpl;
+import com.excilys.computer_database.services.impl.ComputerServiceImpl;
 
 public class Client {
 

@@ -1,10 +1,10 @@
-package com.excilys.computerdatabase.models;
+package com.excilys.computer_database.models;
 
 
-
-import com.excilys.computerdatabase.exceptions.DiscontinuedDateException;
 
 import java.time.LocalDate;
+
+import com.excilys.computer_database.exceptions.DiscontinuedDateException;
 /**
  * class represent a Company
  * 

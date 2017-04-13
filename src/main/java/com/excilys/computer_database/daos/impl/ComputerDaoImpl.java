@@ -1,4 +1,4 @@
-package com.excilys.computerdatabase.daos.impl;
+package com.excilys.computer_database.daos.impl;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -12,9 +12,9 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.excilys.computerdatabase.daos.ComputerDao;
-import com.excilys.computerdatabase.daos.ManagerConnection;
-import com.excilys.computerdatabase.models.Computer;
+import com.excilys.computer_database.daos.ComputerDao;
+import com.excilys.computer_database.daos.ManagerConnection;
+import com.excilys.computer_database.models.Computer;
 
 
 public class ComputerDaoImpl implements ComputerDao {

@@ -1,4 +1,4 @@
-package com.excilys.computerdatabase.services.impl;
+package com.excilys.computer_database.services.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.excilys.computerdatabase.daos.ComputerDao;
-import com.excilys.computerdatabase.daos.impl.ComputerDaoImpl;
-import com.excilys.computerdatabase.models.Computer;
-import com.excilys.computerdatabase.services.ComputerService;
+import com.excilys.computer_database.daos.ComputerDao;
+import com.excilys.computer_database.daos.impl.ComputerDaoImpl;
+import com.excilys.computer_database.models.Computer;
+import com.excilys.computer_database.services.ComputerService;
 
 public class ComputerServiceImpl implements ComputerService {
 

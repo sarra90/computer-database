@@ -5,3 +5,4 @@
 lib/
 *.properties
 /target/
+/bin/

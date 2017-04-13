@@ -1,4 +1,4 @@
-package com.excilys.computerdatabase.daos;
+package com.excilys.computer_database.daos;
 
 import java.sql.Connection;
 import java.sql.Driver;

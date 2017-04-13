@@ -1,8 +1,8 @@
-package com.excilys.computerdatabase.daos;
+package com.excilys.computer_database.daos;
 
 import java.util.List;
 
-import com.excilys.computerdatabase.models.Company;
+import com.excilys.computer_database.models.Company;
 
 public interface CompanyDao {
 

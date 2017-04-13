@@ -1,4 +1,4 @@
-package com.excilys.computerdatabase.daos.impl;
+package com.excilys.computer_database.daos.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,9 +11,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.excilys.computerdatabase.daos.CompanyDao;
-import com.excilys.computerdatabase.daos.ManagerConnection;
-import com.excilys.computerdatabase.models.Company;
+import com.excilys.computer_database.daos.CompanyDao;
+import com.excilys.computer_database.daos.ManagerConnection;
+import com.excilys.computer_database.models.Company;
 
 public class CompanyDaoImpl implements CompanyDao {
 

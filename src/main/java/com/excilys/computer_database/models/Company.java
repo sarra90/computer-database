@@ -1,4 +1,4 @@
-package com.excilys.computerdatabase.models;
+package com.excilys.computer_database.models;
 
 /**
  * class represent a Company
