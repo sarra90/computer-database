@@ -60,13 +60,9 @@ public class Computer {
 		return disconstinued;
 	}
 
-	public void setDisconstinued(LocalDate disconstinued) throws DiscontinuedDateException {
-
-		if (disconstinued.isAfter(introduced)) {
+	public void setDisconstinued(LocalDate disconstinued){
 
 			this.disconstinued = disconstinued;
-		} else
-			throw new DiscontinuedDateException();
 	}
 
 	public Company getManufacturer() {

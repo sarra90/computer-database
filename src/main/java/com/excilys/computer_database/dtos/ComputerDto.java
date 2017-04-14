@@ -8,12 +8,10 @@ public class ComputerDto {
 
 	private String name;
 
-	private LocalDate introduced;
+	private String introduced;
 
-	private LocalDate disconstinued;
+	private String disconstinued;
 	
-	private Long idCompany;
-
 	public Long getId() {
 		return id;
 	}
@@ -30,19 +28,19 @@ public class ComputerDto {
 		this.name = name;
 	}
 
-	public LocalDate getIntroduced() {
+	public String getIntroduced() {
 		return introduced;
 	}
 
-	public void setIntroduced(LocalDate introduced) {
+	public void setIntroduced(String introduced) {
 		this.introduced = introduced;
 	}
 
-	public LocalDate getDisconstinued() {
+	public String getDisconstinued() {
 		return disconstinued;
 	}
 
-	public void setDisconstinued(LocalDate disconstinued) {
+	public void setDisconstinued(String disconstinued) {
 		this.disconstinued = disconstinued;
 	}
 
@@ -53,6 +51,36 @@ public class ComputerDto {
 	public void setIdCompany(Long idCompany) {
 		this.idCompany = idCompany;
 	}
-	
-	
+
+	private Long idCompany;
+
+	public static class Builder{
+		
+		private Long id;
+
+		private String name;
+
+		private String introduced;
+
+		private String disconstinued;
+
+		public Builder name(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder introduced(String introduced) {
+			this.introduced = introduced;
+			return this;
+		}
+
+		public Builder disconstinued(String disconstinued) {
+			this.disconstinued = disconstinued;
+			return this;
+		}
+		public ComputerDto build(){
+			return new ComputerDto();
+		}
+		
+	}
 }

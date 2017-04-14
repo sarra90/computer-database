@@ -1,6 +1,6 @@
 package com.excilys.computer_database.exceptions;
 
-public class DiscontinuedDateException extends Exception {
+public class DiscontinuedDateException extends RuntimeException {
 
 	@Override
 	public String getMessage() {
