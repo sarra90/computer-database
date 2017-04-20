@@ -27,16 +27,4 @@ public interface CompanyService {
 		 */
 		public  Company create(Company obj);
 		
-		/**
-		 * 
-		 * @param obj
-		 * @return
-		 */
-		public  Company update(Company obj);
-		
-		/**
-		 * 
-		 * @param obj
-		 */
-		public  void delete(Company obj);
 }

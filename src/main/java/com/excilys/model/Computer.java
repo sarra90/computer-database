@@ -1,10 +1,10 @@
 package com.excilys.model;
 
-import java.util.Date;
 
-import com.excilys.builder.Computerbuilder;
+
+import java.time.LocalDate;
+
 import com.excilys.exceptions.DiscontinuedDateException;
-
 /**
  * class represent a Company
  * 
@@ -18,18 +18,18 @@ public class Computer {
 
 	private String name;
 
-	private Date introduced;
+	private LocalDate introduced;
 
-	private Date disconstinued;
+	private LocalDate disconstinued;
 
 	private Company manufacturer;
 
-	public Computer(Computerbuilder builder) {
+	public Computer(Builder computerBuilder) {
 
-		this.name = builder.name;
-		this.introduced = builder.introduced;
-		this.disconstinued = builder.disconstinued;
-		this.manufacturer = builder.manufacturer;
+		this.name = computerBuilder.name;
+		this.introduced = computerBuilder.introduced;
+		this.disconstinued = computerBuilder.disconstinued;
+		this.manufacturer = computerBuilder.manufacturer;
 	}
 
 	public Long getId() {
@@ -48,25 +48,21 @@ public class Computer {
 		this.name = name;
 	}
 
-	public Date getIntroduced() {
+	public LocalDate getIntroduced() {
 		return introduced;
 	}
 
-	public void setIntroduced(Date introduced) {
+	public void setIntroduced(LocalDate introduced) {
 		this.introduced = introduced;
 	}
 
-	public Date getDisconstinued() {
+	public LocalDate getDisconstinued() {
 		return disconstinued;
 	}
 
-	public void setDisconstinued(Date disconstinued) throws DiscontinuedDateException {
-
-		if (disconstinued.after(introduced)) {
+	public void setDisconstinued(LocalDate disconstinued){
 
 			this.disconstinued = disconstinued;
-		} else
-			throw new DiscontinuedDateException();
 	}
 
 	public Company getManufacturer() {
@@ -83,4 +79,45 @@ public class Computer {
 				+ ", manufacturer=" + manufacturer + "]";
 	}
 
+	public static class Builder {
+
+		
+		private String name;
+
+		private LocalDate introduced;
+
+		private LocalDate disconstinued;
+
+		private Company manufacturer;
+
+		public Builder(String name) {
+			this.name = name;
+		}
+
+		public Builder name(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder introduced(LocalDate introduced) {
+			this.introduced = introduced;
+			return this;
+		}
+
+		
+		public Builder disconstinued(LocalDate disconstinued) {
+			this.disconstinued = disconstinued;
+			return this;
+		}
+
+		public Builder manufacturer(Company manufacturer) {
+			this.manufacturer = manufacturer;
+			return this;
+		}
+		
+		public Computer build(){
+			return new Computer(this);
+		}
+		
+	}
 }

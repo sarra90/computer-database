@@ -1,6 +1,7 @@
 package com.excilys.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.excilys.model.Computer;
 
@@ -22,7 +23,7 @@ public interface ComputerService {
 	 * @param id
 	 * @return
 	 */
-	public  Computer findById(Long id);
+	public  Optional<Computer> findById(Long id);
 	
 	/**
 	 * 

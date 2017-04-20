@@ -1,20 +1,27 @@
 package com.excilys.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
-import com.excilys.dao.DAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.excilys.dao.ComputerDao;
 import com.excilys.dao.impl.ComputerDaoImpl;
 import com.excilys.model.Computer;
 import com.excilys.service.ComputerService;
 
 public class ComputerServiceImpl implements ComputerService {
 
-	private DAO<Computer> computerDao = new ComputerDaoImpl();
+	private ComputerDao computerDao = new ComputerDaoImpl();
+	private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
 
 	@Override
-	public Computer findById(Long id) {
-
-		return computerDao.findById(id);
+	public Optional<Computer> findById(Long id) {
+		
+		Optional<Computer> computer = computerDao.findById(id);
+		
+		return computer;
 	}
 
 	@Override
@@ -35,7 +42,8 @@ public class ComputerServiceImpl implements ComputerService {
 
 	@Override
 	public List<Computer> findAll() {
-		return computerDao.findAll();
+		List<Computer> listOfComputers = computerDao.findAll();
+		return listOfComputers;
 	}
 
 }

@@ -1,12 +1,10 @@
 package com.excilys.ui;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
-import com.excilys.builder.Computerbuilder;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
 import com.excilys.service.CompanyService;
@@ -42,8 +40,8 @@ public class Client {
 		case 1 :{
 			System.out.println("List Computers");
 			List<Computer> listOfComputers = computerService.findAll();
-			for (Computer computer : listOfComputers) {
-				System.out.println(computer.toString());
+				for (Computer computer : listOfComputers) {
+					System.out.println(computer.toString());
 			}
 			input = inputscanner.next();
 			menu = Integer.valueOf(input);
@@ -71,29 +69,23 @@ public class Client {
 			String nom = input;
 			System.out.println("	write the date introduced following this format: dd/mm/yyyy");
 			input = inputscanner.next();
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
-			Date dateIntroduced = null;
-			try {
-				dateIntroduced = simpleDateFormat.parse(input);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			
+			DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+			LocalDate dateIntroduced = LocalDate.parse(input,dateTimeFormatter);
+			
 			System.out.println("	write the date discontinued following this format: dd/mm/yyyy ");
 			input = inputscanner.next();
-			Date dateDiscontinued = null;
-			try {
-				dateDiscontinued = simpleDateFormat.parse(input);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			LocalDate dateDiscontinued = LocalDate.parse(input,dateTimeFormatter);
 	
 		
 			System.out.println("	Add a company to the computer ");
 			System.out.println("	--> create a new company : write 1 ");
 			System.out.println("	--> select a company from the exist list company : write 2 ");
 			input = inputscanner.next();
+			
 			sousmenu = Integer.valueOf(input);
-				switch (sousmenu) {
+			
+			switch (sousmenu) {
 				case 1 :{
 					System.out.println("---Create Company---");
 					System.out.println("	write the name : ");
@@ -101,9 +93,11 @@ public class Client {
 					String name = input;
 					Company company= companyService.create(new Company(name));
 					
-					computer=new Computer(new Computerbuilder(nom)
-							.setIntroduced(dateIntroduced)
-							.setDisconstinued(dateDiscontinued).setManufacturer(company));
+					computer=new Computer.Builder(nom)
+								.introduced(dateIntroduced)
+								.disconstinued(dateDiscontinued)
+								.manufacturer(company)
+								.build();
 					computerService.create(computer);
 					input = inputscanner.next();
 					menu = Integer.valueOf(input);
