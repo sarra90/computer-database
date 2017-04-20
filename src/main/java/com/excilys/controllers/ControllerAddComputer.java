@@ -60,13 +60,14 @@ public class ControllerAddComputer extends HttpServlet {
 
 		try {
 			validationDate(introduced, disconstinued);
+			computerdto = new ComputerDto.Builder()
+					 .introduced(introduced)
+					 .disconstinued(disconstinued)
+					 .build();
 		} catch (DiscontinuedDateException e) {
 			erreur = e.getMessage();
 		}
-		computerdto = new ComputerDto.Builder()
-									 .introduced(introduced)
-									 .disconstinued(disconstinued)
-									 .build();
+		
 	}
 
 	private void validationDate(String introduced, String disconstinued) throws DiscontinuedDateException {

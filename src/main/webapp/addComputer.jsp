@@ -46,7 +46,6 @@
                                 <label for="companyId">Company</label>
                                 <select class="form-control" id="companyId" >
                                      <c:forEach var="element" items="${ list }" >
-                                    	 <c:out value="${ element.getName() }"/>
    											<option value='<c:out value="${element.getId()}"/>'><c:out value="${element.getName()}"/></option>
                                      </c:forEach>
                                 </select>
