@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<%@page import="java.util.ArrayList"%>
+<%@ page import="java.util.List , com.excilys.model.Company" %>
+<%@ page pageEncoding="UTF-8" %>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 <title>Computer Database</title>
@@ -14,7 +19,9 @@
             <a class="navbar-brand" href="dashboard.html"> Application - Computer Database </a>
         </div>
     </header>
-
+	<%  
+	 List<Company> list =  (ArrayList<Company>)request.getAttribute("list");
+	%>
     <section id="main">
         <div class="container">
             <div class="row">
@@ -37,7 +44,10 @@
                             <div class="form-group">
                                 <label for="companyId">Company</label>
                                 <select class="form-control" id="companyId" >
-                                    <option value="0">--</option>
+                                     <c:forEach var="element" items="${ list }" >
+                                    	 <c:out value="${ element.getName() }"/>
+   											<option value='<c:out value="${element.getName()}"/>'><c:out value="${element.getName()}"/></option>
+                                     </c:forEach>
                                 </select>
                             </div>                  
                         </fieldset>

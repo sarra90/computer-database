@@ -87,5 +87,15 @@ public class CompanyDaoImpl implements CompanyDao {
 		}
 		return obj;	
 	}
+	@Override
+	public List<String> find(){
+		List<String> res = new ArrayList<String>();
+		res.add("sara");
+		res.add("so");
+		res.add("cc");
+		res.add("ww");
+		return res;
+		
+	}
 
 }

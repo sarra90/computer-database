@@ -4,6 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	<display-name>computer-database</display-name>
 
+	<!-- first Servlet mapping -->
 	<servlet>
 		<servlet-name>firstServlet</servlet-name>
 		<servlet-class>com.excilys.controllers.ComputerController</servlet-class>
@@ -13,7 +14,7 @@
 		<url-pattern>/controller</url-pattern>
 	</servlet-mapping>
 
-
+	<!--Add computer servlet mapping -->
 	<servlet>
 		<servlet-name>ControllerAddComputer</servlet-name>
 		<servlet-class>com.excilys.controllers.ControllerAddComputer</servlet-class>
@@ -22,5 +23,26 @@
 	<servlet-mapping>
 		<servlet-name>ControllerAddComputer</servlet-name>
 		<url-pattern>/addcomputer</url-pattern>
+	</servlet-mapping>
+
+	<!-- dashboard servlet mapping -->
+	<servlet>
+		<servlet-name>ControllerDashboard</servlet-name>
+		<servlet-class>com.excilys.controllers.ControllerDashboard</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ControllerDashboard</servlet-name>
+		<url-pattern>/dashboard</url-pattern>
+	</servlet-mapping>
+
+	<!-- edit computer servlet mapping -->
+	<servlet>
+		<servlet-name>ControllerEditComputer</servlet-name>
+		<servlet-class>com.excilys.controllers.ControllerEditComputer</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControllerEditComputer</servlet-name>
+		<url-pattern>/editComputer</url-pattern>
 	</servlet-mapping>
 </web-app>

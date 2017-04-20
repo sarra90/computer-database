@@ -27,4 +27,5 @@ public interface CompanyService {
 		 */
 		public  Company create(Company obj);
 		
+		public List<String> find();
 }
