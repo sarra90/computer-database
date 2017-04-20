@@ -2,7 +2,6 @@ package com.excilys.controllers;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,10 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.dtos.ComputerDto;
-import com.excilys.dtos.ComputerDto.Builder;
 import com.excilys.exceptions.DiscontinuedDateException;
 import com.excilys.model.Company;
-import com.excilys.model.Computer;
 import com.excilys.service.CompanyService;
 import com.excilys.service.ComputerService;
 import com.excilys.service.impl.CompanyServiceImpl;
@@ -58,6 +55,8 @@ public class ControllerAddComputer extends HttpServlet {
 		String introduced = request.getParameter("introduced");
 
 		String disconstinued = request.getParameter("disconstinued");
+		
+		
 
 		try {
 			validationDate(introduced, disconstinued);
