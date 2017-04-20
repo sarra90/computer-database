@@ -12,6 +12,8 @@ public class ComputerDto {
 
 	private String disconstinued;
 	
+	private Long id_company;
+
 	public Long getId() {
 		return id;
 	}
@@ -40,6 +42,14 @@ public class ComputerDto {
 		return disconstinued;
 	}
 
+	public Long getId_company() {
+		return id_company;
+	}
+
+	public void setId_company(Long id_company) {
+		this.id_company = id_company;
+	}
+
 	public void setDisconstinued(String disconstinued) {
 		this.disconstinued = disconstinued;
 	}
@@ -54,8 +64,8 @@ public class ComputerDto {
 
 	private Long idCompany;
 
-	public static class Builder{
-		
+	public static class Builder {
+
 		private Long id;
 
 		private String name;
@@ -63,6 +73,13 @@ public class ComputerDto {
 		private String introduced;
 
 		private String disconstinued;
+
+		private Long id_company;
+		
+		public Builder id(Long id) {
+			this.id = id;
+			return this;
+		}
 
 		public Builder name(String name) {
 			this.name = name;
@@ -78,9 +95,14 @@ public class ComputerDto {
 			this.disconstinued = disconstinued;
 			return this;
 		}
-		public ComputerDto build(){
+		public Builder idCompany(Long id_company) {
+			this.id_company = id_company;
+			return this;
+		}
+
+		public ComputerDto build() {
 			return new ComputerDto();
 		}
-		
+
 	}
 }
