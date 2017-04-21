@@ -1,8 +1,8 @@
-package com.excilys.computerdatabase.services;
+package com.excilys.service;
 
 import java.util.List;
 
-import com.excilys.computerdatabase.models.Company;
+import com.excilys.model.Company;
 
 public interface CompanyService {
 
@@ -27,8 +27,5 @@ public interface CompanyService {
 		 */
 		public  Company create(Company obj);
 		
-<<<<<<< HEAD:src/main/java/com/excilys/service/CompanyService.java
 		public List<String> find();
-=======
->>>>>>> origin/develop:src/main/java/com/excilys/computerdatabase/services/CompanyService.java
 }

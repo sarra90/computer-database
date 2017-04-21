@@ -1,4 +1,4 @@
-package com.excilys.computerdatabase.cli;
+package com.excilys.cli;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -6,21 +6,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-<<<<<<< HEAD:src/main/java/com/excilys/ui/Client.java
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
 import com.excilys.service.CompanyService;
 import com.excilys.service.ComputerService;
 import com.excilys.service.impl.CompanyServiceImpl;
 import com.excilys.service.impl.ComputerServiceImpl;
-=======
-import com.excilys.computerdatabase.models.Company;
-import com.excilys.computerdatabase.models.Computer;
-import com.excilys.computerdatabase.services.CompanyService;
-import com.excilys.computerdatabase.services.ComputerService;
-import com.excilys.computerdatabase.services.impl.CompanyServiceImpl;
-import com.excilys.computerdatabase.services.impl.ComputerServiceImpl;
->>>>>>> origin/develop:src/main/java/com/excilys/computerdatabase/cli/Client.java
 
 public class Client {
 
@@ -49,11 +40,7 @@ public class Client {
 		switch (menu) {
 		case 1 :{
 			System.out.println("List Computers");
-<<<<<<< HEAD:src/main/java/com/excilys/ui/Client.java
 			List<Computer> listOfComputers = computerService.findAll();
-=======
-			Optional<List<Computer>> listOfComputers = computerService.findAll();
->>>>>>> origin/develop:src/main/java/com/excilys/computerdatabase/cli/Client.java
 				for (Computer computer : listOfComputers) {
 					System.out.println(computer.toString());
 			}

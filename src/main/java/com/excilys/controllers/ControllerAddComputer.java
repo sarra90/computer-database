@@ -71,6 +71,7 @@ public class ControllerAddComputer extends HttpServlet {
 					.build();
 			
 			Computer computer = new MapperComputer().convertToComputer(computerdto);
+			LOGGER.info("computer created by user",computer.toString());
 			computerService.create(computer);
 
 		} catch (DiscontinuedDateException e) {

@@ -101,7 +101,7 @@ public class ComputerDaoImpl implements ComputerDao {
 				e.printStackTrace();
 			}
 		}
-		LOGGER.info("creat computer method ",obj);
+		LOGGER.info("create computer method ",obj.toString());
 		return obj;
 	}
 
