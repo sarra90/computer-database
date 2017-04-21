@@ -1,9 +1,9 @@
-package com.excilys.service;
+package com.excilys.computerdatabase.services;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.excilys.model.Computer;
+import com.excilys.computerdatabase.models.Computer;
 
 /**
  * 
@@ -16,7 +16,7 @@ public interface ComputerService {
 	 * 
 	 * @return
 	 */
-	public List<Computer> findAll();
+	public Optional<List<Computer>> findAll();
 
 	/**
 	 * 

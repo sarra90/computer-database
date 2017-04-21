@@ -1,4 +1,4 @@
-package com.excilys.dao.impl;
+package com.excilys.computerdatabase.daos.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+<<<<<<< HEAD:src/main/java/com/excilys/dao/impl/CompanyDaoImpl.java
 
 import com.excilys.dao.CompanyDao;
 import com.excilys.dao.ManagerConnection;
@@ -17,6 +18,15 @@ import com.excilys.model.Company;
 
 public class CompanyDaoImpl implements CompanyDao {
 
+=======
+
+import com.excilys.computerdatabase.daos.CompanyDao;
+import com.excilys.computerdatabase.daos.ManagerConnection;
+import com.excilys.computerdatabase.models.Company;
+
+public class CompanyDaoImpl implements CompanyDao {
+
+>>>>>>> origin/develop:src/main/java/com/excilys/computerdatabase/daos/impl/CompanyDaoImpl.java
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
 	public static final String QUERY_SELECT_ALL_COMPANY = "SELECT * FROM company ;";
@@ -35,6 +45,7 @@ public class CompanyDaoImpl implements CompanyDao {
 		
 		try {
 			statement = connect.prepareStatement(QUERY_SELECT_ALL_COMPANY);
+<<<<<<< HEAD:src/main/java/com/excilys/dao/impl/CompanyDaoImpl.java
 			
 			rs = statement.executeQuery();
 			
@@ -45,6 +56,13 @@ public class CompanyDaoImpl implements CompanyDao {
 			    	company = new Company(rs.getLong("id"), rs.getString("name"));
 			    	listOfCompanys.add(company);
 			    }
+=======
+			rs = statement.executeQuery();
+			
+			if (rs.next()) {
+				company = new Company(rs.getLong("id"), rs.getString("name"));
+				listOfCompanys.add(company);
+>>>>>>> origin/develop:src/main/java/com/excilys/computerdatabase/daos/impl/CompanyDaoImpl.java
 			}
 			
 		} catch (SQLException e) {
@@ -92,6 +110,7 @@ public class CompanyDaoImpl implements CompanyDao {
 		}
 		return obj;	
 	}
+<<<<<<< HEAD:src/main/java/com/excilys/dao/impl/CompanyDaoImpl.java
 	@Override
 	public List<String> find(){
 		List<String> res = new ArrayList<String>();
@@ -102,5 +121,7 @@ public class CompanyDaoImpl implements CompanyDao {
 		return res;
 		
 	}
+=======
+>>>>>>> origin/develop:src/main/java/com/excilys/computerdatabase/daos/impl/CompanyDaoImpl.java
 
 }
