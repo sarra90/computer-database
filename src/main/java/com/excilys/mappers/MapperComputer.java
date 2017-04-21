@@ -19,7 +19,7 @@ public class MapperComputer {
 		Computer computer = new Computer.Builder(computerDto.getName())
 				.introduced(LocalDate.parse(computerDto.getIntroduced(), formatter))
 				.disconstinued(LocalDate.parse(computerDto.getDisconstinued(), formatter))
-				.manufacturer(companyDao.findById(computerDto.getId()))
+				.manufacturer(companyDao.findById(computerDto.getId_company()))
 				.build();
 
 		return computer;

@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.dtos.ComputerDto;
 import com.excilys.exceptions.DiscontinuedDateException;
+import com.excilys.mappers.MapperComputer;
 import com.excilys.model.Company;
+import com.excilys.model.Computer;
 import com.excilys.service.CompanyService;
 import com.excilys.service.ComputerService;
 import com.excilys.service.impl.CompanyServiceImpl;
@@ -46,7 +48,7 @@ public class ControllerAddComputer extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		String erreur;
+		String erreur = " ";
 		
 		ComputerDto computerdto;
 
@@ -56,16 +58,24 @@ public class ControllerAddComputer extends HttpServlet {
 
 		String disconstinued = request.getParameter("disconstinued");
 		
+		Long id_company = Long.valueOf(request.getParameter("companyId")).longValue();
 		
-
 		try {
 			validationDate(introduced, disconstinued);
+			System.out.println("try");
 			computerdto = new ComputerDto.Builder()
-					 .introduced(introduced)
-					 .disconstinued(disconstinued)
-					 .build();
+					.name(name)
+					.introduced(introduced)
+					.disconstinued(disconstinued)
+					.idCompany(id_company)
+					.build();
+			Computer computer = new MapperComputer().convertToComputer(computerdto);
+			System.out.println("computer created : "+computer.toString());
+			computerService.create(computer);
+
 		} catch (DiscontinuedDateException e) {
 			erreur = e.getMessage();
+			request.setAttribute("erreur", erreur);
 		}
 		
 	}

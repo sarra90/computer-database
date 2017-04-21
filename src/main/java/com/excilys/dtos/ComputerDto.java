@@ -1,7 +1,5 @@
 package com.excilys.dtos;
 
-import java.time.LocalDate;
-
 public class ComputerDto {
 
 	private Long id;

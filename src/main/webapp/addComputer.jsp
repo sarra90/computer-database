@@ -21,13 +21,14 @@
     </header>
 	<%  
 	 List<Company> list =  (ArrayList<Company>)request.getAttribute("list");
+	 String erreur = (String)request.getAttribute("erreur");
 	%>
     <section id="main">
         <div class="container">
             <div class="row">
                 <div class="col-xs-8 col-xs-offset-2 box">
                     <h1>Add Computer</h1>
-                    <form action="addComputer" method="POST">
+                    <form action="addcomputer" method="POST">
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>

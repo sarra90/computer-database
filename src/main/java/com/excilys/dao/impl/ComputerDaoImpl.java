@@ -53,7 +53,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		LOGGER.info("findAll method : ",QUERY_SELECT_ALL_COMPUTER);
+		LOGGER.info("findAll method : ",listOfComputers);
 		LOGGER.debug("ResultSet",rs );
 		return listOfComputers;
 	}
@@ -98,6 +98,7 @@ public class ComputerDaoImpl implements ComputerDao {
 				e.printStackTrace();
 			}
 		}
+		LOGGER.info("creat computer method ",obj);
 		return obj;
 	}
 
