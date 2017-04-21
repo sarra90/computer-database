@@ -35,6 +35,7 @@ public class CompanyDaoImpl implements CompanyDao {
 		
 		try {
 			statement = connect.prepareStatement(QUERY_SELECT_ALL_COMPANY);
+			
 			rs = statement.executeQuery();
 			
 			int columnCount=rs.getMetaData().getColumnCount();

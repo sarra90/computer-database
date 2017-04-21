@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<%@page import="java.util.ArrayList"%>
+<%@ page import="java.util.List , com.excilys.model.Company"%>
+<%@ page pageEncoding="UTF-8"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <title>Computer Database</title>
@@ -15,11 +20,12 @@
             <a class="navbar-brand" href="dashboard.html"> Application - Computer Database </a>
         </div>
     </header>
-
+	<% Integer numberOfComputers = (Integer)request.getAttribute("numberOfComputres");%>
+	
     <section id="main">
         <div class="container">
             <h1 id="homeTitle">
-                121 Computers found
+                ${ numberOfComputers }
             </h1>
             <div id="actions" class="form-horizontal">
                 <div class="pull-left">

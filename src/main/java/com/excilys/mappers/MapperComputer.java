@@ -14,8 +14,8 @@ public class MapperComputer {
 
 		CompanyDao companyDao = new CompanyDaoImpl();
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
-
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-M-d");
+		System.out.println(computerDto.getIntroduced());
 		Computer computer = new Computer.Builder(computerDto.getName())
 				.introduced(LocalDate.parse(computerDto.getIntroduced(), formatter))
 				.disconstinued(LocalDate.parse(computerDto.getDisconstinued(), formatter))

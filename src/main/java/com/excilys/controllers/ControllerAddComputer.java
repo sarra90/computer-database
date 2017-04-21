@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.dtos.ComputerDto;
 import com.excilys.exceptions.DiscontinuedDateException;
 import com.excilys.mappers.MapperComputer;
@@ -19,14 +22,12 @@ import com.excilys.service.ComputerService;
 import com.excilys.service.impl.CompanyServiceImpl;
 import com.excilys.service.impl.ComputerServiceImpl;
 
+
 public class ControllerAddComputer extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(ControllerAddComputer.class);
 
-	
 	private ComputerService computerService;
 	private CompanyService companyService;
 
@@ -48,7 +49,7 @@ public class ControllerAddComputer extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		String erreur = " ";
+		String erreur = "";
 		
 		ComputerDto computerdto;
 
@@ -56,27 +57,28 @@ public class ControllerAddComputer extends HttpServlet {
 
 		String introduced = request.getParameter("introduced");
 
-		String disconstinued = request.getParameter("disconstinued");
+		String disconstinued = request.getParameter("discontinued");
 		
 		Long id_company = Long.valueOf(request.getParameter("companyId")).longValue();
 		
 		try {
 			validationDate(introduced, disconstinued);
-			System.out.println("try");
 			computerdto = new ComputerDto.Builder()
 					.name(name)
 					.introduced(introduced)
 					.disconstinued(disconstinued)
 					.idCompany(id_company)
 					.build();
+			
 			Computer computer = new MapperComputer().convertToComputer(computerdto);
-			System.out.println("computer created : "+computer.toString());
 			computerService.create(computer);
 
 		} catch (DiscontinuedDateException e) {
 			erreur = e.getMessage();
 			request.setAttribute("erreur", erreur);
+			LOGGER.debug("Discontinued Date Exception",e.getMessage());
 		}
+		doGet(request,response);
 		
 	}
 
@@ -84,7 +86,6 @@ public class ControllerAddComputer extends HttpServlet {
 		
 		LocalDate dateintroduced = LocalDate.parse(introduced);
 		LocalDate datedisconstinued = LocalDate.parse(disconstinued);
-		
 		if (datedisconstinued.isBefore(dateintroduced)){
 			throw new DiscontinuedDateException();
 		}

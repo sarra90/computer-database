@@ -11,6 +11,15 @@ public class ComputerDto {
 	private String disconstinued;
 	
 	private Long id_company;
+	
+	private ComputerDto(Builder builder){
+		
+		this.id = builder.id;
+		this.name = builder.name;
+		this.introduced = builder.introduced;
+		this.disconstinued = builder.disconstinued;
+		this.id_company = builder.id_company;
+	}
 
 	public Long getId() {
 		return id;
@@ -99,7 +108,7 @@ public class ComputerDto {
 		}
 
 		public ComputerDto build() {
-			return new ComputerDto();
+			return new ComputerDto(this);
 		}
 
 	}

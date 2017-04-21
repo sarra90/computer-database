@@ -1,10 +1,9 @@
 package com.excilys.model;
 
-
-
 import java.time.LocalDate;
 
 import com.excilys.exceptions.DiscontinuedDateException;
+
 /**
  * class represent a Company
  * 
@@ -60,9 +59,9 @@ public class Computer {
 		return disconstinued;
 	}
 
-	public void setDisconstinued(LocalDate disconstinued){
+	public void setDisconstinued(LocalDate disconstinued) {
 
-			this.disconstinued = disconstinued;
+		this.disconstinued = disconstinued;
 	}
 
 	public Company getManufacturer() {
@@ -79,9 +78,40 @@ public class Computer {
 				+ ", manufacturer=" + manufacturer + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((disconstinued == null) ? 0 : disconstinued.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
+		result = prime * result + ((manufacturer == null) ? 0 : manufacturer.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+
+		boolean result = false;
+
+		if (this == obj)
+			result = true;
+		if (obj != null) {
+			if (obj instanceof Computer) {
+				Computer computer = (Computer) obj;
+				if (this.id == computer.id) {
+					result = true;
+
+				}
+			}
+		}
+
+		return result;
+	}
+
 	public static class Builder {
 
-		
 		private String name;
 
 		private LocalDate introduced;
@@ -104,7 +134,6 @@ public class Computer {
 			return this;
 		}
 
-		
 		public Builder disconstinued(LocalDate disconstinued) {
 			this.disconstinued = disconstinued;
 			return this;
@@ -114,10 +143,10 @@ public class Computer {
 			this.manufacturer = manufacturer;
 			return this;
 		}
-		
-		public Computer build(){
+
+		public Computer build() {
 			return new Computer(this);
 		}
-		
+
 	}
 }

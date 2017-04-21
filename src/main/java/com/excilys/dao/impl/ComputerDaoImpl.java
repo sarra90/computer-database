@@ -21,7 +21,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
 	
-	public static final String QUERY_SELECT_ALL_COMPUTER = "SELECT * FROM computer WHERE id > 20 ORDER BY id LIMIT 10 ;";
+	public static final String QUERY_SELECT_ALL_COMPUTER = "SELECT * FROM computer;";
 	public static final String QUERY_SELECT_COMPUTER_WHERE_ID = "SELECT * FROM computer WHERE id = ";
 	public static final String QUERY_INSERT_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id)";
 	public static final String QUERY_UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, WHERE id = ? ";
@@ -40,14 +40,17 @@ public class ComputerDaoImpl implements ComputerDao {
 			statement = connect.prepareStatement(QUERY_SELECT_ALL_COMPUTER);
 			rs = statement.executeQuery();
 			
+			int columnCount=rs.getMetaData().getColumnCount();
+			
 			while (rs.next()) {
-
+				for (int i=0; i < columnCount; i++) {
 				computer = new Computer.Builder(rs.getString("name"))
 							.introduced(rs.getDate("introduced").toLocalDate())
 							.disconstinued(rs.getDate("discontinued").toLocalDate())
 							.manufacturer(new CompanyDaoImpl().findById(rs.getLong("company_id")))
 							.build();
 				listOfComputers.add(computer);
+				}
 			}
 			
 		} catch (SQLException e) {
