@@ -18,7 +18,7 @@ import com.excilys.model.Company;
 public class CompanyDaoImpl implements CompanyDao {
 
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDaoImpl.class);
 	public static final String QUERY_SELECT_ALL_COMPANY = "SELECT * FROM company ;";
 	public static final String QUERY_SELECT_COMPANY_WHERE_ID = "SELECT * FROM company WHERE id = ";
 	public static final String QUERY_INSERT_COMPANY = "INSERT INTO company (name)";

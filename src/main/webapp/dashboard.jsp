@@ -20,8 +20,7 @@
             <a class="navbar-brand" href="dashboard.html"> Application - Computer Database </a>
         </div>
     </header>
-	<% Integer numberOfComputers = (Integer)request.getAttribute("numberOfComputres");%>
-	
+	<% Integer numberOfComputers = (Integer)request.getAttribute("numberOfComputers");%>
     <section id="main">
         <div class="container">
             <h1 id="homeTitle">

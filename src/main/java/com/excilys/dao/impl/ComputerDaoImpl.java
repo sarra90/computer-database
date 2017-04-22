@@ -2,11 +2,10 @@ package com.excilys.dao.impl;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,15 +13,16 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.excilys.dao.CompanyDao;
 import com.excilys.dao.ComputerDao;
 import com.excilys.dao.ManagerConnection;
 import com.excilys.model.Computer;
-
+import com.excilys.model.Computer.Builder;
 
 public class ComputerDaoImpl implements ComputerDao {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
-	
+
 	public static final String QUERY_SELECT_ALL_COMPUTER = "SELECT * FROM computer;";
 	public static final String QUERY_SELECT_COMPUTER_WHERE_ID = "SELECT * FROM computer WHERE id = ";
 	public static final String QUERY_INSERT_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id)";
@@ -30,7 +30,8 @@ public class ComputerDaoImpl implements ComputerDao {
 	public static final String QUERY_DELETE_COMPUTER = "DELETE FROM computer";
 
 	public Connection connect = ManagerConnection.getInstance();
-	
+	private CompanyDao  companyDao = new CompanyDaoImpl();
+
 	@Override
 	public List<Computer> findAll() {
 
@@ -40,23 +41,26 @@ public class ComputerDaoImpl implements ComputerDao {
 		ResultSet rs = null;
 		try {
 			statement = connect.prepareStatement(QUERY_SELECT_ALL_COMPUTER);
+			
+
 			rs = statement.executeQuery();
 			
-			int columnCount=rs.getMetaData().getColumnCount();
-			
 			while (rs.next()) {
-				for (int i=0; i < columnCount; i++) {
-				computer = new Computer.Builder(rs.getString("name"))
-							.introduced(rs.getDate("introduced").toLocalDate())
-							.disconstinued(rs.getDate("discontinued").toLocalDate())
-							.manufacturer(new CompanyDaoImpl().findById(rs.getLong("company_id")))
+				 Builder builder = new Computer.Builder(rs.getString("name"));
+				 Date introduced = rs.getDate("introduced");
+				 Date discontinued = rs.getDate("discontinued");
+				      
+				 computer = builder
+							.introduced((introduced!=null)?introduced.toLocalDate():null)
+							.disconstinued((discontinued!=null)?discontinued.toLocalDate():null)
+							.manufacturer(companyDao.findById(rs.getLong("company_id")))
 							.build();
+				LOGGER.info("name of computer "+computer.getName());
 				listOfComputers.add(computer);
-				}
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.info("Error : findAll method " + e.getMessage());
 		}
 		LOGGER.info("findAll method : ",listOfComputers);
 		LOGGER.debug("ResultSet",rs );
@@ -73,11 +77,9 @@ public class ComputerDaoImpl implements ComputerDao {
 			statement = connect.prepareStatement(query);
 			rs = statement.executeQuery();
 			if (rs.next()) {
-				computer = new Computer.Builder(rs.getString("name"))
-						.introduced(rs.getDate("introduced").toLocalDate())
+				computer = new Computer.Builder(rs.getString("name")).introduced(rs.getDate("introduced").toLocalDate())
 						.disconstinued(rs.getDate("discontinued").toLocalDate())
-						.manufacturer(new CompanyDaoImpl().findById(rs.getLong("company_id")))
-						.build();
+						.manufacturer(new CompanyDaoImpl().findById(rs.getLong("company_id"))).build();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -100,10 +102,10 @@ public class ComputerDaoImpl implements ComputerDao {
 				statement.setLong(4, obj.getManufacturer().getId());
 				statement.execute();
 			} catch (SQLException e) {
-				LOGGER.info("Error : create computer method "+e.getMessage());
+				LOGGER.info("Error : create computer method " + e.getMessage());
 			}
 		}
-		LOGGER.info("create computer method "+obj.toString());
+		LOGGER.info("create computer method " + obj.toString());
 		return obj;
 	}
 
@@ -118,7 +120,7 @@ public class ComputerDaoImpl implements ComputerDao {
 				statement.setDate(2, Date.valueOf(obj.getIntroduced()));
 				statement.setDate(3, Date.valueOf(obj.getDisconstinued()));
 				statement.setLong(4, obj.getId());
-				
+
 				statement.executeQuery();
 			} catch (SQLException e) {
 				e.printStackTrace();
