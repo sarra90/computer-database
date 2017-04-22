@@ -2,6 +2,8 @@ package com.excilys.dao.impl;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -88,7 +90,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	public Computer create(Computer obj) {
 
 		PreparedStatement statement = null;
-		if (findById(obj.getId()) == null) {
+		if (!findById(obj.getId()).isPresent()) {
 			String query = QUERY_INSERT_COMPUTER + "VALUES(?, ?, ?, ?)";
 			try {
 				statement = connect.prepareStatement(query);
@@ -98,10 +100,10 @@ public class ComputerDaoImpl implements ComputerDao {
 				statement.setLong(4, obj.getManufacturer().getId());
 				statement.execute();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				LOGGER.info("Error : create computer method "+e.getMessage());
 			}
 		}
-		LOGGER.info("create computer method ",obj.toString());
+		LOGGER.info("create computer method "+obj.toString());
 		return obj;
 	}
 

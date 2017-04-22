@@ -61,16 +61,11 @@ public class ComputerDto {
 		this.disconstinued = disconstinued;
 	}
 
-	public Long getIdCompany() {
-		return idCompany;
+	@Override
+	public String toString() {
+		return "ComputerDto [id=" + id + ", name=" + name + ", introduced=" + introduced + ", disconstinued="
+				+ disconstinued + ", id_company=" + id_company + "]";
 	}
-
-	public void setIdCompany(Long idCompany) {
-		this.idCompany = idCompany;
-	}
-
-	private Long idCompany;
-
 	public static class Builder {
 
 		private Long id;
@@ -112,4 +107,7 @@ public class ComputerDto {
 		}
 
 	}
+
+
+	
 }

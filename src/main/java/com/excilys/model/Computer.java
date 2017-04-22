@@ -3,8 +3,6 @@ package com.excilys.model;
 
 
 import java.time.LocalDate;
-
-import com.excilys.exceptions.DiscontinuedDateException;
 /**
  * class represent a Company
  * 
