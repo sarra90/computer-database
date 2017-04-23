@@ -23,6 +23,7 @@
 	<%
 		List<Company> list = (ArrayList<Company>) request.getAttribute("list");
 		String erreur = (String) request.getAttribute("erreur");
+		String erreurIntroduced = (String) request.getAttribute("erreurIntroduced");
 	%>
 	<section id="main">
 		<div class="container">
@@ -40,7 +41,9 @@
 								<label for="introduced">Introduced date</label> <input
 									type="date" class="form-control" id="introduced" name="introduced"
 									placeholder="Introduced date">
+								<span class="erreur">${ erreurIntroduced }</span>
 							</div>
+							
 							<div class="form-group">
 								<label for="discontinued">Discontinued date</label> <input
 									type="date" class="form-control" id="discontinued" name="discontinued"

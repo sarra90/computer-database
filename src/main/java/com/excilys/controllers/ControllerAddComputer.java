@@ -17,10 +17,12 @@ import com.excilys.exceptions.DiscontinuedDateException;
 import com.excilys.mappers.MapperComputer;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
+import com.excilys.model.Validator;
 import com.excilys.service.CompanyService;
 import com.excilys.service.ComputerService;
 import com.excilys.service.impl.CompanyServiceImpl;
 import com.excilys.service.impl.ComputerServiceImpl;
+import com.excilys.validations.DateValidator;
 
 
 public class ControllerAddComputer extends HttpServlet {
@@ -30,11 +32,15 @@ public class ControllerAddComputer extends HttpServlet {
 
 	private ComputerService computerService;
 	private CompanyService companyService;
-
+	private DateValidator dateValidator;
+	private Validator validatorIntroducedDate;
+	private Validator validatorDiscontinuedDate;
+	
 	@Override
 	public void init() throws ServletException {
 		computerService = new ComputerServiceImpl();
 		companyService = new CompanyServiceImpl();
+		dateValidator = new DateValidator();
 	}
 
 	@Override
@@ -63,7 +69,17 @@ public class ControllerAddComputer extends HttpServlet {
 		
 		
 		try {
+			
+			validatorIntroducedDate = dateValidator.isValidDate(introduced);
+			
+			System.out.println("validatorIntroducedDate valiid "+validatorIntroducedDate.getValid());
+			
+			System.out.println("validatorIntroducedDate errooor "+validatorIntroducedDate.getError());
+			
+			request.setAttribute("erreurIntroduced", validatorIntroducedDate.getError());
+			
 			validationDate(introduced, disconstinued);
+			
 			computerdto = new ComputerDto.Builder()
 					.name(name)
 					.introduced(introduced)
