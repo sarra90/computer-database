@@ -17,6 +17,8 @@ public interface ComputerService {
 	 * @return
 	 */
 	public List<Computer> findAll();
+	
+	public List<Computer> findAllPerPage(int offset, int numberOfRecords);
 
 	/**
 	 * 
@@ -44,4 +46,5 @@ public interface ComputerService {
 	 * @param obj
 	 */
 	public  void delete(Computer obj);
+
 }

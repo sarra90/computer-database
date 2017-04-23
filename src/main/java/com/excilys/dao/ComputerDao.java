@@ -14,6 +14,7 @@ public interface ComputerDao {
 	 */
 	public List<Computer> findAll();
 
+	public List<Computer> findAllPerPage(int offset, int numberOfRecords);
 	/**
 	 * find Computer by id
 	 * 
@@ -44,5 +45,6 @@ public interface ComputerDao {
 	 * @param Computer
 	 */
 	public void delete(Computer computer);
+
 
 }

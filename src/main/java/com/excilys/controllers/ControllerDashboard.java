@@ -15,36 +15,78 @@ import com.excilys.model.Computer;
 import com.excilys.service.ComputerService;
 import com.excilys.service.impl.ComputerServiceImpl;
 
-public class ControllerDashboard extends HttpServlet{
-	
+public class ControllerDashboard extends HttpServlet {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private ComputerService computerService;
 	private static final Logger LOGGER = LoggerFactory.getLogger(ControllerDashboard.class);
-	
+
 	@Override
-	public void init() throws ServletException{
+	public void init() throws ServletException {
 		computerService = new ComputerServiceImpl();
 	}
 
+	/*
+	 * @Override protected void doGet(HttpServletRequest request,
+	 * HttpServletResponse response) throws ServletException, IOException {
+	 * 
+	 * List<Computer> listOfComputers = computerService.findAll();
+	 * 
+	 * request.setAttribute("list", listOfComputers);
+	 * 
+	 * request.setAttribute("numberOfComputers",
+	 * (listOfComputers!=null)?listOfComputers.size():0);
+	 * 
+	 * request.getRequestDispatcher("/dashboard.jsp").forward(request,
+	 * response);
+	 * 
+	 * LOGGER.info("numberOfComputers "+listOfComputers.size()); }
+	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		int page = 1;
+		int recordsPage =50;
 		
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		if (request.getParameter("recordsPerPage") != null) {
+			recordsPage = Integer.parseInt(request.getParameter("recordsPerPage"));
+		}
+		List<Computer> listOfComputersPerPage = computerService.findAllPerPage((page - 1) * recordsPage,
+				recordsPage);
 		List<Computer> listOfComputers = computerService.findAll();
 		
-		request.setAttribute("numberOfComputers", (listOfComputers!=null)?listOfComputers.size():0);
+		int noOfRecords =(listOfComputers != null) ? listOfComputers.size() : 0 ;
+		
+		
+		int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPage);
+		
+		
+		request.setAttribute("list", listOfComputersPerPage);
+		
+		request.setAttribute("numberOfComputers", noOfRecords);
+
+		request.setAttribute("noOfPages", noOfPages);
+		
+		request.setAttribute("currentPage", page);
+
+		request.setAttribute("recordsPerPage", recordsPage);
 		
 		request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
-		
-		LOGGER.info("numberOfComputers "+listOfComputers.size());
+
+		LOGGER.info("numberOfComputersPerPage " + listOfComputersPerPage.size());
 	}
-	
+
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 	}
-	
+
 }

@@ -30,7 +30,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	public static final String QUERY_DELETE_COMPUTER = "DELETE FROM computer";
 
 	public Connection connect = ManagerConnection.getInstance();
-	private CompanyDao  companyDao = new CompanyDaoImpl();
+	private CompanyDao companyDao = new CompanyDaoImpl();
 
 	@Override
 	public List<Computer> findAll() {
@@ -41,30 +41,55 @@ public class ComputerDaoImpl implements ComputerDao {
 		ResultSet rs = null;
 		try {
 			statement = connect.prepareStatement(QUERY_SELECT_ALL_COMPUTER);
-			
-
 			rs = statement.executeQuery();
-			
+
 			while (rs.next()) {
-				 Builder builder = new Computer.Builder(rs.getString("name"));
-				 Date introduced = rs.getDate("introduced");
-				 Date discontinued = rs.getDate("discontinued");
-				      
-				 computer = builder
-							.introduced((introduced!=null)?introduced.toLocalDate():null)
-							.disconstinued((discontinued!=null)?discontinued.toLocalDate():null)
-							.manufacturer(companyDao.findById(rs.getLong("company_id")))
-							.build();
-				LOGGER.info("name of computer "+computer.getName());
+				Builder builder = new Computer.Builder(rs.getString("name"));
+				Date introduced = rs.getDate("introduced");
+				Date discontinued = rs.getDate("discontinued");
+
+				computer = builder.introduced((introduced != null) ? introduced.toLocalDate() : null)
+						.disconstinued((discontinued != null) ? discontinued.toLocalDate() : null)
+						.manufacturer(companyDao.findById(rs.getLong("company_id"))).build();
 				listOfComputers.add(computer);
 			}
-			
+
 		} catch (SQLException e) {
 			LOGGER.info("Error : findAll method " + e.getMessage());
 		}
-		LOGGER.info("findAll method : ",listOfComputers);
-		LOGGER.debug("ResultSet",rs );
+		LOGGER.info("findAll method : ", listOfComputers.size());
+		LOGGER.debug("ResultSet", rs);
 		return listOfComputers;
+	}
+
+	@Override
+	public List<Computer> findAllPerPage(int offset, int numberOfRecords) {
+		String query = "select SQL_CALC_FOUND_ROWS * from computer limit " + offset + ", " + numberOfRecords;
+		List<Computer> listOfComputersPerPage = new ArrayList<Computer>();
+		Computer computer = null;
+		PreparedStatement statement = null;
+		ResultSet rs = null;
+		try {
+			statement = connect.prepareStatement(query);
+			rs = statement.executeQuery();
+
+			while (rs.next()) {
+				Builder builder = new Computer.Builder(rs.getString("name"));
+				Date introduced = rs.getDate("introduced");
+				Date discontinued = rs.getDate("discontinued");
+
+				computer = builder.introduced((introduced != null) ? introduced.toLocalDate() : null)
+						.disconstinued((discontinued != null) ? discontinued.toLocalDate() : null)
+						.manufacturer(companyDao.findById(rs.getLong("company_id"))).build();
+				listOfComputersPerPage.add(computer);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			LOGGER.info("Error : findAll method " + e.getMessage());
+		}
+		LOGGER.info("findAll method : ", listOfComputersPerPage.size());
+		LOGGER.debug("ResultSet", rs);
+		return listOfComputersPerPage;
 	}
 
 	@Override
