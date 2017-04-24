@@ -46,5 +46,7 @@ public interface ComputerDao {
 	 */
 	public void delete(Computer computer);
 
+	
+	public List<Computer> findBuName(String name);
 
 }

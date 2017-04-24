@@ -29,22 +29,7 @@ public class ControllerDashboard extends HttpServlet {
 		computerService = new ComputerServiceImpl();
 	}
 
-	/*
-	 * @Override protected void doGet(HttpServletRequest request,
-	 * HttpServletResponse response) throws ServletException, IOException {
-	 * 
-	 * List<Computer> listOfComputers = computerService.findAll();
-	 * 
-	 * request.setAttribute("list", listOfComputers);
-	 * 
-	 * request.setAttribute("numberOfComputers",
-	 * (listOfComputers!=null)?listOfComputers.size():0);
-	 * 
-	 * request.getRequestDispatcher("/dashboard.jsp").forward(request,
-	 * response);
-	 * 
-	 * LOGGER.info("numberOfComputers "+listOfComputers.size()); }
-	 */
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -87,6 +72,10 @@ public class ControllerDashboard extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+	}
+	private void search(ComputerService computerService ,String name){
+		
+		
 	}
 
 }

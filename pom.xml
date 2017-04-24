@@ -14,7 +14,7 @@
 		<logback.version>1.0.7</logback.version>
 		<javax.version>6.0</javax.version>
 		<servlet.version>2.5</servlet.version>
-		<junit.version>3.8.1</junit.version>
+		<junit.version>4.12</junit.version>
 	</properties>
 	<dependencies>
 	<dependency>

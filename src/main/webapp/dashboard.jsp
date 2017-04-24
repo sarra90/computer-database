@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <%@page import="com.excilys.model.Computer"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page import="java.util.List , com.excilys.model.Company"%>
@@ -26,8 +26,6 @@
 		List<Computer> list = (ArrayList<Computer>) request.getAttribute("list");
 		Integer numberOfComputers = (Integer) request.getAttribute("numberOfComputers");
 		Integer noOfPages = (Integer) request.getAttribute("noOfPages");
-		//Integer currentPage = (Integer) request.getAttribute("currentPage");
-		//Integer recordsPerPage = (Integer) request.getAttribute("recordsPerPage");
 		
 	%>
 	<section id="main">
@@ -35,7 +33,7 @@
 			<h1 id="homeTitle">${ numberOfComputers }</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
-					<form id="searchForm" action="#" method="GET" class="form-inline">
+					<form id="searchForm" action="dashboard" method="GET" class="form-inline">
 
 						<input type="search" id="searchbox" name="search"
 							class="form-control" placeholder="Search name" /> <input
@@ -102,30 +100,30 @@
 		<div class="container text-center">
 			<ul class="pagination">
 				<c:if test="${currentPage != 1}">
-					<li><a href="dashboard?page=${currentPage - 1}" aria-label="Previous">
+					<li><a href="dashboard?page=${currentPage - 1}&recordsPerPage=${recordsPerPage}" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span></a>
                     </li>
 				</c:if>
 				<c:forEach begin="1" end="${noOfPages}" var="i">
 					<c:choose>
 						<c:when test="${currentPage eq i}">
-							<li>${i}</li>
+							<li><a class="btn disabled" href="#">${i}</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="dashboard?page=${i}">${i}</a></li>
+							<li><a href="dashboard?page=${i}&recordsPerPage=${recordsPerPage}">${i}</a></li>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${currentPage lt noOfPages}">
-				<li><a href="dashboard?page=${currentPage + 1}" aria-label="Next">
+				<li><a href="dashboard?page=${currentPage + 1}&recordsPerPage=${recordsPerPage}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span></a>
                 </li>
 			</c:if> 
 			</ul>
 			<div class="btn-group btn-group-sm pull-right" role="group">
-				<button type="button" class="btn btn-default"><a href="dashboard?recordsPerPage=20">20</a></button>
 				<button type="button" class="btn btn-default"><a href="dashboard?recordsPerPage=50">50</a></button>
 				<button type="button" class="btn btn-default"><a href="dashboard?recordsPerPage=100">100</a></button>
+				<button type="button" class="btn btn-default"><a href="dashboard?recordsPerPage=150">150</a></button>
 			</div>
 		</div>
 

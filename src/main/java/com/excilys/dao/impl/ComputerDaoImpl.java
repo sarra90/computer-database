@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -158,6 +157,13 @@ public class ComputerDaoImpl implements ComputerDao {
 	public void delete(Computer obj) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public List<Computer> findBuName(String name) {
+		List<Computer> listComputerFindByName = new ArrayList<Computer>();
+		String query = "select * from computer WHERE  ";
+		return null;
 	}
 
 }

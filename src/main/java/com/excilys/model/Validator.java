@@ -4,7 +4,7 @@ public class Validator {
 	
 	private String error;
 	
-	private Boolean valid;
+	private boolean valid;
 	
 	public String getError() {
 		return error;
@@ -12,10 +12,11 @@ public class Validator {
 	public void setError(String error) {
 		this.error = error;
 	}
-	public Boolean getValid() {
+
+	public boolean isValid() {
 		return valid;
 	}
-	public void setValid(Boolean valid) {
+	public void setValid(boolean valid) {
 		this.valid = valid;
 	}
 }

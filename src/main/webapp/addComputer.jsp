@@ -43,7 +43,7 @@
 									type="date" class="form-control" id="introduced" name="introduced"
 									placeholder="Introduced date">
 								<c:if test = "${erreurIntroduced != null}">      
-  									<span class="erreur">${ erreurIntroduced }</span>  
+									<div class="alert alert-danger" role="alert">${ erreurIntroduced }</div>
 								</c:if>
 							</div>
 							

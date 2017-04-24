@@ -25,29 +25,30 @@ public class DateValidator {
 
 			validator.setValid(false);
 
-			validator.setError("date not valide");
+			validator.setError("Date is not valid");
 
-			System.out.println(validator.getError() + " " + validator.getValid());
 		}
 		return validator;
 	}
 
 	public static Validator isIntruducedDateBeforeDisconstinuedDate(String introduced, String disconstinued) {
-
-		LocalDate dateintroduced = LocalDate.parse(introduced);
-		
-		LocalDate datedisconstinued = LocalDate.parse(disconstinued);
 		
 		Validator validator = new Validator();
-		
-		if (datedisconstinued.isBefore(dateintroduced)) {
-			
-			validator.setValid(false);
 
-			validator.setError("Discontinued data must be greater than introduced one");
-		}
-		else{
-			validator.setValid(true);
+		if (DateValidator.isValidDate(introduced).isValid()&& DateValidator.isValidDate(disconstinued).isValid()){
+		
+			LocalDate dateintroduced = LocalDate.parse(introduced);
+			LocalDate datedisconstinued = LocalDate.parse(disconstinued);
+			
+			if (datedisconstinued.isBefore(dateintroduced)) {
+				
+				validator.setValid(false);
+	
+				validator.setError("Discontinued data must be greater than introduced one");
+			}
+				else {
+					validator.setValid(true);
+			}
 		}
 		return validator;
 	}
