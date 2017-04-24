@@ -37,13 +37,11 @@ public class CompanyDaoImpl implements CompanyDao {
 			statement = connect.prepareStatement(QUERY_SELECT_ALL_COMPANY);
 			rs = statement.executeQuery();
 			
-			int columnCount=rs.getMetaData().getColumnCount();
 
 			while(rs.next()) {
-			    for (int i=0; i < columnCount; i++) {
 			    	company = new Company(rs.getLong("id"), rs.getString("name"));
 			    	listOfCompanys.add(company);
-			    }
+			    
 			}
 			
 		} catch (SQLException e) {

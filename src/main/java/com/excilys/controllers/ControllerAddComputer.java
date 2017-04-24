@@ -32,15 +32,11 @@ public class ControllerAddComputer extends HttpServlet {
 
 	private ComputerService computerService;
 	private CompanyService companyService;
-	private DateValidator dateValidator;
-	private Validator validatorIntroducedDate;
-	private Validator validatorDiscontinuedDate;
 	
 	@Override
 	public void init() throws ServletException {
 		computerService = new ComputerServiceImpl();
 		companyService = new CompanyServiceImpl();
-		dateValidator = new DateValidator();
 	}
 
 	@Override
@@ -67,18 +63,9 @@ public class ControllerAddComputer extends HttpServlet {
 		
 		Long id_company = Long.valueOf(request.getParameter("companyId")).longValue();
 		
-		
-		try {
+			request.setAttribute("erreurIntroduced", DateValidator.isValidDate(introduced).getError());
 			
-			validatorIntroducedDate = dateValidator.isValidDate(introduced);
-			
-			System.out.println("validatorIntroducedDate valiid "+validatorIntroducedDate.getValid());
-			
-			System.out.println("validatorIntroducedDate errooor "+validatorIntroducedDate.getError());
-			
-			request.setAttribute("erreurIntroduced", validatorIntroducedDate.getError());
-			
-			validationDate(introduced, disconstinued);
+			request.setAttribute("erreurDiscontinued", DateValidator.isValidDate(disconstinued).getError());
 			
 			computerdto = new ComputerDto.Builder()
 					.name(name)
@@ -91,23 +78,14 @@ public class ControllerAddComputer extends HttpServlet {
 			
 			computerService.create(computer);
 
-		} catch (DiscontinuedDateException e) {
-			erreur = e.getMessage();
-			request.setAttribute("erreur", erreur);
-			LOGGER.debug("Discontinued Date Exception",e.getMessage());
-		}
+		
+			request.setAttribute("erreur", DateValidator.isIntruducedDateBeforeDisconstinuedDate(introduced, disconstinued));
+			
+		
 		doGet(request,response);
 		
 	}
 
-	private void validationDate(String introduced, String disconstinued) throws DiscontinuedDateException {
-		
-		LocalDate dateintroduced = LocalDate.parse(introduced);
-		LocalDate datedisconstinued = LocalDate.parse(disconstinued);
-		if (datedisconstinued.isBefore(dateintroduced)){
-			throw new DiscontinuedDateException();
-		}
-	}
 }
 
 

@@ -23,7 +23,8 @@
 	<%
 		List<Company> list = (ArrayList<Company>) request.getAttribute("list");
 		String erreur = (String) request.getAttribute("erreur");
-		String erreurIntroduced = (String) request.getAttribute("erreurIntroduced");
+		//String erreurIntroduced = (String) request.getAttribute("erreurIntroduced");
+		//String erreurDiscontinued = (String) request.getAttribute("erreurDiscontinued");
 	%>
 	<section id="main">
 		<div class="container">
@@ -41,14 +42,20 @@
 								<label for="introduced">Introduced date</label> <input
 									type="date" class="form-control" id="introduced" name="introduced"
 									placeholder="Introduced date">
-								<span class="erreur">${ erreurIntroduced }</span>
+								<c:if test = "${erreurIntroduced != null}">      
+  									<span class="erreur">${ erreurIntroduced }</span>  
+								</c:if>
 							</div>
 							
 							<div class="form-group">
 								<label for="discontinued">Discontinued date</label> <input
 									type="date" class="form-control" id="discontinued" name="discontinued"
 									placeholder="Discontinued date">
+									<c:if test = "${erreurDiscontinued != null}">      
+  										<span class="erreur">${ erreurDiscontinued }</span>  
+									</c:if> 
 							</div>
+							
 							<span class="erreur">${ erreur }</span>
 							<div class="form-group">
 								<label for="companyId">Company</label> <select
