@@ -49,7 +49,7 @@ public class ControllerAddComputer extends HttpServlet {
 			throws ServletException, IOException {
 
 		ComputerDto computerdto;
-		
+
 		// request parameters
 		String name = request.getParameter("name");
 		String introduced = request.getParameter("introduced");

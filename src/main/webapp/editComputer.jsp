@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<%@page import="java.util.ArrayList"%>
+<%@ page import="java.util.List , com.excilys.model.Company"%>
+<%@ page pageEncoding="UTF-8"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <title>Computer Database</title>
@@ -14,35 +19,44 @@
             <a class="navbar-brand" href="dashboard.html"> Application - Computer Database </a>
         </div>
     </header>
+    <%
+		Long id = (Long)request.getAttribute("id");
+    List<Company> list = (ArrayList<Company>) request.getAttribute("list");
+		
+	%>
     <section id="main">
         <div class="container">
             <div class="row">
                 <div class="col-xs-8 col-xs-offset-2 box">
                     <div class="label label-default pull-right">
-                        id: 0
+                        id: ${id}
                     </div>
                     <h1>Edit Computer</h1>
 
                     <form action="editComputer" method="POST">
-                        <input type="hidden" value="0" id="id"/> <!-- TODO: Change this value with the computer id -->
+                        <input type="hidden" value="${id}" id="id"/> <!-- TODO: Change this value with the computer id -->
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>
-                                <input type="text" class="form-control" id="computerName" placeholder="Computer name">
+                                <input type="text" class="form-control" id="computerName" value="${name}" name= "name" placeholder="Computer name">
                             </div>
                             <div class="form-group">
                                 <label for="introduced">Introduced date</label>
-                                <input type="date" class="form-control" id="introduced" placeholder="Introduced date">
+                                <input type="date" class="form-control" id="introduced" value="${introduced}" name="introduced" placeholder="Introduced date">
                             </div>
                             <div class="form-group">
                                 <label for="discontinued">Discontinued date</label>
-                                <input type="date" class="form-control" id="discontinued" placeholder="Discontinued date">
+                                <input type="date" class="form-control" id="discontinued" value="${discontinued}" name="discontinued" placeholder="Discontinued date">
                             </div>
                             <div class="form-group">
                                 <label for="companyId">Company</label>
-                                <select class="form-control" id="companyId" >
-                                    <option value="0">--</option>
-                                </select>
+                                <select
+									class="form-control" id="companyId" name="companyId">
+									<option value="-1" selected="selected">${nameCompany}</option>
+									<c:forEach var="element" items="${ list }">
+										<option value="${element.getId()}">${element.getName()}</option>
+									</c:forEach>
+								</select>
                             </div>            
                         </fieldset>
                         <div class="actions pull-right">

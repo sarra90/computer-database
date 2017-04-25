@@ -52,7 +52,7 @@
 									type="date" class="form-control" id="discontinued" name="discontinued"
 									placeholder="Discontinued date">
 									<c:if test = "${erreurDiscontinued != null}">      
-  										<span class="erreur">${ erreurDiscontinued }</span>  
+  										<div class="alert alert-danger" role="alert">${ erreurDiscontinued }</div>  
 									</c:if> 
 							</div>
 							

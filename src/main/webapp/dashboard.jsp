@@ -30,7 +30,7 @@
 	%>
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${ numberOfComputers }</h1>
+			<h1 id="homeTitle">${ numberOfComputers } </h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="dashboard" method="GET" class="form-inline">
@@ -43,7 +43,8 @@
 				</div>
 				<div class="pull-right">
 					<a class="btn btn-success" id="addComputer" href="addComputer.jsp">AddComputer</a>
-					<a class="btn btn-default" id="editComputer" href="#"
+					<a class="btn btn-default" id="
+" href="editComputer.jsp"
 						onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
 			</div>
@@ -82,7 +83,7 @@
 						<tr>
 							<td class="editMode"><input type="checkbox" name="cb"
 								class="cb" value="0"></td>
-							<td><a href="editComputer.html" onclick="">${element.getName()}</a></td>
+							<td><a href="editComputer?idComputer=${element.getId()}">${element.getName()}</a></td>
 							<td>${ element.getIntroduced() }</td>
 							<td>${ element.getDisconstinued() }</td>
 							<td>${ element.getManufacturer().getName() }</td>

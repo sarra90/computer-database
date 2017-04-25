@@ -51,5 +51,11 @@ public class ComputerServiceImpl implements ComputerService {
 		List<Computer> listOfComputersPerPage = computerDao.findAllPerPage(offset, numberOfRecords);
 		return listOfComputersPerPage;
 	}
+
+	@Override
+	public List<Computer> findByName(String name) {
+		List<Computer> listOfComputersByName = computerDao.findByName(name);
+		return listOfComputersByName;
+	}
 	
 }

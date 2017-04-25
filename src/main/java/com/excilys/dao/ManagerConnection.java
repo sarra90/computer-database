@@ -1,10 +1,11 @@
 package com.excilys.dao;
 
 import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
+
+import javax.sql.DataSource;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 public class ManagerConnection {
 
@@ -13,33 +14,52 @@ public class ManagerConnection {
 	private static String password;
 	private static String driverClass;
 	
-	private static Connection connect;
+	private static Connection connection;
 	
-	static{
-		ResourceBundle bundle = ResourceBundle.getBundle("configDB");
-		url = bundle.getString("sgbd.url");
-	    user = bundle.getString("sgbd.user");
-		password = bundle.getString("sgbd.password");
-		driverClass = bundle.getString("sgbd.driver");
-		
+	private static HikariDataSource datasource;
+	
+	public static DataSource getDataSource()
+	{
+		 String configFile = "/db.properties";
+		 
+		 HikariConfig cfg = new HikariConfig(configFile);
+		 
+			if(datasource == null)
+			{
+				/*HikariConfig config = new HikariConfig();
+				config.setDataSourceClassName(null);
+				config.setDriverClassName("com.mysql.jdbc.Driver");
+		        config.setJdbcUrl("jdbc:mysql://localhost/computer-database-db");
+		        config.setUsername("root");
+		        config.setPassword("");
+
+		        config.setMaximumPoolSize(10);
+		        config.setAutoCommit(false);
+		        config.addDataSourceProperty("cachePrepStmts", "true");
+		        config.addDataSourceProperty("prepStmtCacheSize", "250");
+		        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");*/
+		        
+		        
+		        cfg.setAutoCommit(false);
+		        cfg.setMaximumPoolSize(40);
+	        datasource = new HikariDataSource(cfg);
+			}
+			return datasource;
 	}
 	public static Connection getInstance(){
-		if(connect==null){
-
-			try {
-				Driver driver = (Driver) Class.forName(driverClass).newInstance();
-				DriverManager.registerDriver(driver);
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-				e.printStackTrace();
-			}
-
-			try{
-				connect = DriverManager.getConnection(url,user,password);
-				
-			}catch (SQLException e) {
-				e.printStackTrace();
-			}
+	
+		if(connection==null){
+		try
+		{
+				DataSource dataSource = ManagerConnection.getDataSource();
+				connection = dataSource.getConnection();
 		}
-		return connect;
+		catch (Exception e)
+		{
+				e.printStackTrace();
+		}
+		}
+
+		return connection;
 	}
 }

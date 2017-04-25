@@ -29,6 +29,4 @@ public interface CompanyDao {
 	 */
 	public Company create(Company company);
 
-	public List<String> find();
-
 }

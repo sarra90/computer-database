@@ -47,4 +47,5 @@ public interface ComputerService {
 	 */
 	public  void delete(Computer obj);
 
+	public List<Computer> findByName(String name);
 }

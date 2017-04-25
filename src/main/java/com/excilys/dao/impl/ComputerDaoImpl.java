@@ -47,7 +47,8 @@ public class ComputerDaoImpl implements ComputerDao {
 				Date introduced = rs.getDate("introduced");
 				Date discontinued = rs.getDate("discontinued");
 
-				computer = builder.introduced((introduced != null) ? introduced.toLocalDate() : null)
+				computer = builder.id(rs.getLong("id"))
+						.introduced((introduced != null) ? introduced.toLocalDate() : null)
 						.disconstinued((discontinued != null) ? discontinued.toLocalDate() : null)
 						.manufacturer(companyDao.findById(rs.getLong("company_id"))).build();
 				listOfComputers.add(computer);
@@ -77,7 +78,8 @@ public class ComputerDaoImpl implements ComputerDao {
 				Date introduced = rs.getDate("introduced");
 				Date discontinued = rs.getDate("discontinued");
 
-				computer = builder.introduced((introduced != null) ? introduced.toLocalDate() : null)
+				computer = builder.id(rs.getLong("id"))
+						.introduced((introduced != null) ? introduced.toLocalDate() : null)
 						.disconstinued((discontinued != null) ? discontinued.toLocalDate() : null)
 						.manufacturer(companyDao.findById(rs.getLong("company_id"))).build();
 				listOfComputersPerPage.add(computer);
@@ -101,8 +103,11 @@ public class ComputerDaoImpl implements ComputerDao {
 			statement = connect.prepareStatement(query);
 			rs = statement.executeQuery();
 			if (rs.next()) {
-				computer = new Computer.Builder(rs.getString("name")).introduced(rs.getDate("introduced").toLocalDate())
-						.disconstinued(rs.getDate("discontinued").toLocalDate())
+				Date introduced = rs.getDate("introduced");
+				Date discontinued = rs.getDate("discontinued");
+				computer = new Computer.Builder(rs.getString("name"))
+						.introduced((introduced != null) ? introduced.toLocalDate() : null)
+						.disconstinued((discontinued != null) ? discontinued.toLocalDate() : null)
 						.manufacturer(new CompanyDaoImpl().findById(rs.getLong("company_id"))).build();
 			}
 		} catch (SQLException e) {
@@ -160,10 +165,31 @@ public class ComputerDaoImpl implements ComputerDao {
 	}
 
 	@Override
-	public List<Computer> findBuName(String name) {
+	public List<Computer> findByName(String name) {
 		List<Computer> listComputerFindByName = new ArrayList<Computer>();
-		String query = "select * from computer WHERE  ";
-		return null;
+		Computer computer ;
+		String query = "select * from computer where name like ? ";
+		PreparedStatement statement = null;
+		ResultSet rs = null;
+		try {
+			statement = connect.prepareStatement(query);
+			statement.setString(1, name + "%");
+			rs= statement.executeQuery();
+			if (rs.next()) {
+				Builder builder = new Computer.Builder(rs.getString("name"));
+				Date introduced = rs.getDate("introduced");
+				Date discontinued = rs.getDate("discontinued");
+
+				computer = builder.introduced((introduced != null) ? introduced.toLocalDate() : null)
+						.disconstinued((discontinued != null) ? discontinued.toLocalDate() : null)
+						.manufacturer(companyDao.findById(rs.getLong("company_id"))).build();
+				listComputerFindByName.add(computer);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listComputerFindByName;
 	}
 
 }

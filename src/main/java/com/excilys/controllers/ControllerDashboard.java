@@ -34,48 +34,56 @@ public class ControllerDashboard extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		int page = 1;
-		int recordsPage =50;
+		String searchName = request.getParameter("search");
 		
-		if (request.getParameter("page") != null) {
-			page = Integer.parseInt(request.getParameter("page"));
+		
+		if(searchName!=null){
+			
+			List<Computer> listOfComputersByName = computerService.findByName(searchName);
+			request.setAttribute("list", listOfComputersByName);
+			request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
 		}
-		if (request.getParameter("recordsPerPage") != null) {
-			recordsPage = Integer.parseInt(request.getParameter("recordsPerPage"));
+		else{
+			
+			int page = 1;
+			int recordsPage =50;
+			
+			if (request.getParameter("page") != null) {
+				page = Integer.parseInt(request.getParameter("page"));
+			}
+			if (request.getParameter("recordsPerPage") != null) {
+				recordsPage = Integer.parseInt(request.getParameter("recordsPerPage"));
+			}
+			List<Computer> listOfComputersPerPage = computerService.findAllPerPage((page - 1) * recordsPage,
+					recordsPage);
+			List<Computer> listOfComputers = computerService.findAll();
+			
+			int noOfRecords =(listOfComputers != null) ? listOfComputers.size() : 0 ;
+			
+			
+			int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPage);
+			
+			
+			request.setAttribute("list", listOfComputersPerPage);
+			
+			request.setAttribute("numberOfComputers", noOfRecords);
+
+			request.setAttribute("noOfPages", noOfPages);
+			
+			request.setAttribute("currentPage", page);
+
+			request.setAttribute("recordsPerPage", recordsPage);
+			
+			request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
 		}
-		List<Computer> listOfComputersPerPage = computerService.findAllPerPage((page - 1) * recordsPage,
-				recordsPage);
-		List<Computer> listOfComputers = computerService.findAll();
 		
-		int noOfRecords =(listOfComputers != null) ? listOfComputers.size() : 0 ;
-		
-		
-		int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPage);
-		
-		
-		request.setAttribute("list", listOfComputersPerPage);
-		
-		request.setAttribute("numberOfComputers", noOfRecords);
 
-		request.setAttribute("noOfPages", noOfPages);
-		
-		request.setAttribute("currentPage", page);
-
-		request.setAttribute("recordsPerPage", recordsPage);
-		
-		request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
-
-		LOGGER.info("numberOfComputersPerPage " + listOfComputersPerPage.size());
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-	}
-	private void search(ComputerService computerService ,String name){
-		
-		
 	}
 
 }

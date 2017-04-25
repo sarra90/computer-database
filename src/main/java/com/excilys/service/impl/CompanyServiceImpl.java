@@ -31,8 +31,4 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyDao.create(obj);
 	}
 	
-	@Override
-	public List<String> find(){
-		return companyDao.find();
-	}
 }

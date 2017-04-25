@@ -23,7 +23,8 @@ public class Computer {
 	private Company manufacturer;
 
 	public Computer(Builder computerBuilder) {
-
+		
+		this.id=computerBuilder.id;
 		this.name = computerBuilder.name;
 		this.introduced = computerBuilder.introduced;
 		this.disconstinued = computerBuilder.disconstinued;
@@ -79,6 +80,7 @@ public class Computer {
 
 	public static class Builder {
 
+		private Long id;
 		
 		private String name;
 
@@ -92,6 +94,10 @@ public class Computer {
 			this.name = name;
 		}
 
+		public Builder id(Long id){
+			this.id = id;
+			return this;
+		}
 		public Builder name(String name) {
 			this.name = name;
 			return this;
