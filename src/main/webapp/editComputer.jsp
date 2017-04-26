@@ -34,7 +34,7 @@
                     <h1>Edit Computer</h1>
 
                     <form action="editComputer" method="POST">
-                        <input type="hidden" value="${id}" id="id"/> <!-- TODO: Change this value with the computer id -->
+                        <input type="hidden" value="${id}" id="id" name= "idComputer"/> <!-- TODO: Change this value with the computer id -->
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>
@@ -43,11 +43,18 @@
                             <div class="form-group">
                                 <label for="introduced">Introduced date</label>
                                 <input type="date" class="form-control" id="introduced" value="${introduced}" name="introduced" placeholder="Introduced date">
+                            <c:if test = "${erreurIntroduced != null}">      
+									<div class="alert alert-danger" role="alert">${ erreurIntroduced }</div>
+								</c:if>
                             </div>
                             <div class="form-group">
                                 <label for="discontinued">Discontinued date</label>
                                 <input type="date" class="form-control" id="discontinued" value="${discontinued}" name="discontinued" placeholder="Discontinued date">
+                            <c:if test = "${erreurDiscontinued != null}">      
+  										<div class="alert alert-danger" role="alert">${ erreurDiscontinued }</div>  
+									</c:if>
                             </div>
+                            <span class="erreur">${ erreur }</span>
                             <div class="form-group">
                                 <label for="companyId">Company</label>
                                 <select

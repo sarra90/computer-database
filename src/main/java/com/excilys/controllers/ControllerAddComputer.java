@@ -77,8 +77,6 @@ public class ControllerAddComputer extends HttpServlet {
 			request.setAttribute("erreurDiscontinued", disconstinuedValidator.getError());
 		}
 		
-		
-
 		doGet(request, response);
 
 	}

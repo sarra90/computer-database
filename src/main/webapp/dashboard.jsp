@@ -43,9 +43,7 @@
 				</div>
 				<div class="pull-right">
 					<a class="btn btn-success" id="addComputer" href="addComputer.jsp">AddComputer</a>
-					<a class="btn btn-default" id="
-" href="editComputer.jsp"
-						onclick="$.fn.toggleEditMode();">Edit</a>
+					<a class="btn btn-default" id="" href="editComputer.jsp" onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
 			</div>
 		</div>
