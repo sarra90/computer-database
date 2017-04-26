@@ -26,20 +26,6 @@ public class ManagerConnection {
 		 
 			if(datasource == null)
 			{
-				/*HikariConfig config = new HikariConfig();
-				config.setDataSourceClassName(null);
-				config.setDriverClassName("com.mysql.jdbc.Driver");
-		        config.setJdbcUrl("jdbc:mysql://localhost/computer-database-db");
-		        config.setUsername("root");
-		        config.setPassword("");
-
-		        config.setMaximumPoolSize(10);
-		        config.setAutoCommit(false);
-		        config.addDataSourceProperty("cachePrepStmts", "true");
-		        config.addDataSourceProperty("prepStmtCacheSize", "250");
-		        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");*/
-		        
-		        
 		        cfg.setAutoCommit(false);
 		        cfg.setMaximumPoolSize(40);
 	        datasource = new HikariDataSource(cfg);

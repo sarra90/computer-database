@@ -140,7 +140,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			try {
 				statement.close();
 			} catch (SQLException e) {
-				LOGGER.info("Error : statement close" + e.getMessage());
+				LOGGER.info("Error : statement not closed" + e.getMessage());
 			}
 		}
 		return Optional.ofNullable(computer);

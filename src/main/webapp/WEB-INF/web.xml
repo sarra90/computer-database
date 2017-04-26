@@ -14,6 +14,17 @@
 		<url-pattern>/controller</url-pattern>
 	</servlet-mapping>
 
+	<!-- Delete computers -->
+	<servlet>
+		<servlet-name>ControllerDeleteComputer</servlet-name>
+		<servlet-class>com.excilys.controllers.ControllerDeleteComputer</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ControllerDeleteComputer</servlet-name>
+		<url-pattern>/deletecomputer</url-pattern>
+	</servlet-mapping>
+
 	<!--Add computer servlet mapping -->
 	<servlet>
 		<servlet-name>ControllerAddComputer</servlet-name>

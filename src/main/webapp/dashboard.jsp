@@ -14,6 +14,21 @@
 <link href="./css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="./css/font-awesome.css" rel="stylesheet" media="screen">
 <link href="./css/main.css" rel="stylesheet" media="screen">
+<script type="text/javascript">
+function deleteElements(){
+	var checkboxes = document.getElementsByName('cb');
+	var selected = [];
+	for (var i=0; i<checkboxes.length;i++){
+		if(checkboxes[i].checked){
+			selected.push(checkboxes[i].value);
+		}
+	}
+	var deleteform = document.getElementById('deleteForm');
+	var inputselection = document.getElementById('selection');
+	inputselection.value = selected;
+	deleteform.submit();
+}
+</script>
 </head>
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
@@ -48,8 +63,8 @@
 			</div>
 		</div>
 
-		<form id="deleteForm" action="#" method="POST">
-			<input type="hidden" name="selection" value="">
+		<form id="deleteForm" action="deletecomputer" method="POST">
+			<input type="hidden" id="selection" name="selection" value="">
 		</form>
 
 		<div class="container" style="margin-top: 10px;">
@@ -62,7 +77,7 @@
 						<th class="editMode" style="width: 60px; height: 22px;"><input
 							type="checkbox" id="selectall" /> <span
 							style="vertical-align: top;"> - <a href="#"
-								id="deleteSelected" onclick="$.fn.deleteSelected();"> <i
+								id="deleteSelected" onclick="deleteElements();"> <i
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
@@ -80,7 +95,7 @@
 					<c:forEach var="element" items="${ list }">
 						<tr>
 							<td class="editMode"><input type="checkbox" name="cb"
-								class="cb" value="0"></td>
+								class="cb" value="${element.getId()}"></td>
 							<td><a href="editComputer?idComputer=${element.getId()}">${element.getName()}</a></td>
 							<td>${ element.getIntroduced() }</td>
 							<td>${ element.getDisconstinued() }</td>
