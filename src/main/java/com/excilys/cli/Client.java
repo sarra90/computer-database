@@ -92,7 +92,7 @@ public class Client {
 					System.out.println("	write the name : ");
 					input = inputscanner.next();
 					String name = input;
-					Company company= companyService.create(new Company(name));
+					Company company= companyService.create(new Company.Builder().name(name).build());
 					
 					computer=new Computer.Builder(nom)
 								.introduced(dateIntroduced)

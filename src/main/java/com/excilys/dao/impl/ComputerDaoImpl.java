@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +17,9 @@ import org.slf4j.LoggerFactory;
 import com.excilys.dao.CompanyDao;
 import com.excilys.dao.ComputerDao;
 import com.excilys.dao.ManagerConnection;
+import com.excilys.dtos.ComputerDto;
+import com.excilys.mappers.MapperComputer;
+import com.excilys.model.Company;
 import com.excilys.model.Computer;
 import com.excilys.model.Computer.Builder;
 
@@ -23,6 +28,9 @@ public class ComputerDaoImpl implements ComputerDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
 
 	public static final String QUERY_SELECT_ALL_COMPUTER = "SELECT * FROM computer;";
+	public static final String QUERY_SELECT_ALL_COMPUTER_PER_PAGE = "SELECT SQL_CALC_FOUND_ROWS * FROM computer limit";
+	public static final String QUERY_SELECT_COUNT = "SELECT COUNT(*) FROM computer ;";
+	public static final String QUERY_SELECT_ALL_BY_NAME = "SELECT * FROM computer WHERE UPPER(name) like UPPER(?) ";
 	public static final String QUERY_SELECT_COMPUTER_WHERE_ID = "SELECT * FROM computer WHERE id = ";
 	public static final String QUERY_INSERT_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id)";
 	public static final String QUERY_UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, WHERE id = ? ";
@@ -64,32 +72,53 @@ public class ComputerDaoImpl implements ComputerDao {
 
 	@Override
 	public List<Computer> findAllPerPage(int offset, int numberOfRecords) {
-		String query = "select SQL_CALC_FOUND_ROWS * from computer limit " + offset + ", " + numberOfRecords;
+		String query = "SELECT c.id as id_computer , c.name as name_computer , c.introduced as introduced , c.discontinued as discontinued , co.id as id_company , co.name as name_company "
+				+ "FROM computer c LEFT JOIN company co on c.company_id = co.id limit " + offset + ", " + numberOfRecords;
 		List<Computer> listOfComputersPerPage = new ArrayList<Computer>();
 		Computer computer = null;
+		ComputerDto computerDto = null;
+		MapperComputer mapperComputer = new MapperComputer();
 		PreparedStatement statement = null;
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		//String text = df.format(date);
 		ResultSet rs = null;
 		try {
 			statement = connect.prepareStatement(query);
 			rs = statement.executeQuery();
 
 			while (rs.next()) {
-				Builder builder = new Computer.Builder(rs.getString("name"));
+				Builder builder = new Computer.Builder(rs.getString("name_computer"));
 				Date introduced = rs.getDate("introduced");
 				Date discontinued = rs.getDate("discontinued");
-
-				computer = builder.id(rs.getLong("id"))
+				Company company = new Company.Builder()
+						.id(rs.getLong("id_company"))
+						.name(rs.getString("name_company"))
+						.build();
+						
+						computer = builder.id(rs.getLong("id_computer"))
 						.introduced((introduced != null) ? introduced.toLocalDate() : null)
 						.disconstinued((discontinued != null) ? discontinued.toLocalDate() : null)
-						.manufacturer(companyDao.findById(rs.getLong("company_id"))).build();
+						.manufacturer(company)
+						.build();
+				
+				/*computerDto = new ComputerDto.Builder()
+						.id(rs.getLong("id_computer"))
+						.name(rs.getString("name_computer"))
+						.introduced((introduced!=null?df.format(introduced):null))
+						.disconstinued((discontinued!=null)?df.format(discontinued):null)
+						.idCompany(rs.getLong("id_company"))
+						.build();
+				
+				computer = mapperComputer.convertToComputer(computerDto);*/
+						
+				System.out.println(computer);
 				listOfComputersPerPage.add(computer);
 			}
 			rs.close();
 		} catch (SQLException e) {
 			LOGGER.info("Error : findAll method " + e.getMessage());
 		}
-		LOGGER.info("findAll method : ", listOfComputersPerPage.size());
-		LOGGER.debug("ResultSet", rs);
+		LOGGER.info("findAllPerPage method : ", listOfComputersPerPage.size());
 		return listOfComputersPerPage;
 	}
 
@@ -160,7 +189,6 @@ public class ComputerDaoImpl implements ComputerDao {
 
 	@Override
 	public void delete(Computer obj) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -168,14 +196,14 @@ public class ComputerDaoImpl implements ComputerDao {
 	public List<Computer> findByName(String name) {
 		List<Computer> listComputerFindByName = new ArrayList<Computer>();
 		Computer computer ;
-		String query = "select * from computer where name like ? ";
+		String query = "SELECT * FROM computer WHERE UPPER(name) like UPPER(?) ";
 		PreparedStatement statement = null;
 		ResultSet rs = null;
 		try {
 			statement = connect.prepareStatement(query);
 			statement.setString(1, name + "%");
 			rs= statement.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				Builder builder = new Computer.Builder(rs.getString("name"));
 				Date introduced = rs.getDate("introduced");
 				Date discontinued = rs.getDate("discontinued");

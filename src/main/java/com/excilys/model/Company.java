@@ -17,9 +17,10 @@ public class Company {
 		this.name = name;
 	}
 
-	public Company(String name) {
-		super();
-		this.name = name;
+	public Company(Builder CompanyBuilder) {
+
+		this.id=CompanyBuilder.id;
+		this.name = CompanyBuilder.name;
 	}
 
 	public Long getId() {
@@ -41,6 +42,23 @@ public class Company {
 	@Override
 	public String toString() {
 		return "Company [id=" + id + ", name=" + name + "]";
+	}
+	public static class Builder{
+		
+		private Long id ;
+		private String name;
+		
+		public Builder id(Long id){
+			this.id=id;
+			return this;
+		}
+		public Builder name(String name){
+			this.name=name;
+			return this;
+		}
+		public Company build(){
+			return new Company(this);
+		}
 	}
 
 }

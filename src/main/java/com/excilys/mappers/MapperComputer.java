@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import com.excilys.dao.CompanyDao;
 import com.excilys.dao.impl.CompanyDaoImpl;
+import com.excilys.dtos.CompanyDto;
 import com.excilys.dtos.ComputerDto;
 import com.excilys.model.Computer;
 
@@ -17,8 +18,9 @@ public class MapperComputer {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-M-d");
 		System.out.println(computerDto.getIntroduced());
 		Computer computer = new Computer.Builder(computerDto.getName())
-				.introduced(LocalDate.parse(computerDto.getIntroduced(), formatter))
-				.disconstinued(LocalDate.parse(computerDto.getDisconstinued(), formatter))
+				.id(computerDto.getId())
+				.introduced((computerDto.getIntroduced()!=null)?LocalDate.parse(computerDto.getIntroduced(), formatter):null)
+				.disconstinued((computerDto.getDisconstinued()!=null)?LocalDate.parse(computerDto.getDisconstinued(), formatter):null)
 				.manufacturer(companyDao.findById(computerDto.getId_company()))
 				.build();
 

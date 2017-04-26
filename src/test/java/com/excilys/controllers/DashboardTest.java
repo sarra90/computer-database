@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 
-public class SeleniumTest {
+public class DashboardTest {
 
 	private WebDriver driver;
 	
@@ -29,7 +29,7 @@ public class SeleniumTest {
 	public void testNumberOfComputers(){
 
 		System.out.println(driver.findElement(By.id("homeTitle")).getText());
-		Assert.assertEquals(driver.findElement(By.id("homeTitle")).getText(), "62");
+		Assert.assertEquals(driver.findElement(By.id("homeTitle")).getText(), "574");
 		
 	}
 }
