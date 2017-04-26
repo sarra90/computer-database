@@ -52,7 +52,16 @@ public interface ComputerDao {
 	 */
 	public void delete(Computer computer);
 
-	
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public List<Computer> findByName(String name);
 
+	/**
+	 * 
+	 * @return
+	 */
+	public long countComputer();
 }

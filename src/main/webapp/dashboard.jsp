@@ -24,7 +24,7 @@
 	</header>
 	<%
 		List<Computer> list = (ArrayList<Computer>) request.getAttribute("list");
-		Integer numberOfComputers = (Integer) request.getAttribute("numberOfComputers");
+		Long numberOfComputers = (Long) request.getAttribute("numberOfComputers");
 		Integer noOfPages = (Integer) request.getAttribute("noOfPages");
 		
 	%>

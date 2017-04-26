@@ -54,11 +54,9 @@ public class ControllerDashboard extends HttpServlet {
 			if (request.getParameter("recordsPerPage") != null) {
 				recordsPage = Integer.parseInt(request.getParameter("recordsPerPage"));
 			}
-			List<Computer> listOfComputersPerPage = computerService.findAllPerPage((page - 1) * recordsPage,
-					recordsPage);
-			List<Computer> listOfComputers = computerService.findAll();
+			List<Computer> listOfComputersPerPage = computerService.findAllPerPage((page - 1) * recordsPage,recordsPage);
 			
-			int noOfRecords =(listOfComputers != null) ? listOfComputers.size() : 0 ;
+			long noOfRecords = computerService.countComputer();
 			
 			
 			int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPage);

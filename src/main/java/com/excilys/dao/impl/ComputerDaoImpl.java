@@ -192,4 +192,23 @@ public class ComputerDaoImpl implements ComputerDao {
 		return listComputerFindByName;
 	}
 
+	@Override
+	public long countComputer() {
+		long result =0;
+		String query = "SELECT COUNT(*) FROM computer ;";
+		PreparedStatement statement ;
+		ResultSet rs;
+		try {
+			statement=connect.prepareStatement(query);
+			rs = statement.executeQuery();
+			while(rs.next()){
+				result = rs.getLong(1);
+			}
+			System.out.println(result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 }

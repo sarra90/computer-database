@@ -11,13 +11,13 @@ import com.excilys.model.Computer;
  *
  */
 public interface ComputerService {
-	
+
 	/**
 	 * 
 	 * @return
 	 */
 	public List<Computer> findAll();
-	
+
 	public List<Computer> findAllPerPage(int offset, int numberOfRecords);
 
 	/**
@@ -25,27 +25,38 @@ public interface ComputerService {
 	 * @param id
 	 * @return
 	 */
-	public  Optional<Computer> findById(Long id);
-	
-	/**
-	 * 
-	 * @param obj
-	 * @return
-	 */
-	public  Computer create(Computer obj);
-	
-	/**
-	 * 
-	 * @param obj
-	 * @return
-	 */
-	public  Computer update(Computer obj);
-	
-	/**
-	 * 
-	 * @param obj
-	 */
-	public  void delete(Computer obj);
+	public Optional<Computer> findById(Long id);
 
+	/**
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	public Computer create(Computer obj);
+
+	/**
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	public Computer update(Computer obj);
+
+	/**
+	 * 
+	 * @param obj
+	 */
+	public void delete(Computer obj);
+
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public List<Computer> findByName(String name);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public long countComputer();
 }

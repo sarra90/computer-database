@@ -57,5 +57,11 @@ public class ComputerServiceImpl implements ComputerService {
 		List<Computer> listOfComputersByName = computerDao.findByName(name);
 		return listOfComputersByName;
 	}
+
+	@Override
+	public long countComputer() {
+		long count = computerDao.countComputer();
+		return count;
+	}
 	
 }
