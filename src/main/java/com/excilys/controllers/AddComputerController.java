@@ -55,7 +55,7 @@ public class AddComputerController extends HttpServlet {
 		String introduced = request.getParameter("introduced");
 		String disconstinued = request.getParameter("discontinued");
 		Long id_company = Long.valueOf(request.getParameter("companyId")).longValue();
-
+		System.out.println(introduced);
 		
 		// request parameters validation
 		//TODO add name validator
@@ -68,8 +68,10 @@ public class AddComputerController extends HttpServlet {
 				computerdto = new ComputerDto.Builder().name(name).introduced(introduced).disconstinued(disconstinued).idCompany(id_company).build();
 				Computer computer = new MapperComputer().convertToComputer(computerdto);
 				computerService.create(computer);
+				LOGGER.info("add success");
 			} else {
 				//display errors
+				LOGGER.error("add order date invalide");
 				request.setAttribute("erreur",orderDateValidator.getError());
 			}
 		} else {

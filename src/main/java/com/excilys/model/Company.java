@@ -43,6 +43,39 @@ public class Company {
 	public String toString() {
 		return "Company [id=" + id + ", name=" + name + "]";
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+
+		boolean result = false;
+	
+		if (obj!=null){
+			
+			if(obj instanceof Company){
+				
+				Company company = (Company)obj;
+				
+				if(this.getId().equals(company.getId())){
+					
+					result = true;
+				}
+				else if(this.getName().equals(company.getName())){
+					
+				}
+			}
+		}
+		return result ;
+	}
+
 	public static class Builder{
 		
 		private Long id ;

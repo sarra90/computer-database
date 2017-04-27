@@ -160,6 +160,7 @@ public class ComputerDaoImpl implements ComputerDao {
 				statement.setDate(3, Date.valueOf(obj.getDisconstinued()));
 				statement.setLong(4, obj.getManufacturer().getId());
 				statement.execute();
+				LOGGER.info("create computer success ");
 			} catch (SQLException e) {
 				LOGGER.info("Error : create computer method " + e.getMessage());
 			}finally {
@@ -170,7 +171,7 @@ public class ComputerDaoImpl implements ComputerDao {
 				}
 			}
 		}
-		LOGGER.info("create computer method " + obj.toString());
+		
 		return obj;
 	}
 

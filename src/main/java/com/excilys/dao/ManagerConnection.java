@@ -9,11 +9,6 @@ import com.zaxxer.hikari.HikariDataSource;
 
 public class ManagerConnection {
 
-	private static String url;
-	private static String user;
-	private static String password;
-	private static String driverClass;
-	
 	private static Connection connection;
 	
 	private static HikariDataSource datasource;
@@ -35,17 +30,19 @@ public class ManagerConnection {
 	public static Connection getInstance(){
 	
 		if(connection==null){
-		try
-		{
-				DataSource dataSource = ManagerConnection.getDataSource();
-				connection = dataSource.getConnection();
-		}
-		catch (Exception e)
-		{
-				e.printStackTrace();
-		}
-		}
+	
+			try
+				{
+						DataSource dataSource = ManagerConnection.getDataSource();
+						connection = dataSource.getConnection();
+				}
+				catch (Exception e)
+				{
+						e.printStackTrace();
+				}
+				}
 
 		return connection;
 	}
+	
 }
