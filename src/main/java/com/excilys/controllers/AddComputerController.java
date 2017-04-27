@@ -22,10 +22,10 @@ import com.excilys.service.impl.CompanyServiceImpl;
 import com.excilys.service.impl.ComputerServiceImpl;
 import com.excilys.validations.DateValidator;
 
-public class ControllerAddComputer extends HttpServlet {
+public class AddComputerController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOGGER = LoggerFactory.getLogger(ControllerAddComputer.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AddComputerController.class);
 
 	private ComputerService computerService;
 	private CompanyService companyService;

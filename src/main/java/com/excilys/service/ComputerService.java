@@ -59,4 +59,10 @@ public interface ComputerService {
 	 * @return
 	 */
 	public long countComputer();
+	
+	/**
+	 * 
+	 * @param id
+	 */
+	public void delete(Long id);
 }

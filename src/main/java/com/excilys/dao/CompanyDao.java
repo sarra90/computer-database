@@ -28,5 +28,10 @@ public interface CompanyDao {
 	 * @return company
 	 */
 	public Company create(Company company);
+	/**
+	 * 
+	 * @param company
+	 */
+	public void delete(Company company);
 
 }

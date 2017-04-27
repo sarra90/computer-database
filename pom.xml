@@ -18,6 +18,8 @@
 		<HikariCP.version>2.3.5</HikariCP.version>
 		<jstl.version>1.2</jstl.version>
 		<selenium.version>2.53.0</selenium.version>
+		<gatling.version>2.1.7</gatling.version>
+		<gatling-plugin.version>2.1.7</gatling-plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -77,6 +79,13 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.gatling.highcharts</groupId>
+			<artifactId>gatling-charts-highcharts</artifactId>
+			<version>${gatling.version}</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -96,6 +105,19 @@
 				<artifactId>selenium-maven-plugin</artifactId>
 				<version>1.0.1</version>
 			</plugin>
+			<plugin>
+                <groupId>io.gatling</groupId>
+                <artifactId>gatling-maven-plugin</artifactId>
+                <version>${gatling-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+			
 		</plugins>
 	</build>
 </project>

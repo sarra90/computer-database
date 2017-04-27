@@ -16,44 +16,44 @@
 
 	<!-- Delete computers -->
 	<servlet>
-		<servlet-name>ControllerDeleteComputer</servlet-name>
-		<servlet-class>com.excilys.controllers.ControllerDeleteComputer</servlet-class>
+		<servlet-name>DeleteComputerController</servlet-name>
+		<servlet-class>com.excilys.controllers.DeleteComputerController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>ControllerDeleteComputer</servlet-name>
+		<servlet-name>DeleteComputerController</servlet-name>
 		<url-pattern>/deletecomputer</url-pattern>
 	</servlet-mapping>
 
 	<!--Add computer servlet mapping -->
 	<servlet>
-		<servlet-name>ControllerAddComputer</servlet-name>
-		<servlet-class>com.excilys.controllers.ControllerAddComputer</servlet-class>
+		<servlet-name>AddComputerController</servlet-name>
+		<servlet-class>com.excilys.controllers.AddComputerController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>ControllerAddComputer</servlet-name>
+		<servlet-name>AddComputerController</servlet-name>
 		<url-pattern>/addcomputer</url-pattern>
 	</servlet-mapping>
 
 	<!-- dashboard servlet mapping -->
 	<servlet>
-		<servlet-name>ControllerDashboard</servlet-name>
-		<servlet-class>com.excilys.controllers.ControllerDashboard</servlet-class>
+		<servlet-name>DashboardController</servlet-name>
+		<servlet-class>com.excilys.controllers.DashboardController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>ControllerDashboard</servlet-name>
+		<servlet-name>DashboardController</servlet-name>
 		<url-pattern>/dashboard</url-pattern>
 	</servlet-mapping>
 
 	<!-- edit computer servlet mapping -->
 	<servlet>
-		<servlet-name>ControllerEditComputer</servlet-name>
-		<servlet-class>com.excilys.controllers.ControllerEditComputer</servlet-class>
+		<servlet-name>EditComputerController</servlet-name>
+		<servlet-class>com.excilys.controllers.EditComputerController</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>ControllerEditComputer</servlet-name>
+		<servlet-name>EditComputerController</servlet-name>
 		<url-pattern>/editComputer</url-pattern>
 	</servlet-mapping>
 </web-app>

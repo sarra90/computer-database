@@ -15,14 +15,14 @@ import com.excilys.model.Computer;
 import com.excilys.service.ComputerService;
 import com.excilys.service.impl.ComputerServiceImpl;
 
-public class ControllerDashboard extends HttpServlet {
+public class DashboardController extends HttpServlet {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private ComputerService computerService;
-	private static final Logger LOGGER = LoggerFactory.getLogger(ControllerDashboard.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DashboardController.class);
 
 	@Override
 	public void init() throws ServletException {
@@ -35,13 +35,20 @@ public class ControllerDashboard extends HttpServlet {
 			throws ServletException, IOException {
 
 		String searchName = request.getParameter("search");
-		
+		long noOfRecords;
 		
 		if(searchName!=null){
 			
 			List<Computer> listOfComputersByName = computerService.findByName(searchName);
+			
 			request.setAttribute("list", listOfComputersByName);
+			
+			noOfRecords = listOfComputersByName.size();
+			
+			request.setAttribute("numberOfComputers", noOfRecords);
+			
 			request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
+			
 		}
 		else{
 			
@@ -56,7 +63,7 @@ public class ControllerDashboard extends HttpServlet {
 			}
 			List<Computer> listOfComputersPerPage = computerService.findAllPerPage((page - 1) * recordsPage,recordsPage);
 			
-			long noOfRecords = computerService.countComputer();
+			noOfRecords = computerService.countComputer();
 			
 			
 			int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPage);
@@ -81,7 +88,14 @@ public class ControllerDashboard extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		String selection = request.getParameter("selection");
+		String[] tab = selection.split(",");
+		for(int i=0 ; i<tab.length;i++){
+			
+			Long id = Long.parseLong(tab[i]);
+			computerService.delete(id);
+		}
+		doGet(request,response);
 	}
 
 }

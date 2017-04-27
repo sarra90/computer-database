@@ -11,9 +11,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="utf-8">
 <!-- Bootstrap -->
-<link href="./css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="./css/font-awesome.css" rel="stylesheet" media="screen">
-<link href="./css/main.css" rel="stylesheet" media="screen">
+<link href="./static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="./static/css/font-awesome.css" rel="stylesheet" media="screen">
+<link href="./static/css/main.css" rel="stylesheet" media="screen">
 <script type="text/javascript">
 function deleteElements(){
 	var checkboxes = document.getElementsByName('cb');
@@ -63,7 +63,7 @@ function deleteElements(){
 			</div>
 		</div>
 
-		<form id="deleteForm" action="deletecomputer" method="POST">
+		<form id="deleteForm" action="dashboard" method="POST">
 			<input type="hidden" id="selection" name="selection" value="">
 		</form>
 

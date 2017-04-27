@@ -3,6 +3,7 @@ package com.excilys.dao;
 import java.util.List;
 import java.util.Optional;
 
+import com.excilys.model.Company;
 import com.excilys.model.Computer;
 
 public interface ComputerDao {
@@ -28,7 +29,21 @@ public interface ComputerDao {
 	 * @return Computer
 	 */
 	public  Optional<Computer> findById(Long id);
+	
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public List<Computer> findByName(String name);
 
+	/**
+	 * 
+	 * @param company
+	 * @return
+	 */
+	public List<Computer> findByCompany(Company company);
+	
 	/**
 	 * create Computer
 	 * 
@@ -52,16 +67,17 @@ public interface ComputerDao {
 	 */
 	public void delete(Computer computer);
 
-	/**
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public List<Computer> findByName(String name);
-
+	
 	/**
 	 * 
 	 * @return
 	 */
 	public long countComputer();
+	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public void delete(Long id);
 }

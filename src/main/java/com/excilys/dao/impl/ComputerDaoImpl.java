@@ -33,7 +33,8 @@ public class ComputerDaoImpl implements ComputerDao {
 	public static final String QUERY_INSERT_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id)";
 	public static final String QUERY_UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ? WHERE id = ? ";
 	public static final String QUERY_DELETE_COMPUTER = "DELETE FROM computer WHERE id = ?";
-
+	public static final String QUERY_SELECT_ALL_BY_C = "DELETE FROM computer WHERE id = ?";
+	
 	public Connection connect = ManagerConnection.getInstance();
 	private CompanyDao companyDao = new CompanyDaoImpl();
 
@@ -275,7 +276,6 @@ public class ComputerDaoImpl implements ComputerDao {
 			while(rs.next()){
 				result = rs.getLong(1);
 			}
-			System.out.println(result);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -288,4 +288,19 @@ public class ComputerDaoImpl implements ComputerDao {
 		return result;
 	}
 
+	@Override
+	public void delete(Long id) {
+
+		Optional<Computer> computer = findById(id);
+		
+		if(computer.isPresent()){
+			delete(computer.get());
+		}
+	}
+
+	@Override
+	public List<Computer> findByCompany(Company company) {
+
+		return null;
+	}
 }

@@ -20,7 +20,7 @@ import com.excilys.service.impl.CompanyServiceImpl;
 import com.excilys.service.impl.ComputerServiceImpl;
 import com.excilys.validations.DateValidator;
 
-public class ControllerEditComputer extends HttpServlet{
+public class EditComputerController extends HttpServlet{
 	
 	private ComputerService computerService;
 	private CompanyService companyService;

@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 
-public class DashboardTest {
+public class DashboardControllerTest {
 
 	private WebDriver driver;
 	

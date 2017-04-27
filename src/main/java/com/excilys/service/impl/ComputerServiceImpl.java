@@ -63,5 +63,11 @@ public class ComputerServiceImpl implements ComputerService {
 		long count = computerDao.countComputer();
 		return count;
 	}
+
+	@Override
+	public void delete(Long id) {
+		
+		computerDao.delete(id);
+	}
 	
 }
