@@ -54,7 +54,7 @@ public class AddComputerController extends HttpServlet {
 		String name = request.getParameter("name");
 		String introduced = request.getParameter("introduced");
 		String disconstinued = request.getParameter("discontinued");
-		Long id_company = Long.valueOf(request.getParameter("companyId")).longValue();
+		long id_company = Long.valueOf(request.getParameter("companyId")).longValue();
 		System.out.println(introduced);
 		
 		// request parameters validation

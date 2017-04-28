@@ -33,16 +33,11 @@ function deleteElements(){
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="dashboard.html"> Application -
+			<a class="navbar-brand" href="dashboard"> Application -
 				Computer Database </a>
 		</div>
 	</header>
-	<%
-		List<Computer> list = (ArrayList<Computer>) request.getAttribute("list");
-		Long numberOfComputers = (Long) request.getAttribute("numberOfComputers");
-		Integer noOfPages = (Integer) request.getAttribute("noOfPages");
-		
-	%>
+	
 	<section id="main">
 		<div class="container">
 			<h1 id="homeTitle">${ numberOfComputers } computer found</h1>
@@ -50,14 +45,14 @@ function deleteElements(){
 				<div class="pull-left">
 					<form id="searchForm" action="dashboard" method="GET" class="form-inline">
 
-						<input type="search" id="searchbox" name="search"
+						<input type="search" id="search" name="search"
 							class="form-control" placeholder="Search name" /> <input
 							type="submit" id="searchsubmit" value="Filter by name"
 							class="btn btn-primary" />
 					</form>
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="addComputer.jsp">AddComputer</a>
+					<a class="btn btn-success" id="addComputer" href="addcomputer">AddComputer</a>
 					<a class="btn btn-default" id="" href="editComputer.jsp" onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
 			</div>
@@ -96,7 +91,7 @@ function deleteElements(){
 						<tr>
 							<td class="editMode"><input type="checkbox" name="cb"
 								class="cb" value="${element.getId()}"></td>
-							<td><a href="editComputer?idComputer=${element.getId()}">${element.getName()}</a></td>
+							<td><a id="${element.getId()}" href="editComputer?id=${element.getId()}">${element.getName()}</a></td>
 							<td>${ element.getIntroduced() }</td>
 							<td>${ element.getDisconstinued() }</td>
 							<td>${ element.getManufacturer().getName() }</td>

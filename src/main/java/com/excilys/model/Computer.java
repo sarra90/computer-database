@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 public class Computer {
 
-	private Long id;
+	private long id;
 
 	private String name;
 
@@ -35,7 +35,7 @@ public class Computer {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -74,18 +74,6 @@ public class Computer {
 
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((disconstinued == null) ? 0 : disconstinued.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
-		result = prime * result + ((manufacturer == null) ? 0 : manufacturer.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		
 		boolean result = false ;
@@ -112,15 +100,19 @@ public class Computer {
 		return result;
 	}
 
+	
+
 	@Override
 	public String toString() {
-		return "Computer [name=" + name + ", introduced=" + introduced + ", disconstinued=" + disconstinued
-				+ ", manufacturer=" + manufacturer + "]";
+		return "Computer [id=" + id + ", name=" + name + ", introduced=" + introduced + ", disconstinued="
+				+ disconstinued + ", manufacturer=" + manufacturer + "]";
 	}
+
+
 
 	public static class Builder {
 
-		private Long id;
+		private long id;
 		
 		private String name;
 
@@ -134,7 +126,7 @@ public class Computer {
 			this.name = name;
 		}
 
-		public Builder id(Long id){
+		public Builder id(long id){
 			this.id = id;
 			return this;
 		}

@@ -28,7 +28,7 @@ public interface ComputerDao {
 	 * @param id
 	 * @return Computer
 	 */
-	public  Optional<Computer> findById(Long id);
+	public  Optional<Computer> findById(long id);
 	
 	/**
 	 * 
@@ -79,5 +79,5 @@ public interface ComputerDao {
 	 * @param id
 	 * @return
 	 */
-	public void delete(Long id);
+	public void delete(long id);
 }

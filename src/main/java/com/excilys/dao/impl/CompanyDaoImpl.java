@@ -53,7 +53,7 @@ public class CompanyDaoImpl implements CompanyDao {
 	}
 
 	@Override
-	public Company findById(Long id) {
+	public Company findById(long id) {
 		Company company = null;
 		ResultSet rs;
 		PreparedStatement statement;

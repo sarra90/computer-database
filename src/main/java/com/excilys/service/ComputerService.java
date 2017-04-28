@@ -25,7 +25,7 @@ public interface ComputerService {
 	 * @param id
 	 * @return
 	 */
-	public Optional<Computer> findById(Long id);
+	public Optional<Computer> findById(long id);
 
 	/**
 	 * 
@@ -64,5 +64,5 @@ public interface ComputerService {
 	 * 
 	 * @param id
 	 */
-	public void delete(Long id);
+	public void delete(long id);
 }

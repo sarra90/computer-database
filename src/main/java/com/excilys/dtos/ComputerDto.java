@@ -2,7 +2,7 @@ package com.excilys.dtos;
 
 public class ComputerDto {
 
-	private Long id;
+	private long id;
 
 	private String name;
 
@@ -21,11 +21,11 @@ public class ComputerDto {
 		this.id_company = builder.id_company;
 	}
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -49,11 +49,11 @@ public class ComputerDto {
 		return disconstinued;
 	}
 
-	public Long getId_company() {
+	public long getId_company() {
 		return id_company;
 	}
 
-	public void setId_company(Long id_company) {
+	public void setId_company(long id_company) {
 		this.id_company = id_company;
 	}
 
@@ -68,7 +68,7 @@ public class ComputerDto {
 	}
 	public static class Builder {
 
-		private Long id;
+		private long id;
 
 		private String name;
 
@@ -76,9 +76,9 @@ public class ComputerDto {
 
 		private String disconstinued;
 
-		private Long id_company;
+		private long id_company;
 		
-		public Builder id(Long id) {
+		public Builder id(long id) {
 			this.id = id;
 			return this;
 		}
@@ -97,7 +97,7 @@ public class ComputerDto {
 			this.disconstinued = disconstinued;
 			return this;
 		}
-		public Builder idCompany(Long id_company) {
+		public Builder idCompany(long id_company) {
 			this.id_company = id_company;
 			return this;
 		}

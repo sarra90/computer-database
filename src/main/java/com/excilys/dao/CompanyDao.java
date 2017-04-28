@@ -19,7 +19,7 @@ public interface CompanyDao {
 	 * @param id
 	 * @return company
 	 */
-	public Company findById(Long id);
+	public Company findById(long id);
 
 	/**
 	 * create company

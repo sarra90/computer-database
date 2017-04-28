@@ -17,7 +17,7 @@ public class ComputerServiceImpl implements ComputerService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
 
 	@Override
-	public Optional<Computer> findById(Long id) {
+	public Optional<Computer> findById(long id) {
 		
 		Optional<Computer> computer = computerDao.findById(id);
 		
@@ -65,7 +65,7 @@ public class ComputerServiceImpl implements ComputerService {
 	}
 
 	@Override
-	public void delete(Long id) {
+	public void delete(long id) {
 		
 		computerDao.delete(id);
 	}

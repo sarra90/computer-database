@@ -119,7 +119,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	}
 
 	@Override
-	public Optional<Computer> findById(Long id) {
+	public Optional<Computer> findById(long id) {
 		Computer computer = null;
 		ResultSet rs = null;
 		PreparedStatement statement = null;
@@ -131,9 +131,11 @@ public class ComputerDaoImpl implements ComputerDao {
 				Date introduced = rs.getDate("introduced");
 				Date discontinued = rs.getDate("discontinued");
 				computer = new Computer.Builder(rs.getString("name"))
+						.id(id)
 						.introduced((introduced != null) ? introduced.toLocalDate() : null)
 						.disconstinued((discontinued != null) ? discontinued.toLocalDate() : null)
 						.manufacturer(new CompanyDaoImpl().findById(rs.getLong("company_id"))).build();
+				LOGGER.info("findById success ");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -187,9 +189,10 @@ public class ComputerDaoImpl implements ComputerDao {
 				statement.setDate(3, Date.valueOf(obj.getDisconstinued()));
 				statement.setLong(4, obj.getId());
 
-				if(statement.execute()){
-					LOGGER.info("update Method " + obj.toString());
-				}
+				statement.executeUpdate();
+				
+					LOGGER.info("update success ");
+				
 				
 			} catch (SQLException e) {
 				LOGGER.info("Error : Connexion failed" + e.getMessage());
@@ -208,26 +211,26 @@ public class ComputerDaoImpl implements ComputerDao {
 	public void delete(Computer obj) {
 
 		PreparedStatement statement = null;
-		
-		if(findById(obj.getId())!=null){
 			try {
 				statement=connect.prepareStatement(QUERY_DELETE_COMPUTER);
 				
 				statement.setLong(1, obj.getId());
 				
-				if(statement.execute()){
-					LOGGER.info("delete Method " + obj.toString());
-				}
-				
+				statement.executeUpdate();
+					
+				LOGGER.info("delete success ");
+					
 			} catch (SQLException e) {
+				
 				LOGGER.info("Error : Connexion failed" + e.getMessage());
+				
 			}finally {
 				try {
 					statement.close();
 				} catch (SQLException e) {
 					LOGGER.info("Error : statement close" + e.getMessage());
 				}
-			}
+			
 			
 		}
 	}
@@ -250,10 +253,11 @@ public class ComputerDaoImpl implements ComputerDao {
 
 				computer = builder.introduced((introduced != null) ? introduced.toLocalDate() : null)
 						.disconstinued((discontinued != null) ? discontinued.toLocalDate() : null)
-						.manufacturer(companyDao.findById(rs.getLong("company_id"))).build();
+						.manufacturer(companyDao.findById(rs.getLong("company_id")))
+						.id(rs.getLong("id")).build();
 				listComputerFindByName.add(computer);
 			}
-			
+			LOGGER.info("find by name success ");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -290,10 +294,9 @@ public class ComputerDaoImpl implements ComputerDao {
 	}
 
 	@Override
-	public void delete(Long id) {
-
-		Optional<Computer> computer = findById(id);
+	public void delete(long id) {
 		
+		Optional<Computer> computer = findById(id);
 		if(computer.isPresent()){
 			delete(computer.get());
 		}
