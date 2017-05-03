@@ -12,11 +12,10 @@ public class DateValidator {
 
 		Validator validator = new Validator();
 		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        
+		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        if(dateToValidate!=null){
 		try {
-			LocalDate date =  LocalDate.parse(dateToValidate, formatter);
-
+			LocalDate date =  LocalDate.parse(dateToValidate);
 			validator.setValid(true);
 
 			validator.setError(null);
@@ -28,6 +27,11 @@ public class DateValidator {
 			validator.setError("Date is not valid");
 
 		}
+        }else{
+        	validator.setValid(false);
+
+			validator.setError("Date is not valid");
+        }
 		return validator;
 	}
 

@@ -35,7 +35,9 @@ public class ComputerDaoImpl implements ComputerDao {
 	public static final String QUERY_DELETE_COMPUTER = "DELETE FROM computer WHERE id = ?";
 	public static final String QUERY_SELECT_ALL_BY_C = "DELETE FROM computer WHERE id = ?";
 	
-	public Connection connect = ManagerConnection.getInstance();
+	private Connection connect = ManagerConnection.getInstance();
+	
+	
 	private CompanyDao companyDao = new CompanyDaoImpl();
 
 	@Override
@@ -72,6 +74,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		}
 		LOGGER.info("findAll method : ", listOfComputers.size());
 		LOGGER.debug("ResultSet", rs);
+		LOGGER.debug("find all computers "+listOfComputers);
 		return listOfComputers;
 	}
 
@@ -150,8 +153,8 @@ public class ComputerDaoImpl implements ComputerDao {
 	}
 
 	@Override
-	public Computer create(Computer obj) {
-
+	public boolean create(Computer obj) {
+		boolean result = false;
 		PreparedStatement statement = null;
 		if (!findById(obj.getId()).isPresent()) {
 			String query = QUERY_INSERT_COMPUTER + "VALUES(?, ?, ?, ?)";
@@ -161,7 +164,9 @@ public class ComputerDaoImpl implements ComputerDao {
 				statement.setDate(2, Date.valueOf(obj.getIntroduced()));
 				statement.setDate(3, Date.valueOf(obj.getDisconstinued()));
 				statement.setLong(4, obj.getManufacturer().getId());
-				statement.execute();
+				
+				result=statement.execute();
+				
 				LOGGER.info("create computer success ");
 			} catch (SQLException e) {
 				LOGGER.info("Error : create computer method " + e.getMessage());
@@ -174,7 +179,8 @@ public class ComputerDaoImpl implements ComputerDao {
 			}
 		}
 		
-		return obj;
+		
+		return result;
 	}
 
 	@Override
@@ -306,5 +312,9 @@ public class ComputerDaoImpl implements ComputerDao {
 	public List<Computer> findByCompany(Company company) {
 
 		return null;
+	}
+
+	public void setConnect(Connection connect) {
+		this.connect = connect;
 	}
 }

@@ -15,6 +15,7 @@
 		<javax.version>6.0</javax.version>
 		<servlet.version>2.5</servlet.version>
 		<junit.version>4.12</junit.version>
+		<dbunit.version>2.5.3</dbunit.version>
 		<HikariCP.version>2.3.5</HikariCP.version>
 		<jstl.version>1.2</jstl.version>
 		<selenium.version>2.53.0</selenium.version>
@@ -79,7 +80,11 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+			<version>${dbunit.version}</version>
+		</dependency>
 
 	</dependencies>
 
@@ -101,11 +106,11 @@
 				<version>1.0.1</version>
 			</plugin>
 			<plugin>
-                <groupId>io.gatling</groupId>
-                <artifactId>gatling-maven-plugin</artifactId>
-                <version>${gatling-plugin.version}</version>
-            </plugin>
-			
+				<groupId>io.gatling</groupId>
+				<artifactId>gatling-maven-plugin</artifactId>
+				<version>${gatling-plugin.version}</version>
+			</plugin>
+
 		</plugins>
 	</build>
 </project>

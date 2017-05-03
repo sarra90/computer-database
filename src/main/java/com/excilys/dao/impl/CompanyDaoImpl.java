@@ -25,7 +25,6 @@ public class CompanyDaoImpl implements CompanyDao {
 
 	public Connection connect = ManagerConnection.getInstance();
 
-	//private ComputerDao ComputerDao = new ComputerDaoImpl();
 	
 	@Override
 	public List<Company> findAll() {

@@ -32,7 +32,7 @@ public interface ComputerService {
 	 * @param obj
 	 * @return
 	 */
-	public Computer create(Computer obj);
+	public boolean create(Computer obj);
 
 	/**
 	 * 

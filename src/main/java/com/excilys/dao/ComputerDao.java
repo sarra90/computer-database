@@ -1,5 +1,6 @@
 package com.excilys.dao;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,7 +51,7 @@ public interface ComputerDao {
 	 * @param Computer
 	 * @return Computer
 	 */
-	public Computer create(Computer computer);
+	public boolean create(Computer computer);
 
 	/**
 	 * update Computer
@@ -80,4 +81,6 @@ public interface ComputerDao {
 	 * @return
 	 */
 	public void delete(long id);
+
+	public void setConnect(Connection connect);
 }
