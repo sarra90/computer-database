@@ -59,7 +59,7 @@ public interface ComputerDao {
 	 * @param Computer
 	 * @return Computer
 	 */
-	public Computer update(Computer computer);
+	public boolean update(Computer computer);
 
 	/**
 	 * delete Computer

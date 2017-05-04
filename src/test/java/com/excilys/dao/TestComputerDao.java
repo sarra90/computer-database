@@ -2,7 +2,6 @@ package com.excilys.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.time.LocalDate;
 import java.util.Optional;
 
 import org.dbunit.DatabaseTestCase;
@@ -14,7 +13,6 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.junit.Test;
 
 import com.excilys.dao.impl.ComputerDaoImpl;
-import com.excilys.model.Company;
 import com.excilys.model.Computer;
 
 public class TestComputerDao extends DatabaseTestCase {
@@ -27,7 +25,7 @@ public class TestComputerDao extends DatabaseTestCase {
 	protected IDatabaseConnection getConnection() throws Exception {
 
 		Class.forName("com.mysql.jdbc.Driver");
-		connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/computer-database-db", "root", "root");
+		connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/computer-database-db", "root", "");
 		return new DatabaseConnection(connect);
 	}
 
@@ -49,13 +47,14 @@ public class TestComputerDao extends DatabaseTestCase {
         Optional<Computer> computer = computerDao.findById(id);
         assertFalse(computer.isPresent());
     }
+	
 	/*
 	@Test
     public void test_find_by_id_if_id_exist() {
         long id = 1;
         Optional<Computer> computer = computerDao.findById(id);
         assertTrue(computer.isPresent());
-    }*/
+    }
 	
 	@Test
     public void test_add_computer(){
@@ -70,10 +69,7 @@ public class TestComputerDao extends DatabaseTestCase {
         boolean res = computerDao.create(computer);
         assertEquals(count + 1, computerDao.countComputer());
 
-    }
+    }*/
 	
-	
-
-
 }
 

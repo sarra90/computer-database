@@ -4,14 +4,14 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	<display-name>computer-database</display-name>
 
-	<!-- first Servlet mapping -->
 	<servlet>
-		<servlet-name>firstServlet</servlet-name>
-		<servlet-class>com.excilys.controllers.ComputerController</servlet-class>
+		<servlet-name>index</servlet-name>
+		<servlet-class>com.excilys.controllers.DashboardController</servlet-class>
 	</servlet>
+
 	<servlet-mapping>
-		<servlet-name>firstServlet</servlet-name>
-		<url-pattern>/controller</url-pattern>
+		<servlet-name>index</servlet-name>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
 	<!-- Delete computers -->

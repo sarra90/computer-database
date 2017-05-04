@@ -72,7 +72,6 @@ public class Computer {
 		this.manufacturer = manufacturer;
 	}
 
-
 	@Override
 	public boolean equals(Object obj) {
 		
@@ -99,8 +98,6 @@ public class Computer {
 		}
 		return result;
 	}
-
-	
 
 	@Override
 	public String toString() {

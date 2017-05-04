@@ -39,7 +39,7 @@ public interface ComputerService {
 	 * @param obj
 	 * @return
 	 */
-	public Computer update(Computer obj);
+	public boolean update(Computer obj);
 
 	/**
 	 * 

@@ -30,7 +30,7 @@ public class ComputerServiceImpl implements ComputerService {
 	}
 
 	@Override
-	public Computer update(Computer obj) {
+	public boolean update(Computer obj) {
 		return computerDao.update(obj);
 	}
 
