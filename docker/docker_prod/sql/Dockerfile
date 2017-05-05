@@ -1,4 +1,4 @@
-FROM mysql:8.0
+FROM mysql:5.5
 
 VOLUME /mySQL
 ENV MYSQL_ROOT_PASSWORD=root
