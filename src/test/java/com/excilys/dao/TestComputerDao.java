@@ -25,7 +25,7 @@ public class TestComputerDao extends DatabaseTestCase {
 	protected IDatabaseConnection getConnection() throws Exception {
 
 		Class.forName("com.mysql.jdbc.Driver");
-		connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/computer-database-db", "root", "");
+		connect = DriverManager.getConnection("jdbc:mysql://172.18.0.2:3306/computer-database-db", "admincdb", "qwerty1234");
 		return new DatabaseConnection(connect);
 	}
 

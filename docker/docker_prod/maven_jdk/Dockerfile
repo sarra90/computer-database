@@ -1,14 +1,12 @@
-FROM java:8 
+FROM maven:3-jdk-8
 
-# Install maven
-RUN apt-get update
-RUN apt-get install -y maven
+RUN mkdir -p /usr/src/app
 
-WORKDIR /code
+WORKDIR /usr/src/app
 
-# Prepare by downloading dependencies
-ADD pom.xml /code/pom.xml
-RUN ["mvn", "dependency:resolve"]
-RUN ["mvn","validate"]
-RUN ["mvn", "compile"]
-RUN ["mvn", "test"]
+#VOLUME CDB_Volume
+
+
+CMD mvn package -Dmaven.test.skip=true
+
+

@@ -1,14 +1,18 @@
-FROM java:8 
+FROM jenkins:2.32.3
 
-# Install maven
-RUN apt-get update
-RUN apt-get install -y maven
+USER root
+RUN mkdir /var/log/jenkins
+RUN chown -R  jenkins:jenkins /var/log/jenkins
+RUN mkdir /cdb
+RUN chown -R  jenkins:jenkins /cdb
+# RUN mkdir /cdb_war
+# RUN chown -R  jenkins:jenkins /cdb_war
+RUN apt-get update \
+      && apt-get install -y sudo \
+      && rm -rf /var/lib/apt/lists/*
+RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
+RUN groupadd -g 994 docker && usermod -a -G docker jenkins
 
-WORKDIR /code
+VOLUME WAR_CDB
 
-# Prepare by downloading dependencies
-ADD pom.xml /code/pom.xml
-RUN ["mvn", "dependency:resolve"]
-RUN ["mvn","validate"]
-RUN ["mvn", "compile"]
-RUN ["mvn", "test"]
+USER jenkins
