@@ -4,8 +4,6 @@ RUN mkdir -p /usr/src/app
 
 WORKDIR /usr/src/app
 
-#VOLUME CDB_Volume
-
 
 CMD mvn package -Dmaven.test.skip=true
 

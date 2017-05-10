@@ -7,7 +7,7 @@ FROM tomcat:7.0-jre8
 #comment in no jenkins
 VOLUME ["CDB_Volume:/cdb"]
 
-
+VOLUME WAR_CDB
 #docker run --network=network-prod -it -p 80:80 --name tomcat-prod 
 -v /home/excilys/workspace/computer-database/target:/usr/local/tomcat/webapps tomcat
 

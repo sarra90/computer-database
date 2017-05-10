@@ -38,7 +38,7 @@ public class TestComputerDao extends DatabaseTestCase {
 
 	@Test
 	public void test_count() {
-		assertEquals(computerDao.countComputer(), 3);
+		assertEquals(3, computerDao.countComputer());
 	}
 	
 	@Test

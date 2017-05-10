@@ -81,7 +81,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			rs = statement.executeQuery();
 
 			while (rs.next()) {
-				
+
 				Date introduced = rs.getDate("introduced");
 				Date discontinued = rs.getDate("discontinued");
 
@@ -128,10 +128,10 @@ public class ComputerDaoImpl implements ComputerDao {
 			rs = statement.executeQuery();
 
 			while (rs.next()) {
-				
+
 				Date introduced = rs.getDate("introduced");
 				Date discontinued = rs.getDate("discontinued");
-				
+
 				Company company = new Company.Builder()
 											 .id(rs.getLong("id_company"))
 											 .name(rs.getString("name_company"))
@@ -188,13 +188,14 @@ public class ComputerDaoImpl implements ComputerDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
+		}
+		/*finally {
 			try {
 				statement.close();
 			} catch (SQLException e) {
 				LOGGER.info("Error : statement not closed" + e.getMessage());
 			}
-		}
+		}*/
 		return Optional.ofNullable(computer);
 	}
 
@@ -219,7 +220,7 @@ public class ComputerDaoImpl implements ComputerDao {
 				computer = builder.introduced((introduced != null) ? introduced.toLocalDate() : null)
 						.disconstinued((discontinued != null) ? discontinued.toLocalDate() : null)
 						.manufacturer(company).build();
-				
+
 				listComputerFindByName.add(computer);
 			}
 			LOGGER.info("find by name success ");
@@ -240,20 +241,20 @@ public class ComputerDaoImpl implements ComputerDao {
 		boolean result = false;
 		PreparedStatement statement = null;
 		if (!findById(obj.getId()).isPresent()) {
-			
+
 			String query = QUERY_INSERT_COMPUTER + "VALUES(?, ?, ?, ?)";
-			
+
 			LocalDate introduced = obj.getIntroduced();
-			
+
 			LocalDate disconstinued = obj .getDisconstinued();
-			
+
 			Company company =  obj.getManufacturer();
-			
+
 			try {
 				statement = connect.prepareStatement(query);
-				
+
 				statement.setString(1, obj.getName());
-				
+
 				if(introduced!=null){
 				statement.setDate(2,Date.valueOf(introduced));
 				}else{
@@ -291,15 +292,15 @@ public class ComputerDaoImpl implements ComputerDao {
 	public boolean update(Computer obj) {
 
 		boolean result = false;
-		
+
 		PreparedStatement statement = null;
-		
+
 		if (findById(obj.getId()) != null) {
-			
+
 			LocalDate introduced = obj.getIntroduced();
-			
+
 			LocalDate disconstinued = obj .getDisconstinued();
-			
+
 			Company company =  obj.getManufacturer();
 			try {
 				statement = connect.prepareStatement(QUERY_UPDATE_COMPUTER);
@@ -321,7 +322,7 @@ public class ComputerDaoImpl implements ComputerDao {
 					statement.setNull(4, java.sql.Types.BIGINT);
 				}
 				if(statement.executeUpdate()!=0){
-					
+
 					result=true;
 				}
 
