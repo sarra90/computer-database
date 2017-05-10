@@ -2,5 +2,5 @@ sudo cp -rf ./* /cdb
 sudo rm -rf ./*
 sudo docker start -i mvn-test
 sudo docker start -i mvn-prod
-sudo cp -a /cdb/target/computerdb.war /cdb_war
+sudo cp -a /cdb/target/computerdatabase.war /cdb_war
 sudo rm -rf /cdb/*

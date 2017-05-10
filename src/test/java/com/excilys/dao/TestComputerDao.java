@@ -48,14 +48,14 @@ public class TestComputerDao extends DatabaseTestCase {
         assertFalse(computer.isPresent());
     }
 	
-	/*
+	
 	@Test
     public void test_find_by_id_if_id_exist() {
         long id = 1;
         Optional<Computer> computer = computerDao.findById(id);
         assertTrue(computer.isPresent());
     }
-	
+	/*
 	@Test
     public void test_add_computer(){
 

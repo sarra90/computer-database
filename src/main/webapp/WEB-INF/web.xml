@@ -44,7 +44,7 @@
 
 	<servlet-mapping>
 		<servlet-name>DashboardController</servlet-name>
-		<url-pattern>/dashboard</url-pattern>
+		<url-pattern>/dash</url-pattern>
 	</servlet-mapping>
 
 	<!-- edit computer servlet mapping -->
@@ -54,6 +54,6 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>EditComputerController</servlet-name>
-		<url-pattern>/editComputer</url-pattern>
+		<url-pattern>/edit</url-pattern>
 	</servlet-mapping>
 </web-app>
