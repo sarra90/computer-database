@@ -1,30 +1,32 @@
 package com.excilys.service;
 
-import java.util.List;
-
 import com.excilys.model.Company;
+import java.util.List;
 
 public interface CompanyService {
 
-		
-		/**
-		 * 
-		 * @return
-		 */
-		public List<Company> findAll();
+    /**
+     * find all company.
+     * 
+     * @return list of company.
+     */
+    List<Company> findAll();
 
-		/**
-		 * 
-		 * @param id
-		 * @return
-		 */
-		public  Company findById(Long id);
-		
-		/**
-		 * 
-		 * @param obj
-		 * @return
-		 */
-		public  Company create(Company obj);
-		
+    /**
+     * find company by id.
+     * 
+     * @param id.
+     * @return a company.
+     */
+    Company findById(Long id);
+
+    /**
+     * create company.
+     * 
+     * @param obj
+     *            a company.
+     * @return a company.
+     */
+    Company create(Company obj);
+
 }

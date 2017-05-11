@@ -1,68 +1,83 @@
 package com.excilys.service;
 
+import com.excilys.model.Computer;
 import java.util.List;
 import java.util.Optional;
 
-import com.excilys.model.Computer;
-
 /**
+ * interface represent a computer service.
  * 
  * @author sarra
  *
  */
 public interface ComputerService {
 
-	/**
-	 * 
-	 * @return
-	 */
-	public List<Computer> findAll();
+    /**
+     * find all computer.
+     * 
+     * @return a list of computer.
+     */
+    List<Computer> findAll();
 
-	public List<Computer> findAllPerPage(int offset, int numberOfRecords);
+    /**
+     * find all computer per page.
+     * 
+     * @param offset.
+     * @param numberOfRecords.
+     * @return a list of computer.
+     */
+    List<Computer> findAllPerPage(int offset, int numberOfRecords);
 
-	/**
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public Optional<Computer> findById(long id);
+    /**
+     * find computer by id.
+     * 
+     * @param id.
+     * @return a computer.
+     */
+    Optional<Computer> findById(long id);
 
-	/**
-	 * 
-	 * @param obj
-	 * @return
-	 */
-	public boolean create(Computer obj);
+    /**
+     * create computer.
+     * 
+     * @param obj.
+     * @return a boolean .
+     */
+    boolean create(Computer obj);
 
-	/**
-	 * 
-	 * @param obj
-	 * @return
-	 */
-	public boolean update(Computer obj);
+    /**
+     * update computer.
+     * 
+     * @param obj.
+     * @return a boolean.
+     */
+    boolean update(Computer obj);
 
-	/**
-	 * 
-	 * @param obj
-	 */
-	public void delete(Computer obj);
+    /**
+     * delete a computer.
+     * 
+     * @param obj.
+     */
+    public void delete(Computer obj);
 
-	/**
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public List<Computer> findByName(String name);
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public long countComputer();
-	
-	/**
-	 * 
-	 * @param id
-	 */
-	public void delete(long id);
+    /**
+     * find computer by name.
+     * 
+     * @param name.
+     * @return a list of computer.
+     */
+    List<Computer> findByName(String name);
+
+    /**
+     * count a number of computer.
+     * 
+     * @return a long the number of computer.
+     */
+    long countComputer();
+
+    /**
+     * delete computer.
+     * 
+     * @param id.
+     */
+    void delete(long id);
 }

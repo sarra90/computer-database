@@ -10,26 +10,26 @@ import org.testng.annotations.BeforeMethod;
 
 public class DashboardControllerTest {
 
-	private WebDriver driver;
-	
-	@Before
-	public void beforeMethod(){
-		
+    private WebDriver driver;
 
-		System.setProperty("webdriver.chrome.driver", "/home/excilys/workspace/chromedriver");
-		driver = new ChromeDriver();
-		driver.get("http://localhost:8080/computerdatabase/dashboard");
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	@Test
-	public void testNumberOfComputers(){
+    @Before
+    public void beforeMethod() {
 
-		System.out.println(driver.findElement(By.id("homeTitle")).getText());
-		Assert.assertEquals(driver.findElement(By.id("homeTitle")).getText(), "574");
-		
-	}
+        System.setProperty("webdriver.chrome.driver", "/home/excilys/workspace/chromedriver");
+        driver = new ChromeDriver();
+        driver.get("http://localhost:8080/computerdatabase/dashboard");
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testNumberOfComputers() {
+
+        System.out.println(driver.findElement(By.id("homeTitle")).getText());
+        Assert.assertEquals(driver.findElement(By.id("homeTitle")).getText(), "574");
+
+    }
 }
