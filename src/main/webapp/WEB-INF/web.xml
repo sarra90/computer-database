@@ -6,7 +6,7 @@
 
 	<servlet>
 		<servlet-name>index</servlet-name>
-		<servlet-class>com.excilys.controllers.DashboardController</servlet-class>
+		<servlet-class>com.excilys.controller.DashboardController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -17,7 +17,7 @@
 	<!-- Delete computers -->
 	<servlet>
 		<servlet-name>DeleteComputerController</servlet-name>
-		<servlet-class>com.excilys.controllers.DeleteComputerController</servlet-class>
+		<servlet-class>com.excilys.controller.DeleteComputerController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -28,7 +28,7 @@
 	<!--Add computer servlet mapping -->
 	<servlet>
 		<servlet-name>AddComputerController</servlet-name>
-		<servlet-class>com.excilys.controllers.AddComputerController</servlet-class>
+		<servlet-class>com.excilys.controller.AddComputerController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -39,7 +39,7 @@
 	<!-- dashboard servlet mapping -->
 	<servlet>
 		<servlet-name>DashboardController</servlet-name>
-		<servlet-class>com.excilys.controllers.DashboardController</servlet-class>
+		<servlet-class>com.excilys.controller.DashboardController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -50,7 +50,7 @@
 	<!-- edit computer servlet mapping -->
 	<servlet>
 		<servlet-name>EditComputerController</servlet-name>
-		<servlet-class>com.excilys.controllers.EditComputerController</servlet-class>
+		<servlet-class>com.excilys.controller.EditComputerController</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>EditComputerController</servlet-name>

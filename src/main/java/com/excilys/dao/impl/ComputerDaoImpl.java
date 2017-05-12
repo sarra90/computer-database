@@ -10,11 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.excilys.dao.ComputerDao;
-import com.excilys.dao.ManagerConnection;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
 import com.excilys.model.Computer.Builder;
@@ -53,7 +54,11 @@ public class ComputerDaoImpl implements ComputerDao {
 
     public static final String QUERY_SELECT_ALL_BY_COMPANY = "DELETE FROM computer WHERE id = ?";
 
-    private Connection connect = ManagerConnection.getInstance();
+    private DataSource dataSource;
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Override
     public List<Computer> findAll() {
@@ -62,8 +67,10 @@ public class ComputerDaoImpl implements ComputerDao {
         Computer computer = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
+        Connection conn;
         try {
-            statement = connect.prepareStatement(QUERY_SELECT_ALL_COMPUTER);
+            conn = dataSource.getConnection();
+            statement = conn.prepareStatement(QUERY_SELECT_ALL_COMPUTER);
             rs = statement.executeQuery();
 
             while (rs.next()) {
@@ -102,11 +109,13 @@ public class ComputerDaoImpl implements ComputerDao {
         String query = QUERY_SELECT_ALL_COMPUTER_PER_PAGE + offset + ", " + numberOfRecords;
         List<Computer> listOfComputersPerPage = new ArrayList<Computer>();
         Computer computer = null;
+        Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
 
         try {
-            statement = connect.prepareStatement(query);
+            conn = dataSource.getConnection();
+            statement = conn.prepareStatement(query);
             rs = statement.executeQuery();
 
             while (rs.next()) {
@@ -125,13 +134,15 @@ public class ComputerDaoImpl implements ComputerDao {
                 listOfComputersPerPage.add(computer);
             }
             rs.close();
+            statement.close();
         } catch (SQLException e) {
             LOGGER.info("Error : findAll method " + e.getMessage());
         } finally {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                LOGGER.info("Error : statement close" + e.getMessage());
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                }
             }
         }
         LOGGER.info("findAllPerPage method : ", listOfComputersPerPage.size());
@@ -143,9 +154,11 @@ public class ComputerDaoImpl implements ComputerDao {
         Computer computer = null;
         ResultSet rs = null;
         PreparedStatement statement = null;
+        Connection conn;
         String query = QUERY_SELECT_COMPUTER_WHERE_ID + id + ";";
         try {
-            statement = connect.prepareStatement(query);
+            conn = dataSource.getConnection();
+            statement = conn.prepareStatement(query);
             rs = statement.executeQuery();
             if (rs.next()) {
                 Date introduced = rs.getDate("introduced");
@@ -179,8 +192,10 @@ public class ComputerDaoImpl implements ComputerDao {
         Computer computer;
         PreparedStatement statement = null;
         ResultSet rs = null;
+        Connection conn;
         try {
-            statement = connect.prepareStatement(QUERY_SELECT_ALL_BY_NAME);
+            conn = dataSource.getConnection();
+            statement = conn.prepareStatement(QUERY_SELECT_ALL_BY_NAME);
             statement.setString(1, name + "%");
             rs = statement.executeQuery();
             while (rs.next()) {
@@ -213,6 +228,7 @@ public class ComputerDaoImpl implements ComputerDao {
     public boolean create(Computer obj) {
         boolean result = false;
         PreparedStatement statement = null;
+        Connection conn = null;
         if (!findById(obj.getId()).isPresent()) {
 
             String query = QUERY_INSERT_COMPUTER + "VALUES(?, ?, ?, ?)";
@@ -224,7 +240,8 @@ public class ComputerDaoImpl implements ComputerDao {
             Company company = obj.getManufacturer();
 
             try {
-                statement = connect.prepareStatement(query);
+                conn = dataSource.getConnection();
+                statement = conn.prepareStatement(query);
 
                 statement.setString(1, obj.getName());
 
@@ -249,12 +266,6 @@ public class ComputerDaoImpl implements ComputerDao {
                 LOGGER.info("create computer success ");
             } catch (SQLException e) {
                 LOGGER.info("Error : create computer method " + e.getMessage());
-            } finally {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    LOGGER.info("Error : statement close" + e.getMessage());
-                }
             }
         }
 
@@ -267,6 +278,7 @@ public class ComputerDaoImpl implements ComputerDao {
         boolean result = false;
 
         PreparedStatement statement = null;
+        Connection conn = null;
 
         if (findById(obj.getId()) != null) {
 
@@ -276,7 +288,8 @@ public class ComputerDaoImpl implements ComputerDao {
 
             Company company = obj.getManufacturer();
             try {
-                statement = connect.prepareStatement(QUERY_UPDATE_COMPUTER);
+                conn = dataSource.getConnection();
+                statement = conn.prepareStatement(QUERY_UPDATE_COMPUTER);
                 statement.setString(1, obj.getName());
 
                 if (introduced != null) {
@@ -318,8 +331,10 @@ public class ComputerDaoImpl implements ComputerDao {
     public void delete(Computer obj) {
 
         PreparedStatement statement = null;
+        Connection conn = null;
         try {
-            statement = connect.prepareStatement(QUERY_DELETE_COMPUTER);
+            conn = dataSource.getConnection();
+            statement = conn.prepareStatement(QUERY_DELETE_COMPUTER);
 
             statement.setLong(1, obj.getId());
 
@@ -344,22 +359,19 @@ public class ComputerDaoImpl implements ComputerDao {
     @Override
     public long countComputer() {
         long result = 0;
-        PreparedStatement statement = null;
+        PreparedStatement statement;
         ResultSet rs;
+        Connection conn;
         try {
-            statement = connect.prepareStatement(QUERY_SELECT_COUNT);
+            conn = dataSource.getConnection();
+            statement = conn.prepareStatement(QUERY_SELECT_COUNT);
             rs = statement.executeQuery();
             while (rs.next()) {
                 result = rs.getLong(1);
             }
+            System.out.println(result);
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                LOGGER.info("Error : statement close" + e.getMessage());
-            }
         }
         return result;
     }
@@ -379,7 +391,4 @@ public class ComputerDaoImpl implements ComputerDao {
         return null;
     }
 
-    public void setConnect(Connection connect) {
-        this.connect = connect;
-    }
 }

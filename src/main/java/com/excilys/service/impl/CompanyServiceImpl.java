@@ -13,8 +13,12 @@ import com.excilys.service.CompanyService;
 
 public class CompanyServiceImpl implements CompanyService {
 
-    private CompanyDao companyDao = new CompanyDaoImpl();
+    private CompanyDao companyDao;
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
+
+    public void setCompanyDao(CompanyDao companyDao) {
+        this.companyDao = companyDao;
+    }
 
     @Override
     public List<Company> findAll() {

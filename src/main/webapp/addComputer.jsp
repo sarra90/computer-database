@@ -9,9 +9,9 @@
 <title>Computer Database</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
-<link href="./static/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="./static/css/font-awesome.css" rel="stylesheet" media="screen">
-<link href="./static/css/main.css" rel="stylesheet" media="screen">
+<link href="./css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="./css/font-awesome.css" rel="stylesheet" media="screen">
+<link href="./css/main.css" rel="stylesheet" media="screen">
 </head>
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
@@ -20,12 +20,7 @@
 				Computer Database </a>
 		</div>
 	</header>
-	<%
-		List<Company> list = (ArrayList<Company>) request.getAttribute("list");
-		String erreur = (String) request.getAttribute("erreur");
-		//String erreurIntroduced = (String) request.getAttribute("erreurIntroduced");
-		//String erreurDiscontinued = (String) request.getAttribute("erreurDiscontinued");
-	%>
+	
 	<section id="main">
 		<div class="container">
 			<div class="row">

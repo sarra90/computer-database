@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.excilys.model.Computer;
 import com.excilys.service.ComputerService;
@@ -19,11 +21,13 @@ public class DashboardController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private ComputerService computerService;
+    
     private static final Logger LOGGER = LoggerFactory.getLogger(DashboardController.class);
 
     @Override
     public void init() throws ServletException {
-        computerService = new ComputerServiceImpl();
+        ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
+        computerService = (ComputerServiceImpl) context.getBean("ComputerService");
     }
 
     @Override

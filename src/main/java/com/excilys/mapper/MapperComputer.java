@@ -4,15 +4,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import com.excilys.dao.CompanyDao;
-import com.excilys.dao.impl.CompanyDaoImpl;
 import com.excilys.dto.ComputerDto;
 import com.excilys.model.Computer;
 
 public class MapperComputer {
 
-    public Computer convertToComputer(ComputerDto computerDto) {
+    private CompanyDao companyDao;
+    
+    public void setCompanyDao(CompanyDao companyDao) {
+        this.companyDao = companyDao;
+    }
 
-        CompanyDao companyDao = new CompanyDaoImpl();
+    public Computer convertToComputer(ComputerDto computerDto) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-M-d");
         System.out.println(computerDto.getIntroduced());

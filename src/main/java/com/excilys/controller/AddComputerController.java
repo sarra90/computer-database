@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.excilys.dto.ComputerDto;
 import com.excilys.mapper.MapperComputer;
@@ -29,11 +31,14 @@ public class AddComputerController extends HttpServlet {
 
     private ComputerService computerService;
     private CompanyService companyService;
+    
 
     @Override
     public void init() throws ServletException {
-        computerService = new ComputerServiceImpl();
-        companyService = new CompanyServiceImpl();
+        ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
+        computerService = (ComputerServiceImpl) context.getBean("ComputerService");
+        companyService = (CompanyServiceImpl) context.getBean("companyService");
+       
     }
 
     @Override
@@ -57,7 +62,7 @@ public class AddComputerController extends HttpServlet {
         long idCompany = Long.valueOf(request.getParameter("companyId")).longValue();
 
         // request parameters validation
-        // TODO add name validator
+        // TODO add name validators
         Validator introducedValidator = DateValidator.isValidDate(introduced);
         Validator disconstinuedValidator = DateValidator.isValidDate(disconstinued);
 

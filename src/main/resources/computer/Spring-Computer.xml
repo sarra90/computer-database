@@ -1,0 +1,23 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="companyDao" class="com.excilys.dao.impl.CompanyDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="companyService" class="com.excilys.service.impl.CompanyServiceImpl">
+		<property name="companyDao" ref="companyDao" />
+	</bean>
+	<bean id="computerDao" class="com.excilys.dao.impl.ComputerDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="ComputerService" class="com.excilys.service.impl.ComputerServiceImpl">
+		<property name="computerDao" ref="computerDao"></property>
+	</bean>
+	<bean id="computerMapper" class="com.excilys.mapper.MapperComputer">
+		<property name="companyDao" ref="companyDao" />
+
+	</bean>
+</beans>

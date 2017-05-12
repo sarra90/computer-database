@@ -13,8 +13,13 @@ import com.excilys.service.ComputerService;
 
 public class ComputerServiceImpl implements ComputerService {
 
-    private ComputerDao computerDao = new ComputerDaoImpl();
+    
+    private ComputerDao computerDao ;
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
+
+    public void setComputerDao(ComputerDao computerDao) {
+        this.computerDao = computerDao;
+    }
 
     @Override
     public Optional<Computer> findById(long id) {
@@ -48,6 +53,7 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public List<Computer> findAllPerPage(int offset, int numberOfRecords) {
+        
         List<Computer> listOfComputersPerPage = computerDao.findAllPerPage(offset, numberOfRecords);
         return listOfComputersPerPage;
     }

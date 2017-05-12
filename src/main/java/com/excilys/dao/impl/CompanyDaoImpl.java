@@ -8,11 +8,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.excilys.dao.CompanyDao;
-import com.excilys.dao.ManagerConnection;
 import com.excilys.model.Company;
 
 public class CompanyDaoImpl implements CompanyDao {
@@ -22,18 +23,24 @@ public class CompanyDaoImpl implements CompanyDao {
     public static final String QUERY_SELECT_COMPANY_WHERE_ID = "SELECT * FROM company WHERE id = ";
     public static final String QUERY_INSERT_COMPANY = "INSERT INTO company (name)";
 
-    public Connection connect = ManagerConnection.getInstance();
+    private DataSource dataSource;
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Override
     public List<Company> findAll() {
 
         List<Company> listOfCompanys = new ArrayList<Company>();
         Company company = null;
+        Connection conn;
         ResultSet rs = null;
         PreparedStatement statement = null;
 
         try {
-            statement = connect.prepareStatement(QUERY_SELECT_ALL_COMPANY);
+            conn = dataSource.getConnection();
+            statement = conn.prepareStatement(QUERY_SELECT_ALL_COMPANY);
             rs = statement.executeQuery();
 
             while (rs.next()) {
@@ -52,13 +59,15 @@ public class CompanyDaoImpl implements CompanyDao {
     @Override
     public Company findById(long id) {
         Company company = null;
+        Connection conn;
         ResultSet rs;
         PreparedStatement statement;
 
         String query = QUERY_SELECT_COMPANY_WHERE_ID + id + ";";
 
         try {
-            statement = connect.prepareStatement(query);
+            conn = dataSource.getConnection();
+            statement = conn.prepareStatement(query);
             rs = statement.executeQuery();
             if (rs.next()) {
                 company = new Company(rs.getLong("id"), rs.getString("name"));
@@ -72,10 +81,12 @@ public class CompanyDaoImpl implements CompanyDao {
     @Override
     public Company create(Company obj) {
         PreparedStatement statement = null;
+        Connection conn ;
         if (findById(obj.getId()) == null) {
             String query = QUERY_INSERT_COMPANY + "VALUES(?)";
             try {
-                statement = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                conn = dataSource.getConnection();
+                statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
                 statement.setString(1, obj.getName());
                 statement.execute();
                 ResultSet rs = statement.getGeneratedKeys();
@@ -92,11 +103,13 @@ public class CompanyDaoImpl implements CompanyDao {
     public void delete(Company company) {
 
         PreparedStatement statement = null;
+        Connection conn;
         if (findById(company.getId()) != null) {
 
             String query = "DELETE FROM company WHERE id = ?";
             try {
-                statement = connect.prepareStatement(query);
+                conn = dataSource.getConnection();
+                statement = conn.prepareStatement(query);
                 statement.setLong(1, company.getId());
 
                 if (statement.execute()) {
