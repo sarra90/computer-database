@@ -29,6 +29,7 @@ public class DashboardController extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
+
     }
 
     @Override

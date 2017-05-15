@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.excilys.dao.ComputerDao;
@@ -59,7 +60,10 @@ public class ComputerDaoImpl implements ComputerDao {
 
     @Autowired
     private DataSource dataSource;
-
+    
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+    
     @Override
     public List<Computer> findAll() {
 

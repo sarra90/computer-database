@@ -20,8 +20,6 @@ import com.excilys.mapper.MapperComputer;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
 import com.excilys.model.Validator;
-import com.excilys.service.CompanyService;
-import com.excilys.service.ComputerService;
 import com.excilys.service.impl.CompanyServiceImpl;
 import com.excilys.service.impl.ComputerServiceImpl;
 import com.excilys.validations.DateValidator;
@@ -39,6 +37,7 @@ public class EditComputerController extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
+
     }
 
     @Override

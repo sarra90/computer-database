@@ -13,7 +13,7 @@ import com.excilys.dao.impl.ComputerDaoImpl;
 import com.excilys.model.Computer;
 import com.excilys.service.ComputerService;
 
-@Service
+@Service("computerService")
 public class ComputerServiceImpl implements ComputerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
