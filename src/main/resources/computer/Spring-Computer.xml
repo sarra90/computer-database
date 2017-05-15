@@ -3,13 +3,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-	<bean id="companyDao" class="com.excilys.dao.impl.CompanyDaoImpl">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-
-	<bean id="companyService" class="com.excilys.service.impl.CompanyServiceImpl">
-		<property name="companyDao" ref="companyDao" />
-	</bean>
 	<bean id="computerDao" class="com.excilys.dao.impl.ComputerDaoImpl">
 		<property name="dataSource" ref="dataSource" />
 	</bean>

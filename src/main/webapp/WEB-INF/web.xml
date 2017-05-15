@@ -56,4 +56,13 @@
 		<servlet-name>EditComputerController</servlet-name>
 		<url-pattern>/editComputer</url-pattern>
 	</servlet-mapping>
+	
+	<context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/services.xml</param-value>
+    </context-param>
+
+     <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener> 
 </web-app>
