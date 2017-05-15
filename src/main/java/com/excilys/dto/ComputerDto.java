@@ -10,7 +10,9 @@ public class ComputerDto {
 
     private String disconstinued;
 
-    private Long idCompany;
+    private long idCompany;
+    
+    private String nameCompany;
 
     private ComputerDto(Builder builder) {
 
@@ -60,7 +62,13 @@ public class ComputerDto {
     public void setDisconstinued(String disconstinued) {
         this.disconstinued = disconstinued;
     }
+    public String getNameCompany() {
+        return nameCompany;
+    }
 
+    public void setNameCompany(String nameCompany) {
+        this.nameCompany = nameCompany;
+    }
     @Override
     public String toString() {
         return "ComputerDto [id=" + id + ", name=" + name + ", introduced=" + introduced + ", disconstinued="
@@ -78,6 +86,8 @@ public class ComputerDto {
         private String disconstinued;
 
         private long idCompany;
+        
+        private String nameCompany;
 
         public Builder id(long id) {
             this.id = id;
@@ -103,11 +113,18 @@ public class ComputerDto {
             this.idCompany = idCompany;
             return this;
         }
+        public Builder nameCompany(String nameCompany) {
+            this.nameCompany = nameCompany;
+            return this;
+        }
+
 
         public ComputerDto build() {
             return new ComputerDto(this);
         }
 
     }
+
+   
 
 }

@@ -45,7 +45,7 @@ public interface ComputerService {
      * @param obj.
      * @return a boolean .
      */
-    boolean create(Computer obj);
+    Computer create(Computer obj);
 
     /**
      * update computer.
@@ -53,7 +53,7 @@ public interface ComputerService {
      * @param obj.
      * @return a boolean.
      */
-    boolean update(Computer obj);
+    Computer update(Computer obj);
 
     /**
      * delete a computer.

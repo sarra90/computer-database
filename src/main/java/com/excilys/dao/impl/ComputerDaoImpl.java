@@ -50,7 +50,7 @@ public class ComputerDaoImpl implements ComputerDao {
             + "co.id as id_company , " + "co.name as name_company "
             + "FROM computer c LEFT JOIN company co on c.company_id = co.id WHERE c.id = ";
 
-    public static final String QUERY_INSERT_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id)";
+    public static final String QUERY_INSERT_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id) ";
 
     public static final String QUERY_UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ? WHERE id = ? ";
 
@@ -60,10 +60,10 @@ public class ComputerDaoImpl implements ComputerDao {
 
     @Autowired
     private DataSource dataSource;
-    
+
     @Autowired
-    JdbcTemplate jdbcTemplate;
-    
+    private JdbcTemplate jdbcTemplate;
+
     @Override
     public List<Computer> findAll() {
 
@@ -222,141 +222,99 @@ public class ComputerDaoImpl implements ComputerDao {
             try {
                 statement.close();
             } catch (SQLException e) {
-                LOGGER.info("Error : statement close" + e.getMessage());
+                LOGGER.error("Error : statement close" + e.getMessage());
             }
         }
         return listComputerFindByName;
+        /*
+         * List<Computer> listComputerFindByName =
+         * jdbcTemplate.query(QUERY_SELECT_ALL_BY_NAME, new
+         * RowMapper<Computer>(){
+         * 
+         * @Override public Computer mapRow(ResultSet result, int rowNum) throws
+         * SQLException { Computer computer= new
+         * Computer.Builder(result.getString(name)) .build(); return null; } });
+         * 
+         * return listComputerFindByName; /* String sqlSelect =
+         * "SELECT * FROM contact"; List<Contact> listContact =
+         * jdbcTemplate.query(sqlSelect, new RowMapper<Contact>() {
+         * 
+         * public Contact mapRow(ResultSet result, int rowNum) throws
+         * SQLException { Contact contact = new Contact();
+         * contact.setName(result.getString("name"));
+         * contact.setEmail(result.getString("email"));
+         * contact.setAddress(result.getString("address"));
+         * contact.setPhone(result.getString("telephone"));
+         * 
+         * return contact; }
+         * 
+         * });
+         ***************
+         * String sqlSelect = "SELECT * FROM contact"; List<Contact> listContact
+         * = jdbcTemplate.query(sqlSelect, new RowMapper<Contact>() {
+         * 
+         * public Contact mapRow(ResultSet result, int rowNum) throws
+         * SQLException { Contact contact = new Contact();
+         * contact.setName(result.getString("name"));
+         * contact.setEmail(result.getString("email"));
+         * contact.setAddress(result.getString("address"));
+         * contact.setPhone(result.getString("telephone"));
+         * 
+         * return contact; }
+         * 
+         * });
+         */
+
     }
 
     @Override
-    public boolean create(Computer obj) {
-        boolean result = false;
-        PreparedStatement statement = null;
-        Connection conn = null;
+    public Computer create(Computer obj) {
+
         if (!findById(obj.getId()).isPresent()) {
 
             String query = QUERY_INSERT_COMPUTER + "VALUES(?, ?, ?, ?)";
 
-            LocalDate introduced = obj.getIntroduced();
+            int result = jdbcTemplate.update(query, obj.getName(), obj.getIntroduced(), obj.getDisconstinued(),
+                    obj.getManufacturer().getId());
 
-            LocalDate disconstinued = obj.getDisconstinued();
-
-            Company company = obj.getManufacturer();
-
-            try {
-                conn = dataSource.getConnection();
-                statement = conn.prepareStatement(query);
-
-                statement.setString(1, obj.getName());
-
-                if (introduced != null) {
-                    statement.setDate(2, Date.valueOf(introduced));
-                } else {
-                    statement.setNull(2, java.sql.Types.TIMESTAMP);
-                }
-                if (disconstinued != null) {
-                    statement.setDate(3, Date.valueOf(disconstinued));
-                } else {
-                    statement.setNull(3, java.sql.Types.TIMESTAMP);
-                }
-                if (company != null) {
-                    statement.setLong(4, company.getId());
-                } else {
-                    statement.setNull(4, java.sql.Types.BIGINT);
-                }
-
-                result = statement.execute();
+            if (result == 1) {
 
                 LOGGER.info("create computer success ");
-            } catch (SQLException e) {
-                LOGGER.info("Error : create computer method " + e.getMessage());
+            } else {
+                LOGGER.error("Error : create computer method ");
             }
         }
 
-        return result;
+        return obj;
     }
 
     @Override
-    public boolean update(Computer obj) {
+    public Computer update(Computer obj) {
 
-        boolean result = false;
+        int result = jdbcTemplate.update(QUERY_UPDATE_COMPUTER, obj.getIntroduced(), obj.getDisconstinued(),
+                obj.getManufacturer());
 
-        PreparedStatement statement = null;
-        Connection conn = null;
+        if (result == 1) {
 
-        if (findById(obj.getId()) != null) {
-
-            LocalDate introduced = obj.getIntroduced();
-
-            LocalDate disconstinued = obj.getDisconstinued();
-
-            Company company = obj.getManufacturer();
-            try {
-                conn = dataSource.getConnection();
-                statement = conn.prepareStatement(QUERY_UPDATE_COMPUTER);
-                statement.setString(1, obj.getName());
-
-                if (introduced != null) {
-                    statement.setDate(2, Date.valueOf(introduced));
-                } else {
-                    statement.setNull(2, java.sql.Types.TIMESTAMP);
-                }
-                if (disconstinued != null) {
-                    statement.setDate(3, Date.valueOf(disconstinued));
-                } else {
-                    statement.setNull(3, java.sql.Types.TIMESTAMP);
-                }
-                if (company != null) {
-                    statement.setLong(4, company.getId());
-                } else {
-                    statement.setNull(4, java.sql.Types.BIGINT);
-                }
-                if (statement.executeUpdate() != 0) {
-
-                    result = true;
-                }
-
-                LOGGER.info("update success ");
-
-            } catch (SQLException e) {
-                LOGGER.info("Error : Connexion failed" + e.getMessage());
-            } finally {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    LOGGER.info("Error : statement close" + e.getMessage());
-                }
-            }
+            LOGGER.info("update computer success ");
+        } else {
+            LOGGER.error("Error : update computer method ");
         }
-        return result;
+
+        return obj;
     }
 
     @Override
     public void delete(Computer obj) {
 
-        PreparedStatement statement = null;
-        Connection conn = null;
-        try {
-            conn = dataSource.getConnection();
-            statement = conn.prepareStatement(QUERY_DELETE_COMPUTER);
+        int result = jdbcTemplate.update(QUERY_DELETE_COMPUTER, obj.getIntroduced(), obj.getDisconstinued(),
+                obj.getManufacturer());
 
-            statement.setLong(1, obj.getId());
+        if (result == 1) {
 
-            statement.executeUpdate();
-
-            LOGGER.info("delete success ");
-
-        } catch (SQLException e) {
-
-            LOGGER.info("Error : Connexion failed" + e.getMessage());
-
-        } finally {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                LOGGER.info("Error : statement close" + e.getMessage());
-            }
-
+            LOGGER.info("delete computer success ");
+        } else {
+            LOGGER.error("Error : delete computer method ");
         }
     }
 

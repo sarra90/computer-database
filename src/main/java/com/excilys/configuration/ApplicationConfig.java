@@ -1,4 +1,4 @@
-package com.excilys.dao;
+package com.excilys.configuration;
 
 import javax.sql.DataSource;
 
@@ -13,7 +13,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
 @ComponentScan(basePackages = "com.excilys")
-@PropertySource(value = { "classpath:db.properties" })
+@PropertySource(value = "classpath:db.properties")
 public class ApplicationConfig {
  
     @Autowired
@@ -22,9 +22,9 @@ public class ApplicationConfig {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getRequiredProperty("jdbc.driverClassName"));
+        dataSource.setDriverClassName(env.getRequiredProperty("jdbc.driver"));
         dataSource.setUrl(env.getRequiredProperty("jdbc.url"));
-        dataSource.setUsername(env.getRequiredProperty("jdbc.username"));
+        dataSource.setUsername(env.getRequiredProperty("jdbc.user"));
         dataSource.setPassword(env.getRequiredProperty("jdbc.password"));
         return dataSource;
     }

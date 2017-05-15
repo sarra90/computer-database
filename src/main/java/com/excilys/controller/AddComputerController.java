@@ -33,9 +33,9 @@ public class AddComputerController extends HttpServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(AddComputerController.class);
 
     @Autowired
-    private ComputerServiceImpl computerService;
+    private ComputerService computerService;
     @Autowired
-    private CompanyServiceImpl companyService;
+    private CompanyService companyService;
     
 
     @Override

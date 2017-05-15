@@ -13,6 +13,9 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.excilys.dao.CompanyDao;
@@ -28,6 +31,9 @@ public class CompanyDaoImpl implements CompanyDao {
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Company> findAll() {
@@ -59,29 +65,25 @@ public class CompanyDaoImpl implements CompanyDao {
     @Override
     public Company findById(long id) {
         Company company = null;
-        Connection conn;
-        ResultSet rs;
-        PreparedStatement statement;
-
         String query = QUERY_SELECT_COMPANY_WHERE_ID + id + ";";
 
-        try {
-            conn = dataSource.getConnection();
-            statement = conn.prepareStatement(query);
-            rs = statement.executeQuery();
-            if (rs.next()) {
-                company = new Company(rs.getLong("id"), rs.getString("name"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        company = (Company) jdbcTemplate.queryForObject(query, new Object[] { id },
+                new BeanPropertyRowMapper<Company>(Company.class));
         return company;
+        /*
+         * Person person = (Person) jdbcTemplate.
+         * queryForObject("SELECT * FROM trn_person where person_id = ? ", new
+         * Object[] { personId }, new BeanPropertyRowMapper(Person.class));
+         * 
+         * return person;
+         * 
+         */
     }
 
     @Override
     public Company create(Company obj) {
         PreparedStatement statement = null;
-        Connection conn ;
+        Connection conn;
         if (findById(obj.getId()) == null) {
             String query = QUERY_INSERT_COMPANY + "VALUES(?)";
             try {

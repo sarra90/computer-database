@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.excilys.model.Computer;
-import com.excilys.service.impl.ComputerServiceImpl;
+import com.excilys.service.ComputerService;
 
 public class DashboardController extends HttpServlet {
 
@@ -23,7 +23,7 @@ public class DashboardController extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DashboardController.class);
     @Autowired
-    private ComputerServiceImpl computerService;
+    private ComputerService computerService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {

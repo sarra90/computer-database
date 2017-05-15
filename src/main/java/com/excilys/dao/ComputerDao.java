@@ -54,7 +54,7 @@ public interface ComputerDao {
      * @param Computer.
      * @return Computer
      */
-    boolean create(Computer computer);
+    Computer create(Computer computer);
 
     /**
      * update Computer.
@@ -62,7 +62,7 @@ public interface ComputerDao {
      * @param Computer.
      * @return Computer.
      */
-    boolean update(Computer computer);
+    Computer update(Computer computer);
 
     /**
      * delete Computer.

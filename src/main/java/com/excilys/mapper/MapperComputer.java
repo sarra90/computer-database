@@ -4,27 +4,27 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import com.excilys.dao.CompanyDao;
+import com.excilys.dto.CompanyDto;
 import com.excilys.dto.ComputerDto;
+import com.excilys.model.Company;
 import com.excilys.model.Computer;
 
 public class MapperComputer {
 
-    private CompanyDao companyDao;
-    
-    public void setCompanyDao(CompanyDao companyDao) {
-        this.companyDao = companyDao;
-    }
 
     public Computer convertToComputer(ComputerDto computerDto) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-M-d");
-        System.out.println(computerDto.getIntroduced());
+
+        CompanyDto companyDto = new CompanyDto.Builder().id(computerDto.getId()).name(computerDto.getNameCompany())
+                .build();
+        Company company = new MapperCompany().convertToCompany(companyDto);
         Computer computer = new Computer.Builder(computerDto.getName()).id(computerDto.getId())
                 .introduced((computerDto.getIntroduced() != null)
                         ? LocalDate.parse(computerDto.getIntroduced(), formatter) : null)
                 .disconstinued((computerDto.getDisconstinued() != null)
                         ? LocalDate.parse(computerDto.getDisconstinued(), formatter) : null)
-                .manufacturer(companyDao.findById(computerDto.getIdCompany())).build();
+                .manufacturer(company).build();
 
         return computer;
     }
