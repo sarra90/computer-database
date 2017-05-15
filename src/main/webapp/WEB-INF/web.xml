@@ -3,7 +3,22 @@
 	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	<display-name>computer-database</display-name>
+	<context-param>
+		<param-name>contextClass</param-name>
+		<param-value>
+          org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+      </param-value>
+	</context-param>
 
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>com.excilys.cdb.persistence.AppConfiguration</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
 	<servlet>
 		<servlet-name>index</servlet-name>
 		<servlet-class>com.excilys.controller.DashboardController</servlet-class>
@@ -56,13 +71,4 @@
 		<servlet-name>EditComputerController</servlet-name>
 		<url-pattern>/editComputer</url-pattern>
 	</servlet-mapping>
-	
-	<context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/services.xml</param-value>
-    </context-param>
-
-     <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener> 
 </web-app>

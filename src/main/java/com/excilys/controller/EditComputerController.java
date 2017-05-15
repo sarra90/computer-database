@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.excilys.dto.ComputerDto;
 import com.excilys.mapper.MapperComputer;
@@ -25,17 +28,17 @@ import com.excilys.validations.DateValidator;
 
 public class EditComputerController extends HttpServlet {
 
-    private ComputerService computerService;
-    private CompanyService companyService;
+    @Autowired
+    private ComputerServiceImpl computerService;
+    @Autowired
+    private CompanyServiceImpl companyService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EditComputerController.class);
 
     @Override
-    public void init() throws ServletException {
-
-        computerService = new ComputerServiceImpl();
-        companyService = new CompanyServiceImpl();
-
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
     }
 
     @Override
@@ -48,9 +51,7 @@ public class EditComputerController extends HttpServlet {
         String idComputer = request.getParameter("id");
 
         if (isNumber(idComputer)) {
-            LOGGER.info("EDIT GET1 id computer " + idComputer);
             id = Long.valueOf(idComputer);
-            LOGGER.info("EDIT GET2 id computer " + id);
             Optional<Computer> computer = computerService.findById(id);
             request.setAttribute("idComputer", id);
             if (computer.isPresent()) {
@@ -79,16 +80,12 @@ public class EditComputerController extends HttpServlet {
 
         Validator introducedValidator = DateValidator.isValidDate(introduced);
         Validator disconstinuedValidator = DateValidator.isValidDate(disconstinued);
-        LOGGER.info("EDIT id computer " + idcomputer);
         if (isNumber(idcomputer)) {
             long id = Long.valueOf(idcomputer).longValue();
-            LOGGER.info("if is long");
             if (introducedValidator.isValid() && disconstinuedValidator.isValid()) {
                 Validator orderDateValidator = DateValidator.isIntruducedDateBeforeDisconstinuedDate(introduced,
                         disconstinued);
-                LOGGER.info("if introducedValidator disconstinuedValidator ");
                 if (orderDateValidator.isValid()) {
-                    LOGGER.info("if orderDateValidator");
                     ComputerDto computerDto = new ComputerDto.Builder().id(id).name(name).introduced(introduced)
                             .disconstinued(disconstinued).idCompany(idCompany).build();
 

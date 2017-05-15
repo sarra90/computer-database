@@ -12,10 +12,13 @@ import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.excilys.dao.CompanyDao;
 import com.excilys.model.Company;
 
+@Repository
 public class CompanyDaoImpl implements CompanyDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDaoImpl.class);
@@ -23,11 +26,8 @@ public class CompanyDaoImpl implements CompanyDao {
     public static final String QUERY_SELECT_COMPANY_WHERE_ID = "SELECT * FROM company WHERE id = ";
     public static final String QUERY_INSERT_COMPANY = "INSERT INTO company (name)";
 
+    @Autowired
     private DataSource dataSource;
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
     @Override
     public List<Company> findAll() {

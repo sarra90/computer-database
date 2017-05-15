@@ -4,12 +4,15 @@ import com.excilys.model.Computer;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 /**
  * interface represent a computer service.
  * 
  * @author sarra
  *
  */
+
 public interface ComputerService {
 
     /**

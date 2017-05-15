@@ -3,6 +3,7 @@ package com.excilys.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.excilys.dto.ComputerDto;
 import com.excilys.mapper.MapperComputer;
@@ -29,16 +32,16 @@ public class AddComputerController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory.getLogger(AddComputerController.class);
 
-    private ComputerService computerService;
-    private CompanyService companyService;
+    @Autowired
+    private ComputerServiceImpl computerService;
+    @Autowired
+    private CompanyServiceImpl companyService;
     
 
     @Override
-    public void init() throws ServletException {
-        ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
-        computerService = (ComputerServiceImpl) context.getBean("ComputerService");
-        companyService = (CompanyServiceImpl) context.getBean("companyService");
-       
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
     }
 
     @Override

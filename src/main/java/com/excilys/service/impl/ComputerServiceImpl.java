@@ -5,21 +5,21 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.excilys.dao.ComputerDao;
 import com.excilys.dao.impl.ComputerDaoImpl;
 import com.excilys.model.Computer;
 import com.excilys.service.ComputerService;
 
+@Service
 public class ComputerServiceImpl implements ComputerService {
 
-    
-    private ComputerDao computerDao ;
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
 
-    public void setComputerDao(ComputerDao computerDao) {
-        this.computerDao = computerDao;
-    }
+    @Autowired
+    private ComputerDao computerDao;
 
     @Override
     public Optional<Computer> findById(long id) {
@@ -53,7 +53,7 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public List<Computer> findAllPerPage(int offset, int numberOfRecords) {
-        
+
         List<Computer> listOfComputersPerPage = computerDao.findAllPerPage(offset, numberOfRecords);
         return listOfComputersPerPage;
     }

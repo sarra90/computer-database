@@ -3,6 +3,7 @@ package com.excilys.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,24 +11,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.excilys.model.Computer;
-import com.excilys.service.ComputerService;
 import com.excilys.service.impl.ComputerServiceImpl;
 
 public class DashboardController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private ComputerService computerService;
-    
+
     private static final Logger LOGGER = LoggerFactory.getLogger(DashboardController.class);
+    @Autowired
+    private ComputerServiceImpl computerService;
 
     @Override
-    public void init() throws ServletException {
-        ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
-        computerService = (ComputerServiceImpl) context.getBean("ComputerService");
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
     }
 
     @Override

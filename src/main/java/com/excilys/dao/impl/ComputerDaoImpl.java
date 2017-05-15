@@ -14,12 +14,15 @@ import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.excilys.dao.ComputerDao;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
 import com.excilys.model.Computer.Builder;
 
+@Repository
 public class ComputerDaoImpl implements ComputerDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
@@ -54,11 +57,8 @@ public class ComputerDaoImpl implements ComputerDao {
 
     public static final String QUERY_SELECT_ALL_BY_COMPANY = "DELETE FROM computer WHERE id = ?";
 
+    @Autowired
     private DataSource dataSource;
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
     @Override
     public List<Computer> findAll() {

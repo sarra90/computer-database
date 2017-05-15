@@ -3,6 +3,9 @@ package com.excilys.service;
 import com.excilys.model.Company;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+
 public interface CompanyService {
 
     /**
