@@ -61,6 +61,7 @@ public class DashboardController extends HttpServlet {
             }
             if (request.getParameter("recordsPerPage") != null) {
                 recordsPage = Integer.parseInt(request.getParameter("recordsPerPage"));
+                System.out.println("recordsPage "+recordsPage);
             }
             List<Computer> listOfComputersPerPage = computerService.findAllPerPage((page - 1) * recordsPage,
                     recordsPage);

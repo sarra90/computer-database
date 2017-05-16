@@ -16,7 +16,7 @@ public class MapperComputer {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-M-d");
 
-        CompanyDto companyDto = new CompanyDto.Builder().id(computerDto.getId()).name(computerDto.getNameCompany())
+        CompanyDto companyDto = new CompanyDto.Builder().id(computerDto.getIdCompany()).name(computerDto.getNameCompany())
                 .build();
         Company company = new MapperCompany().convertToCompany(companyDto);
         Computer computer = new Computer.Builder(computerDto.getName()).id(computerDto.getId())
