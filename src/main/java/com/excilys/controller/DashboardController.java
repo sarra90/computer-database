@@ -1,106 +1,67 @@
 package com.excilys.controller;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.excilys.model.Computer;
 import com.excilys.service.ComputerService;
 
-public class DashboardController extends HttpServlet {
+@Controller
+public class DashboardController {
 
-    private static final long serialVersionUID = 1L;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(DashboardController.class);
     @Autowired
-    private ComputerService computerService;
+    ComputerService computerService;
 
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
+    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+    public String getAllComputer(@RequestParam(value = "recordsPerPage", required = false) String recordsPerPage,
+            @RequestParam(value = "page", required = false) String page,
+            @RequestParam(value = "search", required = false) String search, Model model) {
 
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        String searchName = request.getParameter("search");
+        int pages = 1;
+        int recordsPage = 50;
         long noOfRecords;
-
-        if (searchName != null) {
-
-            List<Computer> listOfComputersByName = computerService.findByName(searchName);
-
-            request.setAttribute("list", listOfComputersByName);
-
-            noOfRecords = listOfComputersByName.size();
-
-            request.setAttribute("numberOfComputers", noOfRecords);
-
-            request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
-
+        if (search != null) {
+            List<Computer> listOfComputer = computerService.findByName(search);
+            noOfRecords = listOfComputer.size();
+            model.addAttribute("numberOfComputers", noOfRecords);
+            model.addAttribute("list", listOfComputer);
         } else {
-
-            int page = 1;
-            int recordsPage = 50;
-
-            if (request.getParameter("page") != null) {
-                page = Integer.parseInt(request.getParameter("page"));
+            if (recordsPerPage != null) {
+                recordsPage = Integer.parseInt(recordsPerPage);
             }
-            if (request.getParameter("recordsPerPage") != null) {
-                recordsPage = Integer.parseInt(request.getParameter("recordsPerPage"));
-                System.out.println("recordsPage "+recordsPage);
+            if (page != null) {
+                pages = Integer.parseInt(page);
             }
-            List<Computer> listOfComputersPerPage = computerService.findAllPerPage((page - 1) * recordsPage,
-                    recordsPage);
-
             noOfRecords = computerService.countComputer();
-
             int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPage);
-
-            request.setAttribute("list", listOfComputersPerPage);
-
-            request.setAttribute("numberOfComputers", noOfRecords);
-
-            request.setAttribute("noOfPages", noOfPages);
-
-            request.setAttribute("currentPage", page);
-
-            request.setAttribute("recordsPerPage", recordsPage);
-
-            request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
+            model.addAttribute("list", computerService.findAllPerPage((pages - 1) * recordsPage, recordsPage));
+            model.addAttribute("currentPage", pages);
+            model.addAttribute("numberOfComputers", noOfRecords);
+            model.addAttribute("noOfPages", noOfPages);
+            model.addAttribute("currentPage", pages);
+            model.addAttribute("recordsPerPage", recordsPage);
         }
-
+        return "dashboard";
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        String selection = request.getParameter("selection");
+    @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
+    public String deleteComputer(@RequestParam(value = "selection", required = false) String selection) {
 
         String[] tab = selection.split(",");
 
         for (int i = 0; i < tab.length; i++) {
             if (isNumber(tab[i])) {
-                LOGGER.info("do post dashbord : delete if is number");
                 long id = Long.valueOf(tab[i]).longValue();
                 computerService.delete(id);
             }
         }
-        doGet(request, response);
+        return "dashboard";
     }
 
     private boolean isNumber(String s) {

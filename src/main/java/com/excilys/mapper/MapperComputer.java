@@ -12,7 +12,7 @@ import com.excilys.model.Computer;
 public class MapperComputer {
 
 
-    public Computer convertToComputer(ComputerDto computerDto) {
+    public static Computer convertToComputer(ComputerDto computerDto) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-M-d");
 
@@ -29,7 +29,7 @@ public class MapperComputer {
         return computer;
     }
 
-    public ComputerDto convertToComputerDTO(Computer computer) {
+    public static ComputerDto convertToComputerDTO(Computer computer) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
 

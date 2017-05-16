@@ -10,11 +10,18 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
+@EnableWebMvc
 @ComponentScan(basePackages = "com.excilys")
 @PropertySource(value = "classpath:db.properties")
-public class ApplicationConfig {
+public class ApplicationConfig  extends WebMvcConfigurerAdapter {
  
     @Autowired
     private Environment env;
@@ -34,4 +41,19 @@ public class ApplicationConfig {
         jdbcTemplate.setResultsMapCaseInsensitive(true);
         return jdbcTemplate;
     }
+    @Bean
+    public ViewResolver viewResolver() {
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setViewClass(JstlView.class);
+        viewResolver.setPrefix("/WEB-INF/views/");
+        viewResolver.setSuffix(".jsp");
+
+        return viewResolver;
+    }
+
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
+
 }

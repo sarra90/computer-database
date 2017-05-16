@@ -1,96 +1,37 @@
 package com.excilys.controller;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.excilys.dto.ComputerDto;
 import com.excilys.mapper.MapperComputer;
-import com.excilys.model.Company;
-import com.excilys.model.Computer;
-import com.excilys.model.Validator;
 import com.excilys.service.CompanyService;
 import com.excilys.service.ComputerService;
-import com.excilys.service.impl.CompanyServiceImpl;
-import com.excilys.service.impl.ComputerServiceImpl;
-import com.excilys.validations.DateValidator;
 
-public class AddComputerController extends HttpServlet {
+@Controller
+public class AddComputerController {
 
-    private static final long serialVersionUID = 1L;
-    private static final Logger LOGGER = LoggerFactory.getLogger(AddComputerController.class);
-
-    @Autowired
-    private ComputerService computerService;
-    @Autowired
-    private CompanyService companyService;
+    @Autowired 
+    ComputerService computerService;
     
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
+    @Autowired
+    CompanyService companyService;
+    
+    @RequestMapping(value = "/addcomputer" , method = RequestMethod.GET )
+    public String addCOmputer(Model model){
+        
+        model.addAttribute("list",companyService.findAll());
+        return "addComputer";
     }
-
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Company> listeCompany = companyService.findAll();
-        request.setAttribute("list", listeCompany);
-        request.getRequestDispatcher("/addComputer.jsp").forward(request, response);
-
+    
+    public String addComputer(@ModelAttribute("computer") ComputerDto computerDto,BindingResult result,Model model){
+        
+        computerService.create(MapperComputer.convertToComputer(computerDto));
+        return "addComputer";
     }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        ComputerDto computerdto;
-
-        // request parameters
-        String name = request.getParameter("name");
-        String introduced = request.getParameter("introduced");
-        String disconstinued = request.getParameter("discontinued");
-        long idCompany = Long.valueOf(request.getParameter("companyId")).longValue();
-        System.out.println(idCompany);
-        // request parameters validation
-        // TODO add name validators
-        Validator introducedValidator = DateValidator.isValidDate(introduced);
-        Validator disconstinuedValidator = DateValidator.isValidDate(disconstinued);
-
-        if (introducedValidator.isValid() && disconstinuedValidator.isValid()) {
-            Validator orderDateValidator = DateValidator.isIntruducedDateBeforeDisconstinuedDate(introduced,
-                    disconstinued);
-            if (orderDateValidator.isValid()) {
-                computerdto = new ComputerDto.Builder().name(name).introduced(introduced).disconstinued(disconstinued)
-                        .idCompany(idCompany).build();
-                System.out.println("computerDTO"+computerdto);
-                Computer computer = new MapperComputer().convertToComputer(computerdto);
-                System.out.println("computerr"+computer);
-                computerService.create(computer);
-
-            } else {
-
-                request.setAttribute("erreur", orderDateValidator.getError());
-            }
-        } else {
-            request.setAttribute("erreurIntroduced", introducedValidator.getError());
-            request.setAttribute("erreurDiscontinued", disconstinuedValidator.getError());
-        }
-
-        doGet(request, response);
-
-    }
-
 }

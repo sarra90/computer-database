@@ -1,9 +1,5 @@
 	<!DOCTYPE html>
-<%@page import="com.excilys.model.Computer"%>
-<%@page import="java.util.ArrayList"%>
-<%@ page import="java.util.List , com.excilys.model.Company"%>
 <%@ page pageEncoding="UTF-8"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
@@ -54,7 +50,7 @@ function deleteElements(){
 				</div>
 				<div class="pull-right">
 					<a class="btn btn-success" id="addComputer" href="addcomputer">AddComputer</a>
-					<a class="btn btn-default" id="" href="editComputer.jsp" onclick="$.fn.toggleEditMode();">Edit</a>
+					<a class="btn btn-default" id="" href="editComputer" onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
 			</div>
 		</div>
