@@ -3,13 +3,13 @@ package com.excilys.validations;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import com.excilys.model.Validator;
+import com.excilys.model.ValidatorModel;
 
 public class DateValidator {
 
-    public static Validator isValidDate(String dateToValidate) {
+    public static ValidatorModel isValidDate(String dateToValidate) {
 
-        Validator validator = new Validator();
+        ValidatorModel validator = new ValidatorModel();
 
         if (dateToValidate != null) {
             try {
@@ -33,9 +33,9 @@ public class DateValidator {
         return validator;
     }
 
-    public static Validator isIntruducedDateBeforeDisconstinuedDate(String introduced, String disconstinued) {
+    public static ValidatorModel isIntruducedDateBeforeDisconstinuedDate(String introduced, String disconstinued) {
 
-        Validator validator = new Validator();
+        ValidatorModel validator = new ValidatorModel();
 
         if (DateValidator.isValidDate(introduced).isValid() && DateValidator.isValidDate(disconstinued).isValid()) {
 

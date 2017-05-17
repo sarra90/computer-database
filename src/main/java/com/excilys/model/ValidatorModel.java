@@ -1,6 +1,6 @@
 package com.excilys.model;
 
-public class Validator {
+public class ValidatorModel {
 
     private String error;
 

@@ -50,7 +50,7 @@ function deleteElements(){
 				</div>
 				<div class="pull-right">
 					<a class="btn btn-success" id="addComputer" href="addcomputer">AddComputer</a>
-					<a class="btn btn-default" id="" href="editComputer" onclick="$.fn.toggleEditMode();">Edit</a>
+					<a class="btn btn-default" id="" href="editComputer?id" onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
 			</div>
 		</div>

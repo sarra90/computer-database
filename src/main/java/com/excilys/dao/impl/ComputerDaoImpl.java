@@ -1,6 +1,8 @@
 package com.excilys.dao.impl;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -11,7 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.excilys.dao.ComputerDao;
@@ -45,7 +50,7 @@ public class ComputerDaoImpl implements ComputerDao {
             + "co.id as id_company , " + "co.name as name_company "
             + "FROM computer c LEFT JOIN company co on c.company_id = co.id WHERE c.id = ?";
 
-    public static final String QUERY_INSERT_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id) ";
+    public static final String QUERY_INSERT_COMPUTER = "INSERT INTO computer (name, introduced, discontinued, company_id)VALUES(?, ?, ?, ?) ";
 
     public static final String QUERY_UPDATE_COMPUTER = "UPDATE computer SET name = ?, introduced = ?, discontinued = ? WHERE id = ? ";
 
@@ -157,25 +162,20 @@ public class ComputerDaoImpl implements ComputerDao {
 
     @Override
     public Computer create(Computer obj) {
-
-        if (!findById(obj.getId()).isPresent()) {
-
-            String query = QUERY_INSERT_COMPUTER + "VALUES(?, ?, ?, ?)";
-
-            LocalDate introduced = obj.getIntroduced();
-
-            LocalDate disconstinued = obj.getDisconstinued();
-
-            Company company = obj.getManufacturer();
-            System.out.println(obj);
-            int result = jdbcTemplate.update(query, obj.getName(), Date.valueOf(introduced),
-                    Date.valueOf(disconstinued), company.getId());
-
-            if (result == 1) {
-                LOGGER.info("create computer success ");
-            } else {
-                LOGGER.info("Error : create computer method ");
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        int result = jdbcTemplate.update(new PreparedStatementCreator() {
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement(QUERY_INSERT_COMPUTER);
+                setStatement(ps, obj);
+                return ps;
             }
+        });
+
+        if (result > 0) {
+            LOGGER.info("create computer success ");
+        } else {
+            LOGGER.info("Error : create computer method ");
         }
 
         return obj;
@@ -233,4 +233,27 @@ public class ComputerDaoImpl implements ComputerDao {
         return null;
     }
 
+    private PreparedStatement setStatement(PreparedStatement statement, Computer obj) throws SQLException {
+
+        statement.setString(1, obj.getName());
+
+        if (obj.getIntroduced() != null) {
+            statement.setDate(2, Date.valueOf(obj.getIntroduced()));
+        } else {
+            statement.setNull(2, java.sql.Types.TIMESTAMP);
+        }
+
+        if (obj.getDisconstinued() != null) {
+            statement.setDate(3, Date.valueOf(obj.getDisconstinued()));
+        } else {
+            statement.setNull(3, java.sql.Types.TIMESTAMP);
+        }
+
+        if (obj.getManufacturer() != null) {
+            statement.setLong(4, obj.getManufacturer().getId());
+        } else {
+            statement.setNull(4, java.sql.Types.BIGINT);
+        }
+        return statement;
+    }
 }
