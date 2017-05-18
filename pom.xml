@@ -15,6 +15,7 @@
 		<javax.version>6.0</javax.version>
 		<servlet.version>3.1.0</servlet.version>
 		<junit.version>4.12</junit.version>
+		<testng.version>6.11</testng.version>
 		<dbunit.version>2.5.3</dbunit.version>
 		<HikariCP.version>2.3.5</HikariCP.version>
 		<jstl.version>1.2</jstl.version>
@@ -24,17 +25,10 @@
 		<gatling.version>2.1.7</gatling.version>
 		<gatling-plugin.version>2.1.7</gatling-plugin.version>
         <spring.version>4.0.6.RELEASE</spring.version>
+        <validation.version>1.0.0.GA</validation.version>
 		
 	</properties>
 	<dependencies>
-
-		<!-- hikaricp -->
-		<dependency>
-			<groupId>com.zaxxer</groupId>
-			<artifactId>HikariCP</artifactId>
-			<version>${HikariCP.version}</version>
-			<scope>compile</scope>
-		</dependency>
 		<!-- mysql database driver -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -62,7 +56,7 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
+			<version>${servlet.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
@@ -72,14 +66,14 @@
 		<dependency>
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>jstl</artifactId>
-		    <version>1.2</version>
+		    <version>${jstl.version}</version>
 		</dependency>
 
 		<!-- validation dependency -->
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
-			<version>1.0.0.GA</version>
+			<version>${validation.version}</version>
 		</dependency>
 
 		<dependency>
@@ -100,7 +94,7 @@
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>6.11</version>
+			<version>${testng.version}</version>
 		</dependency>
 		<!-- junit dependency -->
 		<dependency>
