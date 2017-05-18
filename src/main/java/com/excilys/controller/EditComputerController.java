@@ -15,7 +15,7 @@ import com.excilys.model.Computer;
 import com.excilys.model.ValidatorModel;
 import com.excilys.service.impl.CompanyServiceImpl;
 import com.excilys.service.impl.ComputerServiceImpl;
-import com.excilys.validations.DateValidator;
+import com.excilys.validations.DateValidator1;
 
 @Controller
 public class EditComputerController {
@@ -54,12 +54,12 @@ public class EditComputerController {
 
         Long idCompany = Long.valueOf(companyId).longValue();
 
-        ValidatorModel introducedValidator = DateValidator.isValidDate(introduced);
-        ValidatorModel disconstinuedValidator = DateValidator.isValidDate(discontinued);
+        ValidatorModel introducedValidator = DateValidator1.isValidDate(introduced);
+        ValidatorModel disconstinuedValidator = DateValidator1.isValidDate(discontinued);
         if (isNumber(id)) {
             long idcomputer = Long.valueOf(id).longValue();
             if (introducedValidator.isValid() && disconstinuedValidator.isValid()) {
-                ValidatorModel orderDateValidator = DateValidator.isIntruducedDateBeforeDisconstinuedDate(introduced,
+                ValidatorModel orderDateValidator = DateValidator1.isIntruducedDateBeforeDisconstinuedDate(introduced,
                         discontinued);
                 if (orderDateValidator.isValid()) {
                     ComputerDto computerDto = new ComputerDto.Builder().id(idcomputer).name(name).introduced(introduced)

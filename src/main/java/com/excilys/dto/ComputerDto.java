@@ -1,13 +1,20 @@
 package com.excilys.dto;
 
+import javax.validation.constraints.NotNull;
+
+import com.excilys.validations.Date;
+
 public class ComputerDto {
 
     private long id;
 
+    @NotNull
     private String name;
 
+    @Date
     private String introduced;
 
+    @Date
     private String disconstinued;
 
     private long idCompany;
@@ -21,6 +28,7 @@ public class ComputerDto {
         this.introduced = builder.introduced;
         this.disconstinued = builder.disconstinued;
         this.idCompany = builder.idCompany;
+        this.nameCompany=builder.nameCompany;
     }
 
     public long getId() {

@@ -3,54 +3,37 @@ package com.excilys.validations;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import com.excilys.model.ValidatorModel;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 
-public class DateValidator {
+public class DateValidator implements ConstraintValidator<Date, String> {
 
-    public static ValidatorModel isValidDate(String dateToValidate) {
+    @Override
+    public void initialize(Date annotation) {
 
-        ValidatorModel validator = new ValidatorModel();
+    }
 
-        if (dateToValidate != null) {
+    @Override
+    public boolean isValid(String dateToValidate, ConstraintValidatorContext arg1) {
+
+        boolean result = false;
+        
+        if (dateToValidate == null || dateToValidate.isEmpty()) {
+            return true;
+        }
+
+        else if (dateToValidate.trim().isEmpty()) {
+            return false;
+        }
+        else{
             try {
-                LocalDate date = LocalDate.parse(dateToValidate);
-                validator.setValid(true);
-
-                validator.setError(null);
-
+                LocalDate.parse(dateToValidate);
+                result = true;
             } catch (DateTimeParseException e) {
-
-                validator.setValid(false);
-
-                validator.setError("Date is not valid");
-
-            }
-        } else {
-            validator.setValid(false);
-
-            validator.setError("Date is not valid");
+                result = false;
+                }
+        return result;
         }
-        return validator;
     }
 
-    public static ValidatorModel isIntruducedDateBeforeDisconstinuedDate(String introduced, String disconstinued) {
-
-        ValidatorModel validator = new ValidatorModel();
-
-        if (DateValidator.isValidDate(introduced).isValid() && DateValidator.isValidDate(disconstinued).isValid()) {
-
-            LocalDate dateintroduced = LocalDate.parse(introduced);
-            LocalDate datedisconstinued = LocalDate.parse(disconstinued);
-
-            if (datedisconstinued.isBefore(dateintroduced)) {
-
-                validator.setValid(false);
-
-                validator.setError("Discontinued data must be greater than introduced one");
-            } else {
-                validator.setValid(true);
-            }
-        }
-        return validator;
-    }
 }
