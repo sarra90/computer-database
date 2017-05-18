@@ -1,19 +1,12 @@
 package com.excilys.dao.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -27,10 +20,8 @@ public class CompanyDaoImpl implements CompanyDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDaoImpl.class);
     public static final String QUERY_SELECT_ALL_COMPANY = "SELECT * FROM company ;";
     public static final String QUERY_SELECT_COMPANY_WHERE_ID = "SELECT * FROM company WHERE id = ";
-    public static final String QUERY_INSERT_COMPANY = "INSERT INTO company (name)";
-
-    @Autowired
-    private DataSource dataSource;
+    public static final String QUERY_INSERT_COMPANY = "INSERT INTO company (name) VALUES(?)";
+    public static final String QUERY_DELETE_COMPANY = "DELETE FROM company WHERE id = ?";
 
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -38,27 +29,15 @@ public class CompanyDaoImpl implements CompanyDao {
     @Override
     public List<Company> findAll() {
 
-        List<Company> listOfCompanys = new ArrayList<Company>();
-        Company company = null;
-        Connection conn;
-        ResultSet rs = null;
-        PreparedStatement statement = null;
+        List<Company> listOfCompanys = jdbcTemplate.query(QUERY_SELECT_ALL_COMPANY, new RowMapper<Company>() {
 
-        try {
-            conn = dataSource.getConnection();
-            statement = conn.prepareStatement(QUERY_SELECT_ALL_COMPANY);
-            rs = statement.executeQuery();
-
-            while (rs.next()) {
-                company = new Company(rs.getLong("id"), rs.getString("name"));
-                listOfCompanys.add(company);
-
+            @Override
+            public Company mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+                Company company = new Company(resultSet.getLong("id"), resultSet.getString("name"));
+                return company;
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        LOGGER.info("list company : " + listOfCompanys.size());
+        });
         return listOfCompanys;
     }
 
@@ -67,36 +46,27 @@ public class CompanyDaoImpl implements CompanyDao {
         Company company = null;
         String query = QUERY_SELECT_COMPANY_WHERE_ID + id + ";";
 
-        company = (Company) jdbcTemplate.queryForObject(query, new Object[] { id },
-                new BeanPropertyRowMapper<Company>(Company.class));
+        company = (Company) jdbcTemplate.queryForObject(query, new Object[] { id }, new RowMapper<Company>() {
+            @Override
+            public Company mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+
+                Company company = new Company.Builder().id(resultSet.getLong("id_company"))
+                        .name(resultSet.getString("name_company")).build();
+
+                return company;
+            }
+        });
         return company;
-        /*
-         * Person person = (Person) jdbcTemplate.
-         * queryForObject("SELECT * FROM trn_person where person_id = ? ", new
-         * Object[] { personId }, new BeanPropertyRowMapper(Person.class));
-         * 
-         * return person;
-         * 
-         */
     }
 
     @Override
     public Company create(Company obj) {
-        PreparedStatement statement = null;
-        Connection conn;
-        if (findById(obj.getId()) == null) {
-            String query = QUERY_INSERT_COMPANY + "VALUES(?)";
-            try {
-                conn = dataSource.getConnection();
-                statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-                statement.setString(1, obj.getName());
-                statement.execute();
-                ResultSet rs = statement.getGeneratedKeys();
-                rs.next();
-                obj = findById(rs.getLong(1));
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+
+        int result = jdbcTemplate.update(QUERY_INSERT_COMPANY, obj.getName());
+        if (result == 1) {
+            LOGGER.info("create company success ");
+        } else {
+            LOGGER.info("Error : create company method ");
         }
         return obj;
     }
@@ -104,30 +74,12 @@ public class CompanyDaoImpl implements CompanyDao {
     @Override
     public void delete(Company company) {
 
-        PreparedStatement statement = null;
-        Connection conn;
-        if (findById(company.getId()) != null) {
+        int result = jdbcTemplate.update(QUERY_DELETE_COMPANY, company.getId());
 
-            String query = "DELETE FROM company WHERE id = ?";
-            try {
-                conn = dataSource.getConnection();
-                statement = conn.prepareStatement(query);
-                statement.setLong(1, company.getId());
-
-                if (statement.execute()) {
-                    LOGGER.info("delete Method " + company.toString());
-                }
-
-            } catch (SQLException e) {
-                LOGGER.info("Error : Connexion failed" + e.getMessage());
-            } finally {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    LOGGER.info("Error : statement close" + e.getMessage());
-                }
-            }
-
+        if (result == 1) {
+            LOGGER.info("delete company success ");
+        } else {
+            LOGGER.info("Error : delete company method ");
         }
     }
 

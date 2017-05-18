@@ -3,7 +3,6 @@ package com.excilys.mapper;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import com.excilys.dao.CompanyDao;
 import com.excilys.dto.CompanyDto;
 import com.excilys.dto.ComputerDto;
 import com.excilys.model.Company;

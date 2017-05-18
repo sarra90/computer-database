@@ -127,9 +127,9 @@ function deleteElements(){
 			</c:if> 
 			</ul>
 			<div class="btn-group btn-group-sm pull-right" role="group">
-				<button type="button" class="btn btn-default"><a href="dashboard?recordsPerPage=50">50</a></button>
-				<button type="button" class="btn btn-default"><a href="dashboard?recordsPerPage=100">100</a></button>
-				<button type="button" class="btn btn-default"><a href="dashboard?recordsPerPage=150">150</a></button>
+				<button type="button" class="btn btn-default"><a href="dashboard?recordsPerPage=50">10</a></button>
+				<button type="button" class="btn btn-default"><a href="dashboard?recordsPerPage=100">50</a></button>
+				<button type="button" class="btn btn-default"><a href="dashboard?recordsPerPage=150">100</a></button>
 			</div>
 		</div>
 

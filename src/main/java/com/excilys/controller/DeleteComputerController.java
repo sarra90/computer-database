@@ -1,21 +1,20 @@
 package com.excilys.controller;
 
-import java.io.IOException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.excilys.service.ComputerService;
 
-public class DeleteComputerController extends HttpServlet {
+@Controller
+public class DeleteComputerController {
+    
+    @Autowired
+    ComputerService computerService;
 
-    private static final long serialVersionUID = 1L;
+    public String deleteComputer(@RequestParam(value = "selection", required = false) String selection) {
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        System.out.println(request.getParameter("selection"));
-        request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
+        return "dashboard";
     }
 
 }
