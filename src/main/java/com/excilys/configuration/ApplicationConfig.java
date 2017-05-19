@@ -5,9 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,7 +20,7 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @EnableWebMvc
 @PropertySource(value = "classpath:db.properties")
-@ComponentScan(basePackages = { "com.excilys" }, excludeFilters = { @Filter(type = FilterType.ANNOTATION, value = Configuration.class) })
+@ComponentScan({ "com.excilys.controller","com.excilys.dao","com.excilys.service" })
 public class ApplicationConfig  extends WebMvcConfigurerAdapter {
  
     @Autowired

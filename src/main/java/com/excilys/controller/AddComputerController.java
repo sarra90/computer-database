@@ -38,11 +38,15 @@ public class AddComputerController {
     }
     
     @RequestMapping(value="/addcomputer", method = RequestMethod.POST)
-    public String saveCountry(@Valid @ModelAttribute("computerDto") ComputerDto computerDto, BindingResult result, Model model) {
+    public String saveCountry(@Valid @ModelAttribute("computerDto") ComputerDto computerDto, BindingResult bindingResult, Model model) {
 
       model.addAttribute("newComputerDto", computerDto);
       Computer computer = MapperComputer.convertToComputer(computerDto);
       computerService.create(computer);
-      return "redirect:/addcomputer";
+      if (bindingResult.hasErrors()) {
+          return "redirect:/addcomputer";
+      }
+
+      return "redirect:/dashboard";
     }   
 }
