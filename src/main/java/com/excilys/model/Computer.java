@@ -2,6 +2,10 @@ package com.excilys.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * class represent a Computer.
  * 
@@ -9,8 +13,11 @@ import java.time.LocalDate;
  * @version 10/04/17
  */
 
+@Entity
 public class Computer {
 
+    @Id
+    @GeneratedValue
     private long id;
 
     private String name;

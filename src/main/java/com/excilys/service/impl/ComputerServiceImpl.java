@@ -16,27 +16,22 @@ import com.excilys.service.ComputerService;
 @Service("computerService")
 public class ComputerServiceImpl implements ComputerService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ComputerServiceImpl.class);
 
     @Autowired
     private ComputerDao computerDao;
 
     @Override
-    public Optional<Computer> findById(long id) {
+    public Computer findById(long id) {
 
-        Optional<Computer> computer = computerDao.findById(id);
+        Computer computer = computerDao.findOne(id);
 
         return computer;
     }
 
     @Override
     public Computer create(Computer obj) {
-        return computerDao.create(obj);
-    }
-
-    @Override
-    public Computer update(Computer obj) {
-        return computerDao.update(obj);
+        return computerDao.save(obj);
     }
 
     @Override

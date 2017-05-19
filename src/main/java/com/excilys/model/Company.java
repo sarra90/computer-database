@@ -1,13 +1,20 @@
 package com.excilys.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * class represent a Company.
  * 
  * @author sarra
  * @version 10/04/17
  */
+@Entity
 public class Company {
 
+    @Id
+    @GeneratedValue
     private long id;
     private String name;
 

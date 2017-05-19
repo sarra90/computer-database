@@ -1,7 +1,8 @@
 package com.excilys.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.excilys.model.Company;
-import java.util.List;
 
 /**
  * interface represente a company Dao.
@@ -9,38 +10,6 @@ import java.util.List;
  * @author excilys
  *
  */
-public interface CompanyDao {
-
-    /**
-     * find all company.
-     * 
-     * 
-     * @return
-     */
-    List<Company> findAll();
-
-    /**
-     * find company by id.
-     * 
-     * 
-     * @param id.
-     * @return company
-     */
-    Company findById(long id);
-
-    /**
-     * create company.
-     * 
-     * @param company.
-     * @return company
-     */
-    Company create(Company company);
-
-    /**
-     * delete company.
-     * 
-     * @param company.
-     */
-    void delete(Company company);
+public interface CompanyDao extends JpaRepository<Company, Long>{
 
 }

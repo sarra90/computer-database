@@ -37,7 +37,7 @@ public interface ComputerService {
      * @param id.
      * @return a computer.
      */
-    Optional<Computer> findById(long id);
+    Computer findById(long id);
 
     /**
      * create computer.
@@ -47,13 +47,6 @@ public interface ComputerService {
      */
     Computer create(Computer obj);
 
-    /**
-     * update computer.
-     * 
-     * @param obj.
-     * @return a boolean.
-     */
-    Computer update(Computer obj);
 
     /**
      * delete a computer.
