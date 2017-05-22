@@ -40,7 +40,7 @@ public class DashboardController {
             }
             noOfRecords = computerService.countComputer();
             int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPage);
-            model.addAttribute("list", computerService.findAllPerPage((pages - 1) * recordsPage, recordsPage));
+            model.addAttribute("list", computerService.findAll());
             model.addAttribute("currentPage", pages);
             model.addAttribute("numberOfComputers", noOfRecords);
             model.addAttribute("noOfPages", noOfPages);

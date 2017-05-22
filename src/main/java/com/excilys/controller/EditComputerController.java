@@ -1,7 +1,5 @@
 package com.excilys.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,14 +29,14 @@ public class EditComputerController {
         model.addAttribute("list", companyService.findAll());
         if (isNumber(id)) {
             long idComputer = Long.valueOf(id);
-            Optional<Computer> computer = computerService.findById(idComputer);
+            Computer computer = computerService.findById(idComputer);
             model.addAttribute("idComputer", idComputer);
-            if (computer.isPresent()) {
-                model.addAttribute("name", computer.get().getName());
-                model.addAttribute("introduced", computer.get().getIntroduced());
-                model.addAttribute("discontinued", computer.get().getDisconstinued());
-                if (computer.get().getManufacturer() != null) {
-                    model.addAttribute("nameCompany", computer.get().getManufacturer().getName());
+            if (computer!=null) {
+                model.addAttribute("name", computer.getName());
+                model.addAttribute("introduced", computer.getIntroduced());
+                model.addAttribute("discontinued", computer.getDisconstinued());
+                if (computer.getCompany() != null) {
+                    model.addAttribute("nameCompany", computer.getCompany().getName());
                 }
 
             }
@@ -67,7 +65,7 @@ public class EditComputerController {
 
                     Computer computer = MapperComputer.convertToComputer(computerDto);
 
-                    computerService.update(computer);
+                    //computerService.update(computer);
 
                 } else {
                     // display errors

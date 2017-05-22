@@ -1,10 +1,8 @@
 package com.excilys.service;
 
-import com.excilys.model.Computer;
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.stereotype.Service;
+import com.excilys.model.Computer;
 
 /**
  * interface represent a computer service.
@@ -29,7 +27,7 @@ public interface ComputerService {
      * @param numberOfRecords.
      * @return a list of computer.
      */
-    List<Computer> findAllPerPage(int offset, int numberOfRecords);
+   // List<Computer> findAllPerPage(int offset, int numberOfRecords);
 
     /**
      * find computer by id.
@@ -62,7 +60,7 @@ public interface ComputerService {
      * @return a list of computer.
      */
     List<Computer> findByName(String name);
-
+    
     /**
      * count a number of computer.
      * 
@@ -76,4 +74,6 @@ public interface ComputerService {
      * @param id.
      */
     void delete(long id);
+
+    
 }

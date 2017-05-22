@@ -91,7 +91,7 @@ function deleteElements(){
 							<td><a id="${element.getId()}" href="editComputer?id=${element.getId()}">${element.getName()}</a></td>
 							<td>${ element.getIntroduced() }</td>
 							<td>${ element.getDisconstinued() }</td>
-							<td>${ element.getManufacturer().getName() }</td>
+							<td>${ element.getCompany().getName() }</td>
 						</tr>
 					</c:forEach>
 				</tbody>

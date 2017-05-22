@@ -35,7 +35,7 @@ public class MapperComputer {
         ComputerDto computerDto = new ComputerDto.Builder().id(computer.getId()).name(computer.getName())
                 .introduced(computer.getIntroduced().format(formatter))
                 .disconstinued(computer.getDisconstinued().format(formatter))
-                .idCompany(computer.getManufacturer().getId()).build();
+                .idCompany(computer.getCompany().getId()).build();
 
         return computerDto;
 

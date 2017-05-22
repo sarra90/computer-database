@@ -1,10 +1,16 @@
 package com.excilys.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * class represent a Computer.
@@ -14,19 +20,34 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Computer {
+@Table(name="computer")
+public class Computer implements Serializable{
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
+    @Column(name="name")
     private String name;
 
+    @Column(name="introduced",columnDefinition = "TIMESTAMP",nullable = true)
     private LocalDate introduced;
 
+    @Column(name="discontinued",columnDefinition = "TIMESTAMP",nullable = true)
     private LocalDate disconstinued;
 
-    private Company manufacturer;
+    @ManyToOne
+    @JoinColumn(name="company_id")
+    private Company company;
+
+    
+    public Computer() {
+    }
 
     public Computer(Builder computerBuilder) {
 
@@ -34,7 +55,7 @@ public class Computer {
         this.name = computerBuilder.name;
         this.introduced = computerBuilder.introduced;
         this.disconstinued = computerBuilder.disconstinued;
-        this.manufacturer = computerBuilder.manufacturer;
+        this.company = computerBuilder.manufacturer;
     }
 
     public Long getId() {
@@ -70,12 +91,12 @@ public class Computer {
         this.disconstinued = disconstinued;
     }
 
-    public Company getManufacturer() {
-        return manufacturer;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setManufacturer(Company manufacturer) {
-        this.manufacturer = manufacturer;
+    public void setCompany(Company manufacturer) {
+        this.company = manufacturer;
     }
 
     @Override
@@ -85,7 +106,7 @@ public class Computer {
         result = prime * result + ((disconstinued == null) ? 0 : disconstinued.hashCode());
         result = prime * result + (int) (id ^ (id >>> 32));
         result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
-        result = prime * result + ((manufacturer == null) ? 0 : manufacturer.hashCode());
+        result = prime * result + ((company == null) ? 0 : company.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
@@ -108,7 +129,7 @@ public class Computer {
                 } else if ((this.getName().equals(computer.getName()))
                         && (this.getIntroduced().equals(computer.getIntroduced()))
                         && (this.getDisconstinued().equals(computer.getDisconstinued()))
-                        && (this.getManufacturer().equals(computer.getManufacturer()))) {
+                        && (this.getCompany().equals(computer.getCompany()))) {
 
                     result = true;
                 }
@@ -120,7 +141,7 @@ public class Computer {
     @Override
     public String toString() {
         return "Computer [id=" + id + ", name=" + name + ", introduced=" + introduced + ", disconstinued="
-                + disconstinued + ", manufacturer=" + manufacturer + "]";
+                + disconstinued + ", manufacturer=" + company + "]";
     }
 
     public static class Builder {

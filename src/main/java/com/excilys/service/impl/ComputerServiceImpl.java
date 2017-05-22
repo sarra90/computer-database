@@ -2,9 +2,10 @@ package com.excilys.service.impl;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.excilys.dao.ComputerDao;
@@ -16,7 +17,7 @@ public class ComputerServiceImpl implements ComputerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerServiceImpl.class);
 
-    @Autowired
+    @Resource
     private ComputerDao computerDao;
 
     @Override
@@ -40,15 +41,9 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public List<Computer> findAll() {
-        List<Computer> listOfComputers = (List<Computer>) computerDao.findAll();
+        LOGGER.info("findAll methode from service layer");
+        List<Computer> listOfComputers = computerDao.findAll();
         return listOfComputers;
-    }
-
-    @Override
-    public List<Computer> findAllPerPage(int offset, int numberOfRecords) {
-
-        List<Computer> listOfComputersPerPage = computerDao.findAllPerPage(offset, numberOfRecords);
-        return listOfComputersPerPage;
     }
 
     @Override
@@ -59,7 +54,7 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public long countComputer() {
-        long count = computerDao.countComputer();
+        long count = computerDao.count();
         return count;
     }
 

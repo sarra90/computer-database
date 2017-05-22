@@ -2,7 +2,6 @@ package com.excilys.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.Optional;
 
 import org.dbunit.DatabaseTestCase;
 import org.dbunit.database.DatabaseConnection;
@@ -10,16 +9,11 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.junit.Test;
-
-import com.excilys.dao.impl.ComputerDaoImpl;
-import com.excilys.model.Computer;
 
 public class TestComputerDao extends DatabaseTestCase {
-
+    
     private Connection connect;
     private FlatXmlDataSet loadedDataSet;
-    private ComputerDao computerDao = new ComputerDaoImpl();
 
     @Override
     protected IDatabaseConnection getConnection() throws Exception {
@@ -36,7 +30,7 @@ public class TestComputerDao extends DatabaseTestCase {
                 .build(Thread.currentThread().getContextClassLoader().getResourceAsStream("dbunit.xml"));
         return loadedDataSet;
     }
-
+    /*
     @Test
     public void test_count() {
         assertEquals(3, computerDao.countComputer());
@@ -55,7 +49,7 @@ public class TestComputerDao extends DatabaseTestCase {
         Optional<Computer> computer = computerDao.findById(id);
         assertTrue(computer.isPresent());
     }
-    /*
+    
      * @Test public void test_add_computer(){
      * 
      * Computer computer = new Computer.Builder("computerTest")

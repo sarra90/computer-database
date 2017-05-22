@@ -50,7 +50,7 @@ public class ApplicationConfig  extends WebMvcConfigurerAdapter {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
        LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
        localContainerEntityManagerFactoryBean.setDataSource(dataSource());
-       localContainerEntityManagerFactoryBean.setPackagesToScan(new String[] { "com.app.model" });
+       localContainerEntityManagerFactoryBean.setPackagesToScan("com.excilys.model");
        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
        vendorAdapter.setGenerateDdl(false);
        localContainerEntityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
@@ -72,8 +72,8 @@ public class ApplicationConfig  extends WebMvcConfigurerAdapter {
 
     Properties additionalProperties() {
        Properties properties = new Properties();
-       properties.setProperty("hibernate.hbm2ddl.auto","create-drop" );
-       properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+       properties.setProperty("hibernate.hbm2ddl.auto","validate" );
+       properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
        return properties;
     }
     @Bean
