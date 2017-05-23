@@ -214,6 +214,7 @@
 		<module>binding</module>
 		<module>persistence</module>
 		<module>service</module>
+		<module>client</module>
 		<module>controller</module>
 	</modules>
 	<build>
