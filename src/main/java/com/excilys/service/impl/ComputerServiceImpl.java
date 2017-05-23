@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.excilys.dao.ComputerDao;
@@ -62,6 +64,11 @@ public class ComputerServiceImpl implements ComputerService {
     public void delete(long id) {
 
         computerDao.delete(id);
+    }
+
+    @Override
+    public Page<Computer> findAllPerPages(PageRequest pageRequest) {
+        return computerDao.findAll(pageRequest);
     }
 
 }

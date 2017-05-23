@@ -55,7 +55,7 @@ function deleteElements(){
 			</div>
 		</div>
 
-		<form id="deleteForm" action="dashboard" method="POST">
+		<form id="deleteForm" action="${pageContext.request.contextPath}/dashboard" method="POST">
 			<input type="hidden" id="selection" name="selection" value="">
 		</form>
 
@@ -84,7 +84,7 @@ function deleteElements(){
 				</thead>
 				<!-- Browse attribute computers  -->
 				<tbody id="results">
-					<c:forEach var="element" items="${ list }">
+					<c:forEach var="element" items="${ list.content }">
 						<tr>
 							<td class="editMode"><input type="checkbox" name="cb"
 								class="cb" value="${element.getId()}"></td>
@@ -127,9 +127,9 @@ function deleteElements(){
 			</c:if> 
 			</ul>
 			<div class="btn-group btn-group-sm pull-right" role="group">
-				<button type="button" class="btn btn-default"><a href="dashboard?recordsPerPage=50">10</a></button>
-				<button type="button" class="btn btn-default"><a href="dashboard?recordsPerPage=100">50</a></button>
-				<button type="button" class="btn btn-default"><a href="dashboard?recordsPerPage=150">100</a></button>
+				<button type="button" class="btn btn-default"><a href="dashboard?recordsPerPage=50">50</a></button>
+				<button type="button" class="btn btn-default"><a href="dashboard?recordsPerPage=100">100</a></button>
+				<button type="button" class="btn btn-default"><a href="dashboard?recordsPerPage=150">150</a></button>
 			</div>
 		</div>
 

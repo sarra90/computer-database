@@ -23,7 +23,7 @@
 			<div class="row">
 				<div class="col-xs-8 col-xs-offset-2 box">
 					<h1>Add Computer</h1>
-					<form:form method="post"action="${pageContext.request.contextPath}/addcomputer" commandName = "computerDto">
+					<form:form method="post" action="${pageContext.request.contextPath}/addcomputer" commandName = "computerDto">
 						<fieldset>
 							<div class="form-group">
 							<div class="form-group ${status.error ? 'has-error' : ''}">

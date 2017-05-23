@@ -3,6 +3,7 @@ package com.excilys.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ public class DashboardController {
 
         int pages = 1;
         int recordsPage = 50;
+        
         long noOfRecords;
         if (search != null) {
             List<Computer> listOfComputer = computerService.findByName(search);
@@ -38,9 +40,11 @@ public class DashboardController {
             if (page != null) {
                 pages = Integer.parseInt(page);
             }
+            
             noOfRecords = computerService.countComputer();
             int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPage);
-            model.addAttribute("list", computerService.findAll());
+            PageRequest pageRequest = new PageRequest(pages, recordsPage);
+            model.addAttribute("list", computerService.findAllPerPages(pageRequest));
             model.addAttribute("currentPage", pages);
             model.addAttribute("numberOfComputers", noOfRecords);
             model.addAttribute("noOfPages", noOfPages);

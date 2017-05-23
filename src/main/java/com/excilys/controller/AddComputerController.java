@@ -26,7 +26,7 @@ public class AddComputerController {
     CompanyService companyService;
     
     @RequestMapping(value = "/addcomputer" , method = RequestMethod.GET )
-    public String addCOmputer(Model model){
+    public String addComputer(Model model){
         
         model.addAttribute("list",companyService.findAll());
         return "addComputer";

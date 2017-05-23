@@ -2,6 +2,9 @@ package com.excilys.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import com.excilys.model.Computer;
 
 /**
@@ -74,6 +77,13 @@ public interface ComputerService {
      * @param id.
      */
     void delete(long id);
+
+    /**
+     * 
+     * @param pageRequest
+     * @return
+     */
+    Page<Computer> findAllPerPages(PageRequest pageRequest);
 
     
 }
