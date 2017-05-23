@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.excilys</groupId>
 	<artifactId>computerdatabase</artifactId>
-	<packaging>war</packaging>
+	<packaging>pom</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ComputerDatabase Maven Webapp</name>
 	<url>http://maven.apache.org</url>
@@ -28,7 +28,7 @@
 		<spring.version>4.2.3.RELEASE</spring.version>
 		<hibernate.version>5.2.6.Final</hibernate.version>
 	</properties>
-
+<dependencyManagement>
 	<dependencies>
 
 		<!-- hikaricp -->
@@ -159,7 +159,6 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- JPA Provider (Hibernate) -->
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -209,7 +208,14 @@
 			<version>1.11.3.RELEASE</version>
 		</dependency>
 	</dependencies>
-
+</dependencyManagement>
+	<modules>
+		<module>core</module>
+		<module>binding</module>
+		<module>persistence</module>
+		<module>service</module>
+		<module>controller</module>
+	</modules>
 	<build>
 		<finalName>computerdatabase</finalName>
 		<plugins>
