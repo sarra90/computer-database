@@ -14,7 +14,24 @@ public class DeleteComputerController {
 
     public String deleteComputer(@RequestParam(value = "selection", required = false) String selection) {
 
+        String[] tabSelection = selection.split(",");
+
+        for (int i = 0; i < tabSelection.length; i++) {
+            if (isNumber(tabSelection[i])) {
+               computerService.delete(Long.parseLong((tabSelection[i])));
+            }
+        }
         return "dashboard";
     }
 
+    private boolean isNumber(String s) {
+        try {
+            Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            return false;
+        } catch (NullPointerException e) {
+            return false;
+        }
+        return true;
+    }
 }
