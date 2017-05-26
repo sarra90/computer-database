@@ -1,10 +1,15 @@
 package com.excilys.model;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
@@ -17,22 +22,28 @@ public class User implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @Id
+    private long id;
     private String username;
     private String password;
+    private boolean enabled;
     
-    @ManyToMany
-    @JoinTable(name="USERS_ROLES")
-    private Collection<Role> roles ;
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinTable(joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles ;
 
+    
     public User() {
         super();
     }
 
-    public User(String username, String password) {
-        super();
-        this.username = username;
-        this.password = password;
+    public long getId() {
+        return id;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -49,12 +60,25 @@ public class User implements Serializable{
         this.password = password;
     }
 
-    public Collection<Role> getRoles() {
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+   
 }
