@@ -29,7 +29,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@PropertySource(value = "classpath:db.properties")
+@PropertySource(value = "classpath:application.properties")
 @ComponentScan({ "com.excilys.model","com.excilys.controller","com.excilys.dao","com.excilys.service" })
 @EnableJpaRepositories("com.excilys.dao")
 @EnableTransactionManagement
@@ -74,7 +74,7 @@ public class ApplicationConfig  extends WebMvcConfigurerAdapter {
 
     Properties additionalProperties() {
        Properties properties = new Properties();
-       properties.setProperty("hibernate.hbm2ddl.auto","create" );
+       properties.setProperty("hibernate.hbm2ddl.auto","update" );
        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
        return properties;
     }
