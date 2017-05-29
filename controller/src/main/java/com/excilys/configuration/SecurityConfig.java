@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.DigestAuthenticationFilter;
 
-import com.excilys.service.impl.UserService;
+import com.excilys.service.impl.UserServiceDetails;
 
 @Configuration
 @EnableWebSecurity
@@ -19,7 +19,7 @@ import com.excilys.service.impl.UserService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserService userDetailsService;
+    private UserServiceDetails userDetailsService;
 
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -45,9 +45,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests().antMatchers("/ressources/**", "/js/**", "/static/fonts/**", "/static/css/**").permitAll()
-                .antMatchers("/dashboard*","/addcomputer","/editComputer","/deleteComputer").access("hasAuthority('ADMIN') ")
-                .antMatchers("/dashboard").access("hasAuthority('USER') ")
+        http.authorizeRequests().antMatchers("/ressources/**", "/js/**", "/static/fonts/**", "/static/css/**","/register").permitAll()
+                .antMatchers("/dashboard*","/addcomputer","/editComputer","/deleteComputer","listUser").hasAuthority("ADMIN")
+                .antMatchers("/dashboard").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

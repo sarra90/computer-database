@@ -12,16 +12,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.dao.UserDao;
 import com.excilys.model.Role;
 import com.excilys.model.User;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserServiceDetails implements UserDetailsService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceDetails.class);
 
     @Autowired
     private UserDao userDao;
@@ -35,8 +34,9 @@ public class UserService implements UserDetailsService {
             return null;
         }
         LOGGER.debug(" user from username " + user.toString());
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-                getAuthorities(user));
+      return buildUserForAuthentication(user, getAuthorities(user));
+        //return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+                //getAuthorities(user));
     }
 
     private Set<GrantedAuthority> getAuthorities(User user) {
@@ -47,6 +47,12 @@ public class UserService implements UserDetailsService {
         }
         LOGGER.debug("user authorities are " + autorithies.toString());
         return autorithies;
+    }
+    private org.springframework.security.core.userdetails.User buildUserForAuthentication(
+            User user, Set<GrantedAuthority> authorities) {
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(), user.getPassword(), true, true, true, true,
+                authorities);
     }
 
 }

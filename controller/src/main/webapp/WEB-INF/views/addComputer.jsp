@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <%@ page pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <head>
 <title>Computer Database</title>
@@ -13,10 +14,33 @@
 </head>
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<a class="navbar-brand" href="dashboard"> Application -
-				Computer Database </a>
-		</div>
+				<div class="container">
+					<a class="navbar-brand" href="dashboard"><spring:message code="app.title"/></a>
+				
+				<div class="collapse navbar-collapse navbar-right col-lg-2 col-md-3">
+					<a class="navbar-brand" href="${pageContext.request.contextPath}/listUser">List user</a>
+				</div>
+				
+				<div>
+					<form id="logout" action="${pageContext.request.contextPath}/login?logout=" method="post">
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
+					</form>
+				</div>
+				
+					<c:if test="${pageContext.request.userPrincipal.name != null}">
+						<div class="collapse navbar-collapse navbar-right col-lg-2 col-md-3">
+						<a class="navbar-brand"
+							href="login?logout">Logout</a>
+							</div>
+					</c:if>
+				
+				<div class="collapse navbar-collapse navbar-right col-lg-2 col-md-3">
+					<a class="navbar-brand" href="?language=en">English</a>|<a class="navbar-brand" href="?language=fr">French</a>
+				</div>
+				
+				</div>
+			
 	</header>
 	<section id="main">
 		<div class="container">
