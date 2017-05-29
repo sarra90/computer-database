@@ -13,7 +13,10 @@ import com.excilys.model.Computer;
 public interface ComputerDao extends JpaRepository<Computer, Long>{
 
     @Query("SELECT c FROM Computer c WHERE c.name like ?1%")
-	public List<Computer> findByName(String name);
+	List<Computer> findByName(String name);
 	
-    public Page<Computer> findAll(Pageable pageRequest);
+    @Query("SELECT count (*) FROM Computer c WHERE c.name like ?1%")
+    long countByName(String name);
+    
+    Page<Computer> findAll(Pageable pageRequest);
 }

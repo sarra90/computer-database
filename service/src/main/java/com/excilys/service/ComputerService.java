@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import com.excilys.model.Computer;
 
@@ -62,7 +63,7 @@ public interface ComputerService {
      * @param name.
      * @return a list of computer.
      */
-    List<Computer> findByName(String name);
+    Page<Computer> findByName(String name, Pageable pageable);
     
     /**
      * count a number of computer.
@@ -85,5 +86,5 @@ public interface ComputerService {
      */
     Page<Computer> findAllPerPages(PageRequest pageRequest);
 
-    
+    long countComputerByName(String name);
 }

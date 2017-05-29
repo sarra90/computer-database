@@ -7,7 +7,9 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.excilys.dao.ComputerDao;
@@ -49,26 +51,35 @@ public class ComputerServiceImpl implements ComputerService {
     }
 
     @Override
-    public List<Computer> findByName(String name) {
+    public Page<Computer> findByName(String name, Pageable pageable) {
+        LOGGER.info("findByName methode from service layer");
         List<Computer> listOfComputersByName = computerDao.findByName(name);
-        return listOfComputersByName;
+        Page<Computer> pages = new PageImpl<>(listOfComputersByName, pageable, listOfComputersByName.size());
+        return pages;
     }
 
     @Override
     public long countComputer() {
+        LOGGER.info("count methode from service layer");
         long count = computerDao.count();
         return count;
     }
 
     @Override
     public void delete(long id) {
-
+        LOGGER.info("delete methode from service layer");
         computerDao.delete(id);
     }
 
     @Override
     public Page<Computer> findAllPerPages(PageRequest pageRequest) {
+        LOGGER.info("findAllPerPages methode from service layer");
         return computerDao.findAll(pageRequest);
+    }
+
+    @Override
+    public long countComputerByName(String name) {
+        return computerDao.countByName(name);
     }
 
 }

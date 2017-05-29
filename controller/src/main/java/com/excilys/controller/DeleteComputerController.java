@@ -2,6 +2,7 @@ package com.excilys.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.excilys.service.ComputerService;
@@ -12,6 +13,7 @@ public class DeleteComputerController {
     @Autowired
     ComputerService computerService;
 
+    @RequestMapping("/deleteComputer")
     public String deleteComputer(@RequestParam(value = "selection", required = false) String selection) {
 
         String[] tabSelection = selection.split(",");
@@ -21,7 +23,7 @@ public class DeleteComputerController {
                computerService.delete(Long.parseLong((tabSelection[i])));
             }
         }
-        return "dashboard";
+        return "redirect:/dashboard";
     }
 
     private boolean isNumber(String s) {

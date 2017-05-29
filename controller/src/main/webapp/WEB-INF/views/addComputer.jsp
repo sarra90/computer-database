@@ -74,5 +74,6 @@
 			</div>
 		</div>
 	</section>
+	<script src="js/addComputer.js"></script>
 </body>
 </html>

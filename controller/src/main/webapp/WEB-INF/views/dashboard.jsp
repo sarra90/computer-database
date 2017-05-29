@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <head>
 <title>Computer Database</title>
@@ -14,26 +16,25 @@
 	media="screen">
 <link href="./static/css/main.css" rel="stylesheet" media="screen">
 <script type="text/javascript">
-	function deleteElements() {
-		var checkboxes = document.getElementsByName('cb');
-		var selected = [];
-		for (var i = 0; i < checkboxes.length; i++) {
-			if (checkboxes[i].checked) {
-				selected.push(checkboxes[i].value);
-			}
+function deleteElements(){
+	var checkboxes = document.getElementsByName('cb');
+	var selected = [];
+	for (var i=0; i<checkboxes.length;i++){
+		if(checkboxes[i].checked){
+			selected.push(checkboxes[i].value);
 		}
-		var deleteform = document.getElementById('deleteForm');
-		var inputselection = document.getElementById('selection');
-		inputselection.value = selected;
-		deleteform.submit();
 	}
+	var deleteform = document.getElementById('deleteForm');
+	var inputselection = document.getElementById('selection');
+	inputselection.value = selected;
+	deleteform.submit();
+}
 </script>
 </head>
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 				<div class="container">
-					<a class="navbar-brand" href="dashboard"> Application -
-						Computer Database </a>
+					<a class="navbar-brand" href="dashboard"><spring:message code="app.title"/></a>
 				<div>
 					<form id="logout" action="${pageContext.request.contextPath}/login?logout=" method="post">
 						<input type="hidden" name="${_csrf.parameterName}"
@@ -47,13 +48,16 @@
 							href="login?logout">Logout</a>
 							</div>
 					</c:if>
+				<div class="collapse navbar-collapse navbar-right col-lg-2 col-md-3">
+					<a class="navbar-brand" href="?language=en">English</a>|<a class="navbar-brand" href="?language=fr">French</a>
+				</div>
 				</div>
 			
 	</header>
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${ numberOfComputers }computerfound</h1>
+			<h1 id="homeTitle">${ numberOfComputers }<spring:message code="app.nbComputer"/></h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="dashboard" method="GET"
@@ -74,7 +78,7 @@
 		</div>
 
 		<form id="deleteForm"
-			action="${pageContext.request.contextPath}/dashboard" method="POST">
+			action="${pageContext.request.contextPath}/deleteComputer?${_csrf.parameterName}=${_csrf.token}" method="POST">
 			<input type="hidden" id="selection" name="selection" value="">
 		</form>
 
@@ -162,9 +166,9 @@
 		</div>
 
 	</footer>
-	<script src="./static/js/jquery.min.js"></script>
-	<script src="./static/js/bootstrap.min.js"></script>
-	<script src="./static/js/dashboard.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/dashboard.js"></script>
 
 </body>
 </html>

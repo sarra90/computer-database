@@ -1,6 +1,6 @@
 package com.excilys.controller;
 
-import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.excilys.model.Computer;
 import com.excilys.service.ComputerService;
 
 @Controller
@@ -20,7 +19,8 @@ public class DashboardController {
     ComputerService computerService;
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public String getAllComputer(@RequestParam(value = "recordsPerPage", required = false) String recordsPerPage,
+    public String getAllComputer(Locale locale,
+            @RequestParam(value = "recordsPerPage", required = false) String recordsPerPage,
             @RequestParam(value = "page", required = false) String page,
             @RequestParam(value = "search", required = false) String search, Model model) {
 
@@ -29,10 +29,22 @@ public class DashboardController {
         
         long noOfRecords;
         if (search != null) {
-            List<Computer> listOfComputer = computerService.findByName(search);
-            noOfRecords = listOfComputer.size();
+            if (recordsPerPage != null) {
+                recordsPage = Integer.parseInt(recordsPerPage);
+            }
+            if (page != null) {
+                pages = Integer.parseInt(page);
+            }
+            
+            noOfRecords = computerService.countComputerByName(search);
+            int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPage);
+            PageRequest pageRequest = new PageRequest(pages, recordsPage);
+            model.addAttribute("list", computerService.findByName(search,pageRequest));
+            model.addAttribute("currentPage", pages);
             model.addAttribute("numberOfComputers", noOfRecords);
-            model.addAttribute("list", listOfComputer);
+            model.addAttribute("noOfPages", noOfPages);
+            model.addAttribute("currentPage", pages);
+            model.addAttribute("recordsPerPage", recordsPage);
         } else {
             if (recordsPerPage != null) {
                 recordsPage = Integer.parseInt(recordsPerPage);
