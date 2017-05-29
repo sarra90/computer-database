@@ -18,38 +18,42 @@
 </head>
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
-				<div class="container">
-					<a class="navbar-brand" href="dashboard"><spring:message code="app.title"/></a>
-				
+		<div class="container">
+			<a class="navbar-brand" href="dashboard"><spring:message
+					code="app.title" /></a>
+
+			<div class="collapse navbar-collapse navbar-right col-lg-2 col-md-3">
+				<a class="navbar-brand"
+					href="${pageContext.request.contextPath}/listUser">List user</a>
+			</div>
+
+			<div>
+				<form id="logout"
+					action="${pageContext.request.contextPath}/login?logout="
+					method="post">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+				</form>
+			</div>
+
+			<c:if test="${pageContext.request.userPrincipal.name != null}">
 				<div class="collapse navbar-collapse navbar-right col-lg-2 col-md-3">
-					<a class="navbar-brand" href="${pageContext.request.contextPath}/listUser">List user</a>
+					<a class="navbar-brand" href="login?logout">Logout</a>
 				</div>
-				
-				<div>
-					<form id="logout" action="${pageContext.request.contextPath}/login?logout=" method="post">
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
-					</form>
-				</div>
-				
-					<c:if test="${pageContext.request.userPrincipal.name != null}">
-						<div class="collapse navbar-collapse navbar-right col-lg-2 col-md-3">
-						<a class="navbar-brand"
-							href="login?logout">Logout</a>
-							</div>
-					</c:if>
-				
-				<div class="collapse navbar-collapse navbar-right col-lg-2 col-md-3">
-					<a class="navbar-brand" href="?language=en">English</a>|<a class="navbar-brand" href="?language=fr">French</a>
-				</div>
-				
-				</div>
-			
+			</c:if>
+
+			<div class="collapse navbar-collapse navbar-right col-lg-2 col-md-3">
+				<a class="navbar-brand" href="?language=en">English</a>|<a
+					class="navbar-brand" href="?language=fr">French</a>
+			</div>
+
+		</div>
+
 	</header>
 
 	<section id="main">
 
-	
+
 		<div class="container" style="margin-top: 10px;">
 			<table class="table table-striped table-bordered">
 				<thead>
@@ -64,11 +68,17 @@
 					<c:forEach var="element" items="${ list}">
 						<tr>
 							<td>${ element.getUsername() }</td>
+							<td><c:forEach var="elt" items="${element.getRoles()}">${ elt.getRole()}
+							</c:forEach></td>
 							<td>
-							<c:forEach var="elt" items="${element.getRoles()}">${ elt.getRole()}
-							</c:forEach>
-							</td>
-							<td>${ element.isEnabled() }</td>
+								<c:if test="${ element.isEnabled() eq true}">
+								<input type="checkbox" name="validate" checked="checked"/>
+								</c:if>
+								
+								<c:if test="${ element.isEnabled() eq false}">
+								<input type="checkbox" name="validate"/>
+								</c:if>
+							${ element.isEnabled() }</td>
 						</tr>
 					</c:forEach>
 				</tbody>
