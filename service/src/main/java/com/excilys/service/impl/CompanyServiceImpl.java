@@ -13,7 +13,7 @@ import com.excilys.model.Company;
 import com.excilys.service.CompanyService;
 
 @Service("companyService")
-@Transactional
+
 public class CompanyServiceImpl implements CompanyService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyServiceImpl.class);
@@ -23,20 +23,45 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public List<Company> findAll() {
-        LOGGER.info("findAll methode from service layer");
+        
+        LOGGER.info("findAll methode from Company service layer");
         return companyDao.findAll();
     }
 
     @Override
     public Company findById(Long id) {
-        LOGGER.info("findById methode from service layer");
-        return companyDao.findOne(id);
+        
+        Company company =null;
+        LOGGER.info("findById methode from Company service layer");
+        if(id!=null){
+            company= companyDao.findOne(id);
+            LOGGER.debug("Company founded "+ company.toString());
+        }
+        else{
+            LOGGER.debug("id company null ");
+        }
+        return company;
     }
 
     @Override
     public Company create(Company obj) {
-        LOGGER.info("create methode from service layer");
+        
+        LOGGER.info("create methode from Company service layer");
         return companyDao.save(obj);
+    }
+
+    
+    @Override
+    public void delete(Company obj) {
+        
+        LOGGER.info("delete methode from Company service layer");
+        if(obj!=null){
+        companyDao.delete(obj);
+        LOGGER.debug("Company deleted "+ obj.toString());
+        }
+        else{
+            LOGGER.debug("company null ");
+        }
     }
 
 }

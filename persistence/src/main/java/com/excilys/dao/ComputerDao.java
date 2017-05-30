@@ -18,5 +18,7 @@ public interface ComputerDao extends JpaRepository<Computer, Long>{
     @Query("SELECT count (*) FROM Computer c WHERE c.name like ?1%")
     long countByName(String name);
     
+    Computer findById(Long id);
+    
     Page<Computer> findAll(Pageable pageRequest);
 }

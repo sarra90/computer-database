@@ -29,66 +29,82 @@ public class DashboardController {
         int recordsPage = 50;
         
         long noOfRecords;
-        if (search != null) {
-            if (recordsPerPage != null) {
-                recordsPage = Integer.parseInt(recordsPerPage);
-            }
-            if (page != null) {
-                pages = Integer.parseInt(page);
-            }
-            
-            noOfRecords = computerService.countComputerByName(search);
-            int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPage);
-            PageRequest pageRequest = new PageRequest(pages, recordsPage);
-            model.addAttribute("list", computerService.findByName(search,pageRequest));
-            model.addAttribute("currentPage", pages);
-            model.addAttribute("numberOfComputers", noOfRecords);
-            model.addAttribute("noOfPages", noOfPages);
-            model.addAttribute("currentPage", pages);
-            model.addAttribute("recordsPerPage", recordsPage);
-        } else {
-            if (recordsPerPage != null) {
-                recordsPage = Integer.parseInt(recordsPerPage);
-            }
-            if (page != null) {
-                pages = Integer.parseInt(page);
-            }
-            
-            noOfRecords = computerService.countComputer();
-            int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPage);
-            PageRequest pageRequest = new PageRequest(pages, recordsPage);
-            model.addAttribute("list", computerService.findAllPerPages(pageRequest));
-            model.addAttribute("currentPage", pages);
-            model.addAttribute("numberOfComputers", noOfRecords);
-            model.addAttribute("noOfPages", noOfPages);
-            model.addAttribute("currentPage", pages);
-            model.addAttribute("recordsPerPage", recordsPage);
+        int noOfPages;
+        
+        if (recordsPerPage != null) {
+            recordsPage = Integer.parseInt(recordsPerPage);
         }
+        if (page != null) {
+            pages = Integer.parseInt(page);
+        }
+        
+        
+        if(search != null){
+        noOfRecords = computerService.countComputerByName(search);
+            noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPage);
+            PageRequest pageRequest = new PageRequest(pages, recordsPage);
+         model.addAttribute("list", computerService.findByName(search,pageRequest));
+        }
+        else{
+         noOfRecords = computerService.countComputer();
+            noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPage);
+            PageRequest pageRequest = new PageRequest(pages, recordsPage);
+         model.addAttribute("list", computerService.findAllPerPages(pageRequest));
+        }
+       
+        model.addAttribute("currentPage", pages);
+        model.addAttribute("numberOfComputers", noOfRecords);
+        model.addAttribute("noOfPages", noOfPages);
+        model.addAttribute("currentPage", pages);
+        model.addAttribute("recordsPerPage", recordsPage);
+        model.addAttribute("search", search);
         return "dashboard";
     }
 
-    @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
-    public String deleteComputer(@RequestParam(value = "selection", required = false) String selection) {
-
-        String[] tab = selection.split(",");
-
-        for (int i = 0; i < tab.length; i++) {
-            if (isNumber(tab[i])) {
-                long id = Long.valueOf(tab[i]).longValue();
-                computerService.delete(id);
-            }
-        }
-        return "dashboard";
-    }
-
-    private boolean isNumber(String s) {
-        try {
-            Integer.parseInt(s);
-        } catch (NumberFormatException e) {
-            return false;
-        } catch (NullPointerException e) {
-            return false;
-        }
-        return true;
-    }
+   
 }
+/*      int pages = 1;
+        int recordsPage = 50;
+        
+        long noOfRecords;
+        int noOfPages;
+        
+        if (recordsPerPage != null) {
+            recordsPage = Integer.parseInt(recordsPerPage);
+        }
+        if (page != null) {
+            pages = Integer.parseInt(page);
+        }
+        
+        
+        if(search != null){
+        noOfRecords = computerService.countComputerByName(search);
+            noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPage);
+            PageRequest pageRequest = new PageRequest(pages, recordsPage);
+         model.addAttribute("list", computerService.findByName(search,pageRequest));
+        }
+        else{
+         noOfRecords = computerService.countComputer();
+            noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPage);
+            PageRequest pageRequest = new PageRequest(pages, recordsPage);
+         model.addAttribute("list", computerService.findAllPerPages(pageRequest));
+        }
+       
+        model.addAttribute("currentPage", pages);
+        model.addAttribute("numberOfComputers", noOfRecords);
+        model.addAttribute("noOfPages", noOfPages);
+        model.addAttribute("currentPage", pages);
+        model.addAttribute("recordsPerPage", recordsPage);
+        
+ */
+
+
+
+
+
+
+
+
+
+
+

@@ -38,7 +38,7 @@ import org.springframework.web.servlet.view.JstlView;
 @PropertySource(value = "classpath:application.properties")
 @ComponentScan({ "com.excilys.model","com.excilys.controller","com.excilys.dao","com.excilys.service" })
 @EnableJpaRepositories("com.excilys.dao")
-@EnableTransactionManagement
+//@EnableTransactionManagement
 @Import({ SecurityConfig.class })
 public class ApplicationConfig  extends WebMvcConfigurerAdapter {
  
@@ -69,7 +69,6 @@ public class ApplicationConfig  extends WebMvcConfigurerAdapter {
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
        JpaTransactionManager transactionManager = new JpaTransactionManager();
        transactionManager.setEntityManagerFactory(emf);
-
        return transactionManager;
     }
 
@@ -82,6 +81,9 @@ public class ApplicationConfig  extends WebMvcConfigurerAdapter {
        Properties properties = new Properties();
        properties.setProperty("hibernate.hbm2ddl.auto","update" );
        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
+       properties.setProperty("show_sql", "true");
+       properties.setProperty("format_sql", "true");
+       properties.setProperty("use_sql_comments", "true");
        return properties;
     }
     @Bean
@@ -101,7 +103,7 @@ public class ApplicationConfig  extends WebMvcConfigurerAdapter {
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("/i18n/app");
+        messageSource.setBasenames("/i18n/app","/i18n/addcomputer","/i18n/dashboard");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }

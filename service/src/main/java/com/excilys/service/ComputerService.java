@@ -77,7 +77,7 @@ public interface ComputerService {
      * 
      * @param id.
      */
-    void delete(long id);
+    void delete(Long id);
 
     /**
      * 
