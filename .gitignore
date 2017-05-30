@@ -2,5 +2,6 @@
 .settings/
 .classpath
 .project
+.class
 lib/
 /target/
