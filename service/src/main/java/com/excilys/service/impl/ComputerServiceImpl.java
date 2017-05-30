@@ -11,12 +11,14 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.dao.ComputerDao;
 import com.excilys.model.Computer;
 import com.excilys.service.ComputerService;
 
 @Service("computerService")
+@Transactional
 public class ComputerServiceImpl implements ComputerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerServiceImpl.class);
@@ -26,7 +28,7 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public Computer findById(long id) {
-
+        LOGGER.info("findById methode from service layer");
         Computer computer = computerDao.findOne(id);
 
         return computer;
@@ -34,6 +36,7 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public Computer create(Computer obj) {
+        LOGGER.info("create methode from service layer");
         return computerDao.save(obj);
     }
 
