@@ -37,7 +37,7 @@ function deleteElements(){
 					<a class="navbar-brand" href="dashboard"><spring:message code="app.title"/></a>
 				
 				<div class="collapse navbar-collapse navbar-right col-lg-2 col-md-3">
-					<a class="navbar-brand" href="${pageContext.request.contextPath}/listUser">List user</a>
+					<a class="navbar-brand" href="${pageContext.request.contextPath}/listUser"><spring:message code="app.navbar.listuser"/></a>
 				</div>
 				
 				<div>
@@ -50,7 +50,7 @@ function deleteElements(){
 					<c:if test="${pageContext.request.userPrincipal.name != null}">
 						<div class="collapse navbar-collapse navbar-right col-lg-2 col-md-3">
 						<a class="navbar-brand"
-							href="login?logout">Logout</a>
+							href="login?logout"><spring:message code="app.navbar.logout"/></a>
 							</div>
 					</c:if>
 				
@@ -64,7 +64,7 @@ function deleteElements(){
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${ numberOfComputers }<spring:message code="app.nbComputer"/></h1>
+			<h1 id="homeTitle">${ numberOfComputers }<spring:message code="dashboard.nbComputer"/></h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="dashboard" method="GET"
@@ -77,7 +77,7 @@ function deleteElements(){
 					</form>
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="addcomputer">AddComputer</a>
+					<a class="btn btn-success" id="addComputer" href="addcomputer"><spring:message code="dashboard.computer.addcomputer"/></a>
 					<a class="btn btn-default" id="editComputer" href="#"
 						onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
@@ -103,12 +103,12 @@ function deleteElements(){
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th>Computer name</th>
-						<th>Introduced date</th>
+						<th><spring:message code="dashboard.computer.name"/></th>
+						<th><spring:message code="dashboard.computer.introducedDate"/></th>
 						<!-- Table header for Discontinued Date -->
-						<th>Discontinued date</th>
+						<th><spring:message code="dashboard.computer.discontinuedDate"/></th>
 						<!-- Table header for Company -->
-						<th>Company</th>
+						<th><spring:message code="dashboard.computer.company"/></th>
 
 					</tr>
 				</thead>
@@ -138,7 +138,7 @@ function deleteElements(){
 			<ul class="pagination">
 				<c:if test="${currentPage != 1}">
 					<li><a
-						href="dashboard?page=${currentPage - 1}&recordsPerPage=${recordsPerPage}"
+						href="dashboard?search=${search}&page=${currentPage - 1}&recordsPerPage=${recordsPerPage}"
 						aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
 					</li>
 				</c:if>
@@ -149,25 +149,25 @@ function deleteElements(){
 						</c:when>
 						<c:otherwise>
 							<li><a
-								href="dashboard?page=${i}&recordsPerPage=${recordsPerPage}">${i}</a></li>
+								href="dashboard?search=${search}&page=${i}&recordsPerPage=${recordsPerPage}">${i}</a></li>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${currentPage lt noOfPages}">
 					<li><a
-						href="dashboard?page=${currentPage + 1}&recordsPerPage=${recordsPerPage}"
+						href="dashboard?search=${search}&page=${currentPage + 1}&recordsPerPage=${recordsPerPage}"
 						aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
 				</c:if>
 			</ul>
 			<div class="btn-group btn-group-sm pull-right" role="group">
 				<button type="button" class="btn btn-default">
-					<a href="dashboard?recordsPerPage=50">50</a>
+					<a href="dashboard?search=${search}&recordsPerPage=50">50</a>
 				</button>
 				<button type="button" class="btn btn-default">
-					<a href="dashboard?recordsPerPage=100">100</a>
+					<a href="dashboard?search=${search}&recordsPerPage=100">100</a>
 				</button>
 				<button type="button" class="btn btn-default">
-					<a href="dashboard?recordsPerPage=150">150</a>
+					<a href="dashboard?search=${search}&recordsPerPage=150">150</a>
 				</button>
 			</div>
 		</div>

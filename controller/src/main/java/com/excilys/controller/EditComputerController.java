@@ -1,30 +1,31 @@
 package com.excilys.controller;
 
 
-    import java.util.Optional;
+import javax.validation.Valid;
 
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.stereotype.Controller;
-    import org.springframework.ui.Model;
-    import org.springframework.web.bind.annotation.RequestMapping;
-    import org.springframework.web.bind.annotation.RequestMethod;
-    import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-    import com.excilys.dto.ComputerDto;
-    import com.excilys.mapper.MapperComputer;
-    import com.excilys.model.Computer;
-    import com.excilys.model.ValidatorModel;
-    import com.excilys.service.impl.CompanyServiceImpl;
-    import com.excilys.service.impl.ComputerServiceImpl;
-    import com.excilys.validations.DateValidator;
+import com.excilys.dto.ComputerDto;
+import com.excilys.mapper.MapperComputer;
+import com.excilys.model.Computer;
+import com.excilys.service.CompanyService;
+import com.excilys.service.ComputerService;
 
     @Controller
     public class EditComputerController {
 
         @Autowired
-        private ComputerServiceImpl computerService;
+        private ComputerService computerService;
+        
         @Autowired
-        private CompanyServiceImpl companyService;
+        private CompanyService companyService;
 
         @RequestMapping(value = "/editComputer", method = RequestMethod.GET)
         public String editComputer(@RequestParam(value = "id") String id, Model model) {
@@ -46,18 +47,23 @@ package com.excilys.controller;
             }
             return "editComputer";
         }
-
-        @RequestMapping(value = "/editComputer", method = RequestMethod.POST)
-        public String addComputer(@RequestParam(value = "id") String id, @RequestParam(value = "name") String name,
-                @RequestParam(value = "introduced") String introduced,
-                @RequestParam(value = "discontinued") String discontinued,
-                @RequestParam(value = "companyId") String companyId, Model model) {
-
-            Long idCompany = Long.valueOf(companyId).longValue();
-
-            return "redirect:/editcomputer";
+        @ModelAttribute("computerDto")
+        public ComputerDto createComputerDto() {
+            ComputerDto computerDto = new ComputerDto.Builder().build();
+          return computerDto;
         }
-
+        
+        @RequestMapping(value = "/editComputer", method = RequestMethod.POST)
+        public String addComputer(@Valid @ModelAttribute("computerDto") ComputerDto computerDto, BindingResult bindingResult, Model model) {
+            model.addAttribute("newComputerDto", computerDto);
+            Computer computer = MapperComputer.convertToComputer(computerDto);
+            computerService.create(computer);
+            if (bindingResult.hasErrors()) {
+                return "redirect:/editcomputer";
+            }
+            return "redirect:/dashboard";
+          }   
+        
         private boolean isNumber(String s) {
             try {
                 Integer.parseInt(s);

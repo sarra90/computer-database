@@ -13,12 +13,12 @@
 <link href="./static/css/main.css" rel="stylesheet" media="screen">
 </head>
 <body>
-	<header class="navbar navbar-inverse navbar-fixed-top">
+<header class="navbar navbar-inverse navbar-fixed-top">
 				<div class="container">
 					<a class="navbar-brand" href="dashboard"><spring:message code="app.title"/></a>
 				
 				<div class="collapse navbar-collapse navbar-right col-lg-2 col-md-3">
-					<a class="navbar-brand" href="${pageContext.request.contextPath}/listUser">List user</a>
+					<a class="navbar-brand" href="${pageContext.request.contextPath}/listUser"><spring:message code="app.navbar.listuser"/></a>
 				</div>
 				
 				<div>
@@ -31,7 +31,7 @@
 					<c:if test="${pageContext.request.userPrincipal.name != null}">
 						<div class="collapse navbar-collapse navbar-right col-lg-2 col-md-3">
 						<a class="navbar-brand"
-							href="login?logout">Logout</a>
+							href="login?logout"><spring:message code="app.navbar.logout"/></a>
 							</div>
 					</c:if>
 				
@@ -46,12 +46,12 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-8 col-xs-offset-2 box">
-					<h1>Add Computer</h1>
+					<h1><spring:message code="addcomputer.title"/></h1>
 					<form:form method="post" action="${pageContext.request.contextPath}/addcomputer" commandName = "computerDto">
 						<fieldset>
 							<div class="form-group">
 							<div class="form-group ${status.error ? 'has-error' : ''}">
-								<label for="computerName">Computer name</label> <form:input
+								<label for="computerName"><spring:message code="addcomputer.name"/></label> <form:input
 									type="text" class="form-control" id="name" path="name"
 									placeholder="Computer name"/>
 									<form:errors path="name" class="control-label" />
@@ -59,7 +59,7 @@
 							</div>
 							<div class="form-group">
 							<div class="form-group ${status.error ? 'has-error' : ''}">
-								<label for="introduced">Introduced date</label> <form:input
+								<label for="introduced"><spring:message code="addcomputer.introduceddate"/></label> <form:input
 									type="date" class="form-control" id="introduced" path="introduced"
 									placeholder="Introduced date"/>
 									<form:errors path="introduced" class="control-label" />
@@ -69,7 +69,7 @@
 							
 							<div class="form-group">
 							<div class="form-group ${status.error ? 'has-error' : ''}">
-								<label for="disconstinued">Discontinued date</label> <form:input
+								<label for="disconstinued"><spring:message code="addcomputer.discontuneddate"/></label> <form:input
 									type="date" class="form-control" id="disconstinued" path="disconstinued"
 									placeholder="Discontinued date"/>
 									<form:errors path="disconstinued" class="control-label" />
@@ -79,7 +79,7 @@
 							
 							<div class="form-group">
 							<div class="form-group ${status.error ? 'has-error' : ''}">
-								<label for="companyId">Company</label> <form:select
+								<label for="companyId"><spring:message code="addcomputer.company"/></label> <form:select
 									class="form-control" id="companyId" path="idCompany">
 									<form:option value="-1" label="--choose a company--" selected="selected"></form:option>
 									<c:forEach var="element" items="${ list }">
@@ -91,7 +91,7 @@
 						</fieldset>
 						<div class="actions pull-right">
 							<input type="submit" value="Add" class="btn btn-primary">
-							or <a href="dashboard" class="btn btn-default">Cancel</a>
+							or <a href="dashboard" class="btn btn-default"><spring:message code="addcomputer.cancelbtn"/></a>
 						</div>
 					</form:form>
 				</div>

@@ -1,9 +1,8 @@
 package com.excilys.service;
 
-import com.excilys.model.Company;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import com.excilys.model.Company;
 
 
 public interface CompanyService {
@@ -32,4 +31,10 @@ public interface CompanyService {
      */
     Company create(Company obj);
 
+    /**
+     * 
+     * @param obj
+     * @return
+     */
+    void delete(Company obj);
 }
