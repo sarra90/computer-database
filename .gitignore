@@ -4,10 +4,7 @@
 .project
 .class
 lib/
-/binding/target/
-/client/target/
-/controller/target/
-/persistence/target/
-/core/target/
-/service/target/
-/target/
+
+*.jar
+*.war
+*test-classes*

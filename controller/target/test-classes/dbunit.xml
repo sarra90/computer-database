@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<dataset>
-    <!-- computer table -->
-    <computer id="1" name="CM-2a"/>
-    <computer id="2" name="HP"/>
-    <computer id="3" name="Dell"/>
-
-</dataset>
