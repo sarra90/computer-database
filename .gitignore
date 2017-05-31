@@ -4,7 +4,7 @@
 .project
 .class
 lib/
-*target*
+
 *.jar
 *.war
 *test-classes*
