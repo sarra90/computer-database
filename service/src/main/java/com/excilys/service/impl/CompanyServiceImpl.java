@@ -13,7 +13,7 @@ import com.excilys.model.Company;
 import com.excilys.service.CompanyService;
 
 @Service("companyService")
-
+@Transactional
 public class CompanyServiceImpl implements CompanyService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyServiceImpl.class);

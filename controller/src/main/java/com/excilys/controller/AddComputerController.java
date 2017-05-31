@@ -25,6 +25,9 @@ public class AddComputerController {
     @Autowired
     CompanyService companyService;
     
+    @Autowired
+    MapperComputer mapperComputer;
+    
     @RequestMapping(value = "/addcomputer" , method = RequestMethod.GET )
     public String addComputer(Model model){
         
@@ -41,7 +44,7 @@ public class AddComputerController {
     public String addComputer(@Valid @ModelAttribute("computerDto") ComputerDto computerDto, BindingResult bindingResult, Model model) {
 
       model.addAttribute("newComputerDto", computerDto);
-      Computer computer = MapperComputer.convertToComputer(computerDto);
+      Computer computer = mapperComputer.convertToComputer(computerDto);
       computerService.create(computer);
       if (bindingResult.hasErrors()) {
           return "redirect:/addcomputer";

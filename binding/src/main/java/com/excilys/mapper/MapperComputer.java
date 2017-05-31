@@ -3,15 +3,18 @@ package com.excilys.mapper;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.stereotype.Component;
+
 import com.excilys.dto.CompanyDto;
 import com.excilys.dto.ComputerDto;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
 
+@Component
 public class MapperComputer {
 
 
-    public static Computer convertToComputer(ComputerDto computerDto) {
+    public  Computer convertToComputer(ComputerDto computerDto) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-M-d");
 
@@ -28,7 +31,7 @@ public class MapperComputer {
         return computer;
     }
 
-    public static ComputerDto convertToComputerDTO(Computer computer) {
+    public ComputerDto convertToComputerDTO(Computer computer) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
 

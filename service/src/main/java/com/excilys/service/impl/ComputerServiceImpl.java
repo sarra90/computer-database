@@ -18,7 +18,7 @@ import com.excilys.model.Computer;
 import com.excilys.service.ComputerService;
 
 @Service("computerService")
-
+@Transactional
 public class ComputerServiceImpl implements ComputerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerServiceImpl.class);

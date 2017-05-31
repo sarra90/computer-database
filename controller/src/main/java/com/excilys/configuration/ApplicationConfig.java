@@ -38,7 +38,7 @@ import org.springframework.web.servlet.view.JstlView;
 @PropertySource(value = "classpath:application.properties")
 @ComponentScan({ "com.excilys.model","com.excilys.controller","com.excilys.dao","com.excilys.service" })
 @EnableJpaRepositories("com.excilys.dao")
-//@EnableTransactionManagement
+@EnableTransactionManagement
 @Import({ SecurityConfig.class })
 public class ApplicationConfig  extends WebMvcConfigurerAdapter {
  
