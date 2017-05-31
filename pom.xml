@@ -19,70 +19,21 @@
 		<javax.version>6.0</javax.version>
 		<servlet.version>3.1.0</servlet.version>
 		<junit.version>4.12</junit.version>
-		<testng.version>6.11</testng.version>
 		<dbunit.version>2.5.3</dbunit.version>
 		<HikariCP.version>2.3.5</HikariCP.version>
 		<jstl.version>1.2</jstl.version>
 		<checkstyle.version>2.17</checkstyle.version>
 		<selenium.version>2.53.0</selenium.version>
-		<gatling.version>2.1.7</gatling.version>
-<<<<<<< HEAD
-		<gatling-plugin.version>2.1.7</gatling-plugin.version>
-        <spring.version>4.0.6.RELEASE</spring.version>
-        <validation.version>1.0.0.GA</validation.version>
-		
-	</properties>
-	<dependencies>
-		<!-- mysql database driver -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>${mysql.version}</version>
-		</dependency>
-		<!-- logger dependency -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>${logback.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-core</artifactId>
-			<version>${logback.version}</version>
-		</dependency>
-
-		<!-- jsp dependency -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>${servlet.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>javax.servlet.jsp-api</artifactId>
-			<version>2.3.1</version>
-		</dependency>
-		<dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>jstl</artifactId>
-		    <version>${jstl.version}</version>
-		</dependency>
-
-		<!-- validation dependency -->
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>${validation.version}</version>
-		</dependency>
-=======
 		<testng.version>6.11</testng.version>
 		<spring.version>4.2.3.RELEASE</spring.version>
+		<spring-security.version>4.2.2.RELEASE</spring-security.version> 
 		<hibernate.version>5.2.6.Final</hibernate.version>
+		<hibernate-validator.version>5.4.1.Final</hibernate-validator.version>
+		<javax-validator.version>1.1.0.Final</javax-validator.version>
+		<javax-servlet.version>3.1.0</javax-servlet.version>
+		<javax-servlet-jsp.version>2.3.1</javax-servlet-jsp.version>
+		<hibernate-jpa.version>1.0.0.Final</hibernate-jpa.version>
+		<spring-data-jpa.version>1.11.3.RELEASE</spring-data-jpa.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -98,12 +49,12 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
-				<version>5.4.1.Final</version>
+				<version>${hibernate-validator.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.validation</groupId>
 				<artifactId>validation-api</artifactId>
-				<version>1.1.0.Final</version>
+				<version>${javax-validator.version}</version>
 			</dependency>
 			<!-- mysql database driver -->
 			<dependency>
@@ -132,13 +83,13 @@
 			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>javax.servlet-api</artifactId>
-				<version>3.1.0</version>
+				<version>${javax-servlet.version}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>javax.servlet.jsp</groupId>
 				<artifactId>javax.servlet.jsp-api</artifactId>
-				<version>2.3.1</version>
+				<version>${javax-servlet-jsp.version}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
@@ -217,17 +168,17 @@
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-core</artifactId>
-				<version>4.2.2.RELEASE</version>
+				<version>${spring-security.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-web</artifactId>
-				<version>4.2.2.RELEASE</version>
+				<version>${spring-security.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-config</artifactId>
-				<version>4.2.2.RELEASE</version>
+				<version>${spring-security.version}</version>
 				<scope>runtime</scope>
 			</dependency>
 			<!-- JPA Provider (Hibernate) -->
@@ -265,84 +216,19 @@
 				<artifactId>hibernate-java8</artifactId>
 				<version>${hibernate.version}</version>
 			</dependency>
->>>>>>> develop
 
 			<dependency>
 				<groupId>org.hibernate.javax.persistence</groupId>
 				<artifactId>hibernate-jpa-2.1-api</artifactId>
-				<version>1.0.0.Final</version>
+				<version>${hibernate-jpa.version}</version>
 			</dependency>
 
-<<<<<<< HEAD
-		<!-- test dependency -->
-		<!-- selenium dependency -->
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-java</artifactId>
-			<version>${selenium.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- testng dependency -->
-		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>${testng.version}</version>
-		</dependency>
-		<!-- junit dependency -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- dbunit dependency -->
-		<dependency>
-			<groupId>org.dbunit</groupId>
-			<artifactId>dbunit</artifactId>
-			<version>${dbunit.version}</version>
-		</dependency>
-		<!-- spring dependency -->
-		<dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
- 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
- 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-	</dependencies>
-=======
->>>>>>> develop
 
 			<!-- Spring Data JPA -->
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-jpa</artifactId>
-				<version>1.11.3.RELEASE</version>
+				<version>${spring-data-jpa.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -374,17 +260,6 @@
 					<configLocation>${checkstyle.configLocation}</configLocation>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>selenium-maven-plugin</artifactId>
-				<version>1.0.1</version>
-			</plugin>
-			<plugin>
-				<groupId>io.gatling</groupId>
-				<artifactId>gatling-maven-plugin</artifactId>
-				<version>${gatling.version}</version>
-			</plugin>
-
 		</plugins>
 	</build>
 	<reporting>

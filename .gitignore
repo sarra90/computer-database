@@ -2,5 +2,9 @@
 .settings/
 .classpath
 .project
+.class
 lib/
-/target/
+*target*
+*.jar
+*.war
+*test-classes*
