@@ -27,8 +27,6 @@ import com.excilys.service.ComputerService;
         @Autowired
         private CompanyService companyService;
 
-        @Autowired
-        MapperComputer mapperComputer;
         
         @RequestMapping(value = "/editComputer", method = RequestMethod.GET)
         public String editComputer(@RequestParam(value = "id") String id, Model model) {
@@ -59,7 +57,7 @@ import com.excilys.service.ComputerService;
         @RequestMapping(value = "/editComputer", method = RequestMethod.POST)
         public String addComputer(@Valid @ModelAttribute("computerDto") ComputerDto computerDto, BindingResult bindingResult, Model model) {
             model.addAttribute("newComputerDto", computerDto);
-            Computer computer = mapperComputer.convertToComputer(computerDto);
+            Computer computer = MapperComputer.convertToComputer(computerDto);
             computerService.create(computer);
             if (bindingResult.hasErrors()) {
                 return "redirect:/editcomputer";

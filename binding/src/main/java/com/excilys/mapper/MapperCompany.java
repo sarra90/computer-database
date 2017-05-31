@@ -7,19 +7,16 @@ import com.excilys.model.Company;
 public class MapperCompany {
     
     
-    public Company convertToCompany(CompanyDto companyDto) {
+    public static Company convertToCompany(CompanyDto companyDto) {
 
         return new Company.Builder().id(companyDto.getId()).name(companyDto.getName()).build();
-        
-       
     }
 
-    public CompanyDto convertToCompanyDTO(Company company) {
+    public static CompanyDto convertToCompanyDTO(Company company) {
         
         CompanyDto companyDto =new Builder().id(company.getId()).name(company.getName()).build();
         
         return companyDto;
-
     }
 
 }

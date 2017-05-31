@@ -66,6 +66,14 @@ public interface ComputerService {
     Page<Computer> findByName(String name, Pageable pageable);
     
     /**
+     * 
+     * @param page
+     * @param recordsperpage
+     * @param name
+     * @return
+     */
+    Page<Computer> findByName(int page,int recordspage,String name);
+    /**
      * count a number of computer.
      * 
      * @return a long the number of computer.
@@ -86,5 +94,13 @@ public interface ComputerService {
      */
     Page<Computer> findAllPerPages(PageRequest pageRequest);
 
+    /**
+     * 
+     * @param name
+     * @return
+     */
     long countComputerByName(String name);
+    
+    List<Computer> findByName(String name);
+   
 }

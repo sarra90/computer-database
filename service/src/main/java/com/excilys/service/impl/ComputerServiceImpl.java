@@ -79,7 +79,22 @@ public class ComputerServiceImpl implements ComputerService {
 
         return page;
     }
+    @Override
+    public Page<Computer> findByName(int page, int recordspage, String name) {
+        
+        PageRequest pageable = new PageRequest(page, recordspage);
+        LOGGER.info("findByName methode from computer service layer");
+        List<Computer> listOfComputersByName = new ArrayList<Computer>();
+        if (name != null) {
+            listOfComputersByName = computerDao.findByName(name);
+            LOGGER.debug("list Of Computers find By Name " + listOfComputersByName.size());
+        } else {
+            LOGGER.debug("name null ");
+        }
+        Page<Computer> pageRequest = new PageImpl<>(listOfComputersByName, pageable, listOfComputersByName.size());
 
+        return pageRequest;
+    }
     @Override
     public long countComputer() {
         
@@ -116,5 +131,14 @@ public class ComputerServiceImpl implements ComputerService {
         LOGGER.info("countComputerByName methode from computer service layer");
         return computerDao.countByName(name);
     }
+
+    @Override
+    public List<Computer> findByName(String name) {
+        return computerDao.findByName(name);
+    }
+
+
+
+   
 
 }

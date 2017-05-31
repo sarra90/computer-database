@@ -1,5 +1,8 @@
 package com.excilys.dto;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CompanyDto {
 
     private long id;
@@ -9,6 +12,10 @@ public class CompanyDto {
 
         this.id = builder.id;
         this.name = builder.name;
+    }
+
+    public CompanyDto() {
+        super();
     }
 
     public long getId() {

@@ -12,7 +12,7 @@ import com.excilys.service.ComputerService;
 import com.excilys.service.impl.CompanyServiceImpl;
 import com.excilys.service.impl.ComputerServiceImpl;
 
-public class Client {
+public class Cli {
 
     public static void main(String[] args) {
 

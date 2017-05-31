@@ -2,8 +2,11 @@ package com.excilys.dto;
 
 import javax.validation.constraints.NotNull;
 
+import org.springframework.stereotype.Component;
+
 import com.excilys.validations.Date;
 
+@Component
 public class ComputerDto {
 
     private long id;
@@ -29,6 +32,10 @@ public class ComputerDto {
         this.disconstinued = builder.disconstinued;
         this.idCompany = builder.idCompany;
         this.nameCompany=builder.nameCompany;
+    }
+
+    public ComputerDto() {
+        super();
     }
 
     public long getId() {

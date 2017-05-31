@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers("/ressources/**", "/js/**", "/static/fonts/**", "/static/css/**","/register").permitAll()
         .antMatchers("/dashboard").hasAnyAuthority("USER","ADMIN")        
-        .antMatchers("/dashboard*","/addcomputer","/editComputer","/deleteComputer","/listUser").hasAuthority("ADMIN")
+        .antMatchers("/dashboard*","/addcomputer","/editComputer","/deleteComputer","/listUser","/computer*","/find*").hasAuthority("ADMIN")
                 
                 .anyRequest().authenticated()
                 .and()
