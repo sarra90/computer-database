@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 /**
  * class represent a Computer.
  * 
@@ -42,6 +45,7 @@ public class Computer implements Serializable{
     private LocalDate disconstinued;
 
     @ManyToOne
+    @Cascade({CascadeType.PERSIST})
     @JoinColumn(name="company_id")
     private Company company;
 

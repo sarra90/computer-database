@@ -13,7 +13,6 @@ import org.springframework.security.web.authentication.www.DigestAuthenticationE
 import org.springframework.security.web.authentication.www.DigestAuthenticationFilter;
 
 import com.excilys.service.impl.UserServiceDetails;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -60,4 +59,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                     .exceptionHandling().accessDeniedPage("/403");
     }
+    
 }
