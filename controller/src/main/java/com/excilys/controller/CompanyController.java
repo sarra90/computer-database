@@ -4,51 +4,31 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.excilys.dto.ComputerDto;
-import com.excilys.mapper.MapperComputer;
-import com.excilys.model.Computer;
-import com.excilys.service.ComputerService;
+import com.excilys.model.Company;
+import com.excilys.service.CompanyService;
 
 @RestController
 @RequestMapping("/company")
 public class CompanyController {
     
     @Autowired
-    ComputerService computerSevice;
+    CompanyService companySevice;
     
     @RequestMapping(value="/getAll" , method=RequestMethod.GET)
-    public List<Computer> getAll(){
-        return computerSevice.findAll();
+    public List<Company> getAll(){
+        return companySevice.findAll();
     }
     
     @RequestMapping(value="/find/{id}" , method=RequestMethod.GET)
-    public Computer findById(@PathVariable Long id){
-        return computerSevice.findById(id);
+    public Company findById(@PathVariable Long id){
+        return companySevice.findById(id);
     }
     
-    @RequestMapping(value="/getAll/{name}" , method=RequestMethod.GET)
-    public List<Computer> getByname(@PathVariable String name){
-        return computerSevice.findByName(name);
-    }
-    
-    @RequestMapping(value="/add", method =RequestMethod.POST)
-    public ComputerDto add(@RequestBody ComputerDto computerDto){
-        Computer computer=MapperComputer.convertToComputer(computerDto);
-        computerSevice.create(computer);
-        return MapperComputer.convertToComputerDTO(computer);
-    }
-    
-    @RequestMapping(value="/delete", method=RequestMethod.POST)
-    public ComputerDto delete(ComputerDto computerDto){
-        Computer computer = MapperComputer.convertToComputer(computerDto);
-        computerSevice.delete(computer);
-        return MapperComputer.convertToComputerDTO(computer);
-    }
+   
 }
 
 

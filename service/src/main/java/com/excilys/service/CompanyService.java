@@ -5,6 +5,7 @@ import java.util.List;
 import com.excilys.model.Company;
 
 
+
 public interface CompanyService {
 
     /**
